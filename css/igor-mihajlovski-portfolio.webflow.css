@@ -628,6 +628,8 @@ label {
 }
 
 .social-icon {
+  width: 18px;
+  height: 18px;
   border: 1px #000;
   border-radius: 0;
   text-decoration: none;

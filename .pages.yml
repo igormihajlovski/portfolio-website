@@ -24,8 +24,12 @@ content:
         order: desc
 
     fields:
+      # =========================
+      # General
+      # =========================
+
       - name: title
-        label: Title
+        label: Project Title
         type: string
         required: true
 
@@ -54,22 +58,6 @@ content:
             - SEO
             - Tutorial
 
-      - name: short_description
-        label: Short Description
-        type: text
-        required: true
-        options:
-          maxlength: 300
-
-      - name: featured_image
-        label: Featured Image
-        type: image
-        required: true
-        options:
-          media: images
-          path: blog
-          rename: safe
-
       - name: published_date
         label: Published Date
         type: date
@@ -83,43 +71,57 @@ content:
         default: false
         description: "Show this post in the featured section on the homepage."
 
-      - name: project_url
-        label: Project URL
-        type: string
-        required: false
-        description: "Leave empty if this post does not have a live project."
-
-      - name: github_url
-        label: GitHub URL
-        type: string
-        required: false
-        description: "Leave empty if the source code is not public."
-
-      - name: seo_title
-        label: SEO Title
-        type: string
-        required: true
-        options:
-          maxlength: 60
-
-      - name: seo_description
-        label: SEO Description
+      - name: short_description
+        label: Short Description
         type: text
         required: true
+        description: "Used on the homepage and blog listing."
         options:
-          maxlength: 160
+          maxlength: 300
 
-      - name: og_image
-        label: Open Graph Image
+      - name: featured_image
+        label: Featured Image
         type: image
-        required: false
+        required: true
         options:
           media: images
           path: blog
           rename: safe
 
-      - name: body
-        label: Content
+      # =========================
+      # 1. Hero
+      # =========================
+
+      - name: hero
+        label: 1. Hero
+        type: object
+        required: true
+        fields:
+          - name: subtitle
+            label: Short Subtitle
+            type: text
+            required: true
+            options:
+              maxlength: 240
+
+          - name: services
+            label: Services
+            type: string
+            list: true
+            required: true
+
+          - name: technologies
+            label: Technologies
+            type: string
+            list: true
+            required: true
+
+      # =========================
+      # 2. Project Overview
+      # =========================
+
+      - name: project_overview
+        label: 2. Project Overview
         type: rich-text
         required: true
         options:
@@ -128,3 +130,288 @@ content:
           path: blog
           rename: safe
           switcher: true
+
+      # =========================
+      # 3. Client
+      # =========================
+
+      - name: client
+        label: 3. Client
+        type: object
+        required: true
+        fields:
+          - name: name
+            label: Client Name
+            type: string
+            required: true
+
+          - name: industry
+            label: Industry
+            type: string
+            required: true
+
+          - name: country
+            label: Country
+            type: string
+            required: true
+
+          - name: business_type
+            label: Business Type
+            type: string
+            required: true
+
+      # =========================
+      # 4. My Role
+      # =========================
+
+      - name: my_role
+        label: 4. My Role
+        type: object
+        required: true
+        fields:
+          - name: roles
+            label: Roles
+            type: string
+            list: true
+            required: true
+
+          - name: responsibilities
+            label: Responsibilities
+            type: string
+            list: true
+            required: true
+
+      # =========================
+      # 5. Challenge
+      # =========================
+
+      - name: challenge
+        label: 5. Challenge
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 6. Goals
+      # =========================
+
+      - name: goals
+        label: 6. Goals
+        type: string
+        list: true
+        required: true
+
+      # =========================
+      # 7. My Approach
+      # =========================
+
+      - name: my_approach
+        label: 7. My Approach
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 8. Design Process
+      # =========================
+
+      - name: design_process
+        label: 8. Design Process
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 9. Development Process
+      # =========================
+
+      - name: development_process
+        label: 9. Development Process
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 10. Tech Stack
+      # =========================
+
+      - name: tech_stack
+        label: 10. Tech Stack
+        type: object
+        required: true
+        fields:
+          - name: development
+            label: Development
+            type: string
+            list: true
+
+          - name: cms
+            label: CMS
+            type: string
+            list: true
+
+          - name: libraries
+            label: Libraries
+            type: string
+            list: true
+
+          - name: integrations
+            label: Integrations
+            type: string
+            list: true
+
+      # =========================
+      # 11. Key Features
+      # =========================
+
+      - name: key_features
+        label: 11. Key Features
+        type: string
+        list: true
+        required: true
+
+      # =========================
+      # 12. Results
+      # =========================
+
+      - name: results
+        label: 12. Results
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 13. Lessons Learned
+      # =========================
+
+      - name: lessons_learned
+        label: 13. Lessons Learned
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 14. Project Gallery
+      # =========================
+
+      - name: gallery
+        label: 14. Project Gallery
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title} ({index})"
+        fields:
+          - name: title
+            label: Image Title
+            type: string
+            required: true
+
+          - name: image
+            label: Image
+            type: image
+            required: true
+            options:
+              media: images
+              path: blog
+              rename: safe
+
+          - name: alt
+            label: Alt Text
+            type: string
+            required: true
+
+          - name: caption
+            label: Caption
+            type: text
+            required: false
+
+      # =========================
+      # 15. View Live Project
+      # =========================
+
+      - name: project_url
+        label: 15. Live Project URL
+        type: string
+        required: false
+        description: "Leave empty if there is no public live project."
+
+      - name: project_button_text
+        label: Live Project Button Text
+        type: string
+        required: false
+        default: "View Project"
+
+      - name: github_url
+        label: GitHub URL
+        type: string
+        required: false
+        description: "Leave empty if the source code is not public."
+
+      - name: github_button_text
+        label: GitHub Button Text
+        type: string
+        required: false
+        default: "View Source Code"
+
+      # =========================
+      # SEO
+      # =========================
+
+      - name: seo
+        label: SEO
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: SEO Title
+            type: string
+            required: true
+            options:
+              maxlength: 60
+
+          - name: description
+            label: SEO Description
+            type: text
+            required: true
+            options:
+              maxlength: 160
+
+          - name: og_image
+            label: Open Graph Image
+            type: image
+            required: false
+            options:
+              media: images
+              path: blog
+              rename: safe

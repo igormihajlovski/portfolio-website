@@ -33,8 +33,12 @@ content:
         label: Slug
         type: string
         required: true
-        pattern: "^[a-z0-9-]+$"
-        description: "Use lowercase letters, numbers, and hyphens only."
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Use lowercase letters, numbers, and hyphens only."
+        options:
+          minlength: 3
+          maxlength: 100
 
       - name: category
         label: Category

@@ -65,6 +65,22 @@ content:
         options:
           format: yyyy-MM-dd
 
+      - name: project_status
+        label: Project Status
+        type: select
+        required: true
+        default: Completed
+        options:
+          values:
+            - Completed
+            - In Progress
+            - Maintenance
+
+      - name: featured_project
+        label: Featured Project
+        type: boolean
+        default: false
+
       - name: show_on_homepage
         label: Show on Homepage
         type: boolean
@@ -78,15 +94,6 @@ content:
         description: "Used on the homepage and blog listing."
         options:
           maxlength: 300
-
-      - name: featured_image
-        label: Featured Image
-        type: image
-        required: true
-        options:
-          media: images
-          path: blog
-          rename: safe
 
       # =========================
       # 1. Hero
@@ -104,6 +111,15 @@ content:
             options:
               maxlength: 240
 
+          - name: featured_image
+            label: Featured Image
+            type: image
+            required: true
+            options:
+              media: images
+              path: blog
+              rename: safe
+
           - name: services
             label: Services
             type: string
@@ -117,31 +133,16 @@ content:
             required: true
 
       # =========================
-      # 2. Project Overview
+      # 2. Project Information
       # =========================
 
-      - name: project_overview
-        label: 2. Project Overview
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 3. Client
-      # =========================
-
-      - name: client
-        label: 3. Client
+      - name: project_information
+        label: 2. Project Information
         type: object
         required: true
         fields:
-          - name: name
-            label: Client Name
+          - name: client
+            label: Client
             type: string
             required: true
 
@@ -160,12 +161,72 @@ content:
             type: string
             required: true
 
+          - name: platform
+            label: Platform
+            type: string
+            required: true
+
+          - name: cms
+            label: CMS
+            type: string
+            required: false
+
+          - name: duration
+            label: Duration
+            type: string
+            required: false
+
+          - name: website
+            label: Website
+            type: string
+            required: false
+
       # =========================
-      # 4. My Role
+      # 3. Project Overview
+      # =========================
+
+      - name: project_overview
+        label: 3. Project Overview
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 4. Challenge
+      # =========================
+
+      - name: challenge
+        label: 4. Challenge
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: images
+          path: blog
+          rename: safe
+          switcher: true
+
+      # =========================
+      # 5. Goals
+      # =========================
+
+      - name: goals
+        label: 5. Goals
+        type: string
+        list: true
+        required: true
+
+      # =========================
+      # 6. My Role
       # =========================
 
       - name: my_role
-        label: 4. My Role
+        label: 6. My Role
         type: object
         required: true
         fields:
@@ -180,31 +241,6 @@ content:
             type: string
             list: true
             required: true
-
-      # =========================
-      # 5. Challenge
-      # =========================
-
-      - name: challenge
-        label: 5. Challenge
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 6. Goals
-      # =========================
-
-      - name: goals
-        label: 6. Goals
-        type: string
-        list: true
-        required: true
 
       # =========================
       # 7. My Approach
@@ -280,22 +316,64 @@ content:
             type: string
             list: true
 
+          - name: tools
+            label: Tools
+            type: string
+            list: true
+
       # =========================
-      # 11. Key Features
+      # 11. Third-Party Integrations
+      # =========================
+
+      - name: third_party_integrations
+        label: 11. Third-Party Integrations
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name} ({index})"
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+
+          - name: purpose
+            label: Purpose
+            type: text
+            required: true
+
+          - name: website
+            label: Website
+            type: string
+            required: false
+
+      # =========================
+      # 12. Key Features
       # =========================
 
       - name: key_features
-        label: 11. Key Features
+        label: 12. Key Features
         type: string
         list: true
         required: true
 
       # =========================
-      # 12. Results
+      # 13. Deliverables
+      # =========================
+
+      - name: deliverables
+        label: 13. Deliverables
+        type: string
+        list: true
+        required: true
+
+      # =========================
+      # 14. Results
       # =========================
 
       - name: results
-        label: 12. Results
+        label: 14. Results
         type: rich-text
         required: true
         options:
@@ -306,11 +384,11 @@ content:
           switcher: true
 
       # =========================
-      # 13. Lessons Learned
+      # 15. Lessons Learned
       # =========================
 
       - name: lessons_learned
-        label: 13. Lessons Learned
+        label: 15. Lessons Learned
         type: rich-text
         required: true
         options:
@@ -321,11 +399,11 @@ content:
           switcher: true
 
       # =========================
-      # 14. Project Gallery
+      # 16. Project Gallery
       # =========================
 
       - name: gallery
-        label: 14. Project Gallery
+        label: 16. Project Gallery
         type: object
         list:
           collapsible:
@@ -356,40 +434,58 @@ content:
             type: text
             required: false
 
-      # =========================
-      # 15. View Live Project
-      # =========================
-
-      - name: project_url
-        label: 15. Live Project URL
-        type: string
-        required: false
-        description: "Leave empty if there is no public live project."
-
-      - name: project_button_text
-        label: Live Project Button Text
-        type: string
-        required: false
-        default: "View Project"
-
-      - name: github_url
-        label: GitHub URL
-        type: string
-        required: false
-        description: "Leave empty if the source code is not public."
-
-      - name: github_button_text
-        label: GitHub Button Text
-        type: string
-        required: false
-        default: "View Source Code"
+          - name: order
+            label: Display Order
+            type: number
+            required: true
 
       # =========================
-      # SEO
+      # 17. Project Links
+      # =========================
+
+      - name: project_links
+        label: 17. Project Links
+        type: object
+        fields:
+          - name: live_url
+            label: Live Project URL
+            type: string
+            required: false
+
+          - name: live_button_text
+            label: Live Project Button Text
+            type: string
+            required: false
+            default: "View Project"
+
+          - name: github_url
+            label: GitHub URL
+            type: string
+            required: false
+
+          - name: github_button_text
+            label: GitHub Button Text
+            type: string
+            required: false
+            default: "View Source Code"
+
+          - name: demo_url
+            label: Demo URL
+            type: string
+            required: false
+
+          - name: demo_button_text
+            label: Demo Button Text
+            type: string
+            required: false
+            default: "View Demo"
+
+      # =========================
+      # 18. SEO
       # =========================
 
       - name: seo
-        label: SEO
+        label: 18. SEO
         type: object
         required: true
         fields:

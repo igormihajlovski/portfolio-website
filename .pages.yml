@@ -434,11 +434,6 @@ content:
             type: text
             required: false
 
-          - name: order
-            label: Display Order
-            type: number
-            required: true
-
       # =========================
       # 17. Project Links
       # =========================

@@ -202,6 +202,7 @@
   margin-top: 18px;
   font-size: clamp(2.75rem, 4vw, 3.35rem);
   line-height: 1.03;
+  overflow-wrap: break-word;
 }
 
 .case-study-lede {
@@ -254,7 +255,34 @@
 
 .case-study-buttons .main-btn,
 .case-study-buttons .secondary-btn {
+  box-sizing: border-box;
+  max-width: 100%;
   margin: 0;
+}
+
+.case-study-hero-heading .section-name,
+.case-study-lede,
+.case-study-tags .tag-card,
+.project-information-grid dd,
+.rich-text,
+.case-study-list li,
+.integration-card h3,
+.integration-card p,
+.gallery-item figcaption,
+.case-study-buttons .main-btn,
+.case-study-buttons .secondary-btn {
+  overflow-wrap: break-word;
+}
+
+.case-study-hero-heading .section-name {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.case-study-tags .tag-card {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .case-study-hero-actions {
@@ -603,7 +631,7 @@
   }
 
   .case-study-hero h1 {
-    font-size: clamp(2rem, 8.5vw, 2.5rem);
+    font-size: clamp(1.5rem, 7.5vw, 2.5rem);
   }
 
   .case-study-section {

@@ -1,0 +1,209 @@
+---
+layout: layouts/base.njk
+eleventyComputed:
+  metaTitle: "{% if seo.title %}{{ seo.title }}{% else %}{{ title }} | Igor Mihajlovski{% endif %}"
+  metaDescription: "{% if seo.description %}{{ seo.description }}{% else %}{{ short_description }}{% endif %}"
+  metaImage: "{% if seo.og_image %}{{ seo.og_image }}{% else %}{{ hero.featured_image }}{% endif %}"
+  canonicalUrl: "https://igormihajlovski.com/blog/{{ slug }}/"
+ogType: article
+---
+<article class="case-study">
+  <header class="case-study-hero">
+    <div class="container case-study-hero-layout">
+      <div class="case-study-hero-heading">
+        {% if category %}<div class="section-name">{{ category | escape }}</div>{% endif %}
+        <h1>{{ title | escape }}</h1>
+      </div>
+      <div class="case-study-hero-grid">
+        <div class="case-study-hero-copy">
+        {% if hero.subtitle %}<p class="case-study-lede">{{ hero.subtitle | escape }}</p>{% endif %}
+        {% if published_date %}<time class="case-study-date" datetime="{{ published_date | htmlDate }}">{{ published_date | displayDate }}</time>{% endif %}
+        {% if (hero.services and hero.services.length) or (hero.technologies and hero.technologies.length) %}
+          <div class="case-study-meta-groups">
+            {% if hero.services and hero.services.length %}
+              <div>
+                <div class="case-study-tag-label">Services</div>
+                <div class="case-study-tags">{% for service in hero.services %}<span class="tag-card">{{ service | escape }}</span>{% endfor %}</div>
+              </div>
+            {% endif %}
+            {% if hero.technologies and hero.technologies.length %}
+              <div>
+                <div class="case-study-tag-label">Technologies</div>
+                <div class="case-study-tags">{% for technology in hero.technologies %}<span class="tag-card">{{ technology | escape }}</span>{% endfor %}</div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+        </div>
+        <div class="case-study-hero-visual">
+          {% if hero.featured_image %}
+            <div class="case-study-hero-media">
+              <img class="case-study-featured-image" src="{{ hero.featured_image | assetUrl | escape }}" alt="{{ title | escape }} case study featured image" />
+            </div>
+          {% endif %}
+          {% if project_links and project_links.live_url %}
+            <div class="case-study-buttons case-study-hero-actions">
+              <a href="{{ project_links.live_url | escape }}" target="_blank" rel="noopener noreferrer" class="main-btn w-inline-block">{{ (project_links.live_button_text or "View Project") | escape }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% set info = project_information %}
+  {% if info and (info.client or info.industry or info.country or info.business_type or info.platform or info.cms or info.duration or info.website) %}
+    <section class="case-study-section case-study-section-alt">
+      <div class="container">
+        <div class="section-name">Project Information</div>
+        <h2>Project Information</h2>
+        <dl class="project-information-grid">
+          {% if info.client %}<div><dt>Client</dt><dd>{{ info.client | escape }}</dd></div>{% endif %}
+          {% if info.industry %}<div><dt>Industry</dt><dd>{{ info.industry | escape }}</dd></div>{% endif %}
+          {% if info.country %}<div><dt>Country</dt><dd>{{ info.country | escape }}</dd></div>{% endif %}
+          {% if info.business_type %}<div><dt>Business Type</dt><dd>{{ info.business_type | escape }}</dd></div>{% endif %}
+          {% if info.platform %}<div><dt>Platform</dt><dd>{{ info.platform | escape }}</dd></div>{% endif %}
+          {% if info.cms %}<div><dt>CMS</dt><dd>{{ info.cms | escape }}</dd></div>{% endif %}
+          {% if info.duration %}<div><dt>Duration</dt><dd>{{ info.duration | escape }}</dd></div>{% endif %}
+          {% if info.website %}<div><dt>Website</dt><dd><a href="{{ info.website | escape }}" target="_blank" rel="noopener noreferrer">{{ info.website | escape }}</a></dd></div>{% endif %}
+        </dl>
+      </div>
+    </section>
+  {% endif %}
+
+  {% macro richTextSection(label, heading, value, alternate=false) %}
+    {% if value %}
+      <section class="case-study-section{% if alternate %} case-study-section-alt{% endif %}">
+        <div class="container case-study-copy case-study-narrative">
+          <div class="section-name">{{ label }}</div>
+          <h2>{{ heading }}</h2>
+          <div class="rich-text">{{ value | renderMarkdown | safe }}</div>
+        </div>
+      </section>
+    {% endif %}
+  {% endmacro %}
+
+  {{ richTextSection("Project Overview", "Project Overview", project_overview) }}
+  {{ richTextSection("Challenge", "The Challenge", challenge, true) }}
+
+  {% if goals and goals.length %}
+    <section class="case-study-section">
+      <div class="container case-study-copy">
+        <div class="section-name">Goals</div>
+        <h2>Project Goals</h2>
+        <ul class="case-study-list case-study-list-grid">{% for goal in goals %}<li>{{ goal | escape }}</li>{% endfor %}</ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if my_role and ((my_role.roles and my_role.roles.length) or (my_role.responsibilities and my_role.responsibilities.length)) %}
+    <section class="case-study-section case-study-section-alt">
+      <div class="container">
+        <div class="section-name">My Role</div>
+        <h2>My Role</h2>
+        <div class="case-study-columns role-grid">
+          {% if my_role.roles and my_role.roles.length %}<div class="case-study-card"><h3>Roles</h3><ul class="case-study-list">{% for role in my_role.roles %}<li>{{ role | escape }}</li>{% endfor %}</ul></div>{% endif %}
+          {% if my_role.responsibilities and my_role.responsibilities.length %}<div class="case-study-card"><h3>Responsibilities</h3><ul class="case-study-list">{% for responsibility in my_role.responsibilities %}<li>{{ responsibility | escape }}</li>{% endfor %}</ul></div>{% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {{ richTextSection("My Approach", "My Approach", my_approach) }}
+  {{ richTextSection("Design Process", "Design Process", design_process, true) }}
+  {{ richTextSection("Development Process", "Development Process", development_process) }}
+
+  {% set stack = tech_stack %}
+  {% if stack and ((stack.development and stack.development.length) or (stack.cms and stack.cms.length) or (stack.libraries and stack.libraries.length) or (stack.integrations and stack.integrations.length) or (stack.tools and stack.tools.length)) %}
+    <section class="case-study-section case-study-section-alt">
+      <div class="container">
+        <div class="section-name">Tech Stack</div>
+        <h2>Tech Stack</h2>
+        <div class="tech-stack-grid">
+          {% if stack.development and stack.development.length %}<div class="case-study-card"><h3>Development</h3><ul class="case-study-list">{% for item in stack.development %}<li>{{ item | escape }}</li>{% endfor %}</ul></div>{% endif %}
+          {% if stack.cms and stack.cms.length %}<div class="case-study-card"><h3>CMS</h3><ul class="case-study-list">{% for item in stack.cms %}<li>{{ item | escape }}</li>{% endfor %}</ul></div>{% endif %}
+          {% if stack.libraries and stack.libraries.length %}<div class="case-study-card"><h3>Libraries</h3><ul class="case-study-list">{% for item in stack.libraries %}<li>{{ item | escape }}</li>{% endfor %}</ul></div>{% endif %}
+          {% if stack.integrations and stack.integrations.length %}<div class="case-study-card"><h3>Integrations</h3><ul class="case-study-list">{% for item in stack.integrations %}<li>{{ item | escape }}</li>{% endfor %}</ul></div>{% endif %}
+          {% if stack.tools and stack.tools.length %}<div class="case-study-card"><h3>Tools</h3><ul class="case-study-list">{% for item in stack.tools %}<li>{{ item | escape }}</li>{% endfor %}</ul></div>{% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if third_party_integrations and third_party_integrations.length %}
+    <section class="case-study-section">
+      <div class="container">
+        <div class="section-name">Integrations</div>
+        <h2>Third-Party Integrations</h2>
+        <div class="case-study-columns integration-grid">
+          {% for integration in third_party_integrations %}
+            {% if integration.name or integration.purpose or integration.website %}
+              <div class="case-study-card integration-card">
+                {% if integration.name %}<h3>{{ integration.name | escape }}</h3>{% endif %}
+                {% if integration.purpose %}<p>{{ integration.purpose | escape }}</p>{% endif %}
+                {% if integration.website %}<a class="integration-link" href="{{ integration.website | escape }}" target="_blank" rel="noopener noreferrer">Visit website</a>{% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if key_features and key_features.length %}
+    <section class="case-study-section case-study-section-alt">
+      <div class="container case-study-copy">
+        <div class="section-name">Key Features</div>
+        <h2>Key Features</h2>
+        <ul class="case-study-list case-study-list-grid">{% for item in key_features %}<li>{{ item | escape }}</li>{% endfor %}</ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if deliverables and deliverables.length %}
+    <section class="case-study-section">
+      <div class="container case-study-copy">
+        <div class="section-name">Deliverables</div>
+        <h2>Project Deliverables</h2>
+        <ul class="case-study-list case-study-list-grid">{% for item in deliverables %}<li>{{ item | escape }}</li>{% endfor %}</ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {{ richTextSection("Results", "Results", results, true) }}
+  {{ richTextSection("Lessons Learned", "Lessons Learned", lessons_learned) }}
+
+  {% if gallery and gallery.length %}
+    <section class="case-study-section case-study-section-alt">
+      <div class="container">
+        <div class="section-name">Gallery</div>
+        <h2>Project Gallery</h2>
+        <div class="gallery-grid">
+          {% for item in gallery %}
+            {% if item.image %}
+              <figure class="gallery-item">
+                <img src="{{ item.image | assetUrl | escape }}" alt="{{ (item.alt or item.title or title) | escape }}" loading="lazy" />
+                {% if item.caption %}<figcaption>{{ item.caption | escape }}</figcaption>{% endif %}
+              </figure>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% set links = project_links %}
+  {% if links and (links.live_url or links.github_url or links.demo_url) %}
+    <section class="case-study-section case-study-links-section">
+      <div class="container case-study-copy case-study-cta">
+        <div class="section-name">Project Links</div>
+        <h2>Explore the Project</h2>
+        <div class="case-study-buttons">
+          {% if links.live_url %}<a href="{{ links.live_url | escape }}" target="_blank" rel="noopener noreferrer" class="main-btn w-inline-block">{{ (links.live_button_text or "View Project") | escape }}</a>{% endif %}
+          {% if links.github_url %}<a href="{{ links.github_url | escape }}" target="_blank" rel="noopener noreferrer" class="secondary-btn w-inline-block">{{ (links.github_button_text or "View Source Code") | escape }}</a>{% endif %}
+          {% if links.demo_url %}<a href="{{ links.demo_url | escape }}" target="_blank" rel="noopener noreferrer" class="secondary-btn w-inline-block">{{ (links.demo_button_text or "View Demo") | escape }}</a>{% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+</article>

@@ -38,9 +38,65 @@ The project includes a custom PHP contact form protected with Cloudflare Turnsti
 - CSS3
 - JavaScript (ES6)
 - PHP
+- Eleventy (build time only)
+- Markdown and Pages CMS
 - Cloudflare Turnstile
 - Google Analytics
 - Webflow Export
+
+---
+
+## Case Study Content Workflow
+
+Pages CMS edits Markdown files in `content/posts/` using the authoritative
+schema in `.pages.yml`. Each saved entry is collected by Eleventy and generates:
+
+- an individual page at `/blog/<slug>/`
+- a card on `/blog/`, sorted by `published_date` (newest first)
+- a homepage Portfolio card when `show_on_homepage` is enabled
+
+The homepage uses the same date sorting and displays no more than three enabled
+entries. Empty optional fields and sections are omitted by the shared Case Study
+template.
+
+To add a Case Study, create it in Pages CMS, complete the configured fields, and
+save it. Do not edit the frontmatter structure outside the CMS schema. Images are
+stored under `images/` and their CMS paths are used directly at build time.
+
+---
+
+## Local Development and Build
+
+Install the build dependencies once:
+
+```bash
+npm install
+```
+
+Run the local Eleventy development server:
+
+```bash
+npm run dev
+```
+
+Create a clean production build:
+
+```bash
+npm run build
+```
+
+The deployable static site is written to `_dist/`. Eleventy and Node.js are only
+used during development/build and are not required on Hostinger.
+
+---
+
+## Hostinger Deployment
+
+After reviewing a successful production build, upload the contents of `_dist/`
+to the Hostinger web root. The build copies the existing CSS, JavaScript, images,
+documents, and `php/` contact endpoint without processing the PHP files. Keep the
+server-side contact configuration protected as it is in the current hosting
+workflow.
 
 ---
 
@@ -54,6 +110,11 @@ portfolio-website/
 ├── images/
 ├── js/
 ├── php/
+├── blog/
+├── content/posts/
+├── templates/
+├── eleventy.config.js
+├── package.json
 ├── index.html
 └── styleguide.html
 ```

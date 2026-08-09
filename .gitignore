@@ -19,3 +19,4 @@ vendor/
 
 # Node
 node_modules/
+_dist/

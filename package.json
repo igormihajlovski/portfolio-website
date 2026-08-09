@@ -1,0 +1,13 @@
+{
+  "name": "igor-mihajlovski-portfolio",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "node scripts/clean-dist.js && eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "markdown-it": "^14.1.0"
+  }
+}

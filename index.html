@@ -46,6 +46,7 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link href="css/case-studies.css" rel="stylesheet" type="text/css" />
     <style>
       html.w-mod-js:not(.w-mod-ix3) :is(.top-line, .middle-line, .bottom-line) {
         visibility: hidden !important;
@@ -111,7 +112,7 @@
       type="image/png"
       sizes="512x512"
     />
-    <link href="https://www.igormihajlovski.com" rel="canonical" />
+    <link href="https://igormihajlovski.com/" rel="canonical" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -126,8 +127,7 @@
         },
         "jobTitle": "Freelance Webflow Developer",
         "description": "Freelance Webflow developer building clean, responsive, and SEO-focused websites for modern businesses. Specialized in Webflow development, responsive design, CMS setup, and performance-focused websites.",
-        "email": "mailto:igorn001@gmail.com"
-        },
+        "email": "mailto:igorn001@gmail.com",
         "sameAs": [
           "https://www.linkedin.com/in/igor-mihajlovski-37914a164",
           "https://github.com/igormihajlovski"
@@ -245,7 +245,7 @@
           <nav role="navigation" class="nav-menu w-nav-menu">
             <a href="#hero" class="nav-link w-nav-link">Home</a>
             <a href="#about-me" class="nav-link w-nav-link">About Me</a>
-            <a href="#portfolio" class="nav-link w-nav-link">Portfolio</a>
+            <a href="/blog/" class="nav-link w-nav-link">Portfolio</a>
             <a href="#services" class="nav-link w-nav-link">Services</a>
             <a href="#contact" class="nav-btn w-nav-link">Contact Me</a>
           </nav>
@@ -509,214 +509,41 @@
           A selection of Webflow projects focused on performance and clean
           structure.
         </p>
-        <div class="card-wrapper">
-          <div class="card-portfolio">
+        {% set featuredCaseStudies = collections.caseStudies | homepageProjects %}
+        <div class="card-wrapper cms-project-grid project-count-{{ featuredCaseStudies.length }}">
+          {% for post in featuredCaseStudies %}
+          <div class="card-portfolio cms-project-card">
+            {% if post.data.hero.featured_image %}
             <img
-              src="images/Featured-image-Portfolio.png"
+              src="{{ post.data.hero.featured_image | assetUrl | escape }}"
               loading="lazy"
-              sizes="(max-width: 1440px) 100vw, 1440px"
-              srcset="
-                images/Featured-image-Portfolio-p-500.png   500w,
-                images/Featured-image-Portfolio-p-800.png   800w,
-                images/Featured-image-Portfolio-p-1080.png 1080w,
-                images/Featured-image-Portfolio.png        1440w
-              "
-              alt="Personal Webflow portfolio website design"
-              class="portfolio-img--tablet portfolio-img-mobile"
+              alt="{{ post.data.title | escape }} case study featured image"
+              class="portfolio-img--tablet portfolio-img-mobile cms-project-image"
             />
-            <div class="card-description">
-              <h3 class="card-heading">Personal Webflow Portfolio</h3>
-              <p class="card-paragraph">
-                Personal portfolio designed on Figma and developed in Webflow.
-              </p>
+            {% endif %}
+            <div class="card-description cms-project-description">
+              <h3 class="card-heading">{{ post.data.title | escape }}</h3>
+              <p class="card-paragraph">{{ post.data.short_description | escape }}</p>
             </div>
-            <div class="tags-button-wrapper">
-              <div class="tags-wrapper">
+            <div class="tags-button-wrapper cms-project-footer">
+              {% if post.data.hero.technologies and post.data.hero.technologies.length %}
+              <div class="tags-wrapper cms-project-tags">
+                {% for technology in post.data.hero.technologies %}
                 <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Webflow</div>
+                  <img src="images/Vector-check.svg" loading="lazy" alt="" class="tag-icon" />
+                  <div>{{ technology | escape }}</div>
                 </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Figma</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Responsive</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Simple and clean</div>
-                </div>
+                {% endfor %}
               </div>
-              <a
-                href="https://www.igormihajlovski.com/"
-                class="main-btn project-btn w-inline-block"
-              >
-                <div>View project</div>
+              {% endif %}
+              <a href="/blog/{{ post.data.slug | escape }}/" class="main-btn project-btn w-inline-block">
+                <div>View Case Study</div>
               </a>
             </div>
           </div>
-          <div class="card-portfolio">
-            <img
-              src="images/Jaeger-Immobilien-project.jpg"
-              loading="lazy"
-              sizes="(max-width: 1440px) 100vw, 1440px"
-              srcset="
-                images/Jaeger-Immobilien-project-p-500.jpg   500w,
-                images/Jaeger-Immobilien-project-p-800.jpg   800w,
-                images/Jaeger-Immobilien-project-p-1080.jpg 1080w,
-                images/Jaeger-Immobilien-project.jpg        1440w
-              "
-              alt="Jaeger Immobilien logo for a professional real estate and property management website."
-              class="portfolio-img--tablet portfolio-img-mobile"
-            />
-            <div class="card-description">
-              <h3 class="card-heading">Real Estate Website</h3>
-              <p class="card-paragraph">
-                A modern real estate website designed with a clean structure,
-                refined interactions, and a premium user experience focused on
-                performance and usability.
-              </p>
-            </div>
-            <div class="tags-button-wrapper">
-              <div class="tags-wrapper">
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Webflow</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>CMS Collection</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Clean Structure</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Fully Responsive</div>
-                </div>
-              </div>
-              <a
-                href="https://www.jaeger-immobilienverwaltung.de/"
-                target="_blank"
-                class="main-btn project-btn w-inline-block"
-              >
-                <div>View project</div>
-              </a>
-            </div>
-          </div>
-          <div class="card-portfolio">
-            <img
-              src="images/Jaeger-Immobilien-project.jpg"
-              loading="lazy"
-              sizes="(max-width: 1440px) 100vw, 1440px"
-              srcset="
-                images/Jaeger-Immobilien-project-p-500.jpg   500w,
-                images/Jaeger-Immobilien-project-p-800.jpg   800w,
-                images/Jaeger-Immobilien-project-p-1080.jpg 1080w,
-                images/Jaeger-Immobilien-project.jpg        1440w
-              "
-              alt="Webflow project concept – coming soon"
-              class="portfolio-img--tablet portfolio-img-mobile"
-            />
-            <div class="card-description">
-              <h3 class="card-heading">Jaeger Immobilien</h3>
-              <p class="card-paragraph">
-                A Webflow real estate website with SEO migration, CMS property
-                pages, and automated Propstack CRM synchronization.
-              </p>
-            </div>
-            <div class="tags-button-wrapper">
-              <div class="tags-wrapper">
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Webflow</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>SEO Migration</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Propstack API</div>
-                </div>
-                <div class="tag-card">
-                  <img
-                    src="images/Vector-check.svg"
-                    loading="lazy"
-                    alt=""
-                    class="tag-icon"
-                  />
-                  <div>Automation</div>
-                </div>
-              </div>
-            </div>
-            <a
-              href="https://www.jaeger-immobilien-morsbach.de/"
-              target="_blank"
-              class="main-btn project-btn w-inline-block"
-            >
-              <div>View project</div>
-            </a>
-          </div>
+          {% endfor %}
         </div>
+        <a href="/blog/" class="secondary-btn cms-projects-all-link w-inline-block">View All Case Studies</a>
       </div>
     </section>
     <section class="testimonial-section">
@@ -1195,7 +1022,7 @@
                 >Home</a
               >
               <a href="#about-me" class="footer-menu-links">About Me</a>
-              <a href="#portfolio" class="footer-menu-links">Portfolio</a>
+              <a href="/blog/" class="footer-menu-links">Portfolio</a>
               <a href="#services" class="footer-menu-links">Services</a>
               <a href="#contact" class="footer-menu-links">Contact Me</a>
             </div>

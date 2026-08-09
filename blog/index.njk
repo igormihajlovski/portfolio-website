@@ -1,0 +1,37 @@
+---
+layout: layouts/base.njk
+permalink: /blog/index.html
+metaTitle: Case Studies | Igor Mihajlovski
+metaDescription: Explore Webflow development case studies by Igor Mihajlovski, including project goals, process, technology, integrations, and results.
+canonicalUrl: https://igormihajlovski.com/blog/
+ogType: website
+---
+<section class="listing-hero">
+  <div class="container case-study-copy">
+    <div class="section-name">Portfolio</div>
+    <h1>Case Studies</h1>
+    <p class="case-study-lede">A closer look at selected projects, the thinking behind them, and how they were built.</p>
+  </div>
+</section>
+<section class="case-study-section case-study-listing-section">
+  <div class="container">
+    {% if collections.caseStudies and collections.caseStudies.length %}
+      <div class="card-wrapper case-study-listing-grid project-count-{{ collections.caseStudies.length }}">
+        {% for post in collections.caseStudies %}
+          <article class="card-portfolio case-study-listing-card">
+            {% if post.data.hero.featured_image %}<img src="{{ post.data.hero.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ post.data.title | escape }} case study featured image" class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image" />{% endif %}
+            <div class="card-description case-study-listing-content">
+              {% if post.data.category %}<div class="section-name">{{ post.data.category | escape }}</div>{% endif %}
+              <h2 class="card-heading">{{ post.data.title | escape }}</h2>
+              {% if post.data.short_description %}<p class="card-paragraph">{{ post.data.short_description | escape }}</p>{% endif %}
+              {% if post.data.published_date %}<time class="case-study-date" datetime="{{ post.data.published_date | htmlDate }}">{{ post.data.published_date | displayDate }}</time>{% endif %}
+            </div>
+            <a href="/blog/{{ post.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>View Case Study</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-state">Case studies will appear here when they are published through Pages CMS.</p>
+    {% endif %}
+  </div>
+</section>

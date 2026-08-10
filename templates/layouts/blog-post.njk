@@ -8,6 +8,8 @@ eleventyComputed:
   canonicalUrl: "https://igormihajlovski.com/blog/{{ slug }}/"
 ogType: article
 ---
+{% set article = article_content | blogArticle %}
+<div class="blog-reading-progress" aria-hidden="true"><div class="blog-reading-progress-value" data-blog-reading-progress></div></div>
 <article class="blog-post">
   <header class="blog-post-hero">
     <div class="container blog-post-header">
@@ -16,6 +18,7 @@ ogType: article
       {% if short_description %}<p class="blog-post-lede">{{ short_description | escape }}</p>{% endif %}
       <div class="blog-post-byline">
         {% if published_date %}<time datetime="{{ published_date | htmlDate }}">{{ published_date | displayDate }}</time>{% endif %}
+        <span class="blog-post-reading-time">{{ article.readingMinutes }} min read</span>
         {% if author %}<span>By {{ author | escape }}</span>{% endif %}
       </div>
       {% if tags and tags.length %}
@@ -33,8 +36,18 @@ ogType: article
 
   <section class="blog-article-section">
     <div class="container blog-article-shell">
-      <div class="blog-article-content">
-        {{ article_content | renderMarkdown | safe }}
+      {% if article.tableOfContents.length >= 4 %}
+        <nav class="blog-table-of-contents" aria-label="Table of contents">
+          <h2>Table of Contents</h2>
+          <ol>
+            {% for item in article.tableOfContents %}
+              <li><a href="#{{ item.id | escape }}">{{ item.text | escape }}</a></li>
+            {% endfor %}
+          </ol>
+        </nav>
+      {% endif %}
+      <div class="blog-article-content" data-blog-reading-region>
+        {{ article.html | safe }}
       </div>
       {% if related_project_url %}
         <aside class="blog-related-project" aria-labelledby="related-project-heading">
@@ -46,3 +59,4 @@ ogType: article
     </div>
   </section>
 </article>
+<script src="/js/blog-reading.js" defer></script>

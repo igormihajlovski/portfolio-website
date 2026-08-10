@@ -13,7 +13,7 @@ function asDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function comparePosts(left, right) {
+function compareProjects(left, right) {
   const leftDate = asDate(left.data.published_date)?.getTime() || 0;
   const rightDate = asDate(right.data.published_date)?.getTime() || 0;
 
@@ -29,19 +29,20 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(directory);
   });
   eleventyConfig.addPassthroughCopy("styleguide.html");
+  eleventyConfig.addPassthroughCopy(".htaccess");
 
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("CHANGELOG.md");
   eleventyConfig.ignores.add("styleguide.html");
 
   eleventyConfig.addCollection("caseStudies", (collectionApi) =>
-    collectionApi.getFilteredByTag("caseStudy").sort(comparePosts),
+    collectionApi.getFilteredByTag("caseStudy").sort(compareProjects),
   );
 
-  eleventyConfig.addFilter("homepageProjects", (posts = []) =>
-    [...posts]
-      .filter((post) => post.data.show_on_homepage === true)
-      .sort(comparePosts)
+  eleventyConfig.addFilter("homepageProjects", (projects = []) =>
+    [...projects]
+      .filter((project) => project.data.show_on_homepage === true)
+      .sort(compareProjects)
       .slice(0, 3),
   );
 

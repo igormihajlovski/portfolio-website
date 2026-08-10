@@ -7,10 +7,10 @@ media:
     rename: safe
 
 content:
-  - name: posts
-    label: Posts
+  - name: projects
+    label: Projects
     type: collection
-    path: content/posts
+    path: content/projects
     format: yaml-frontmatter
     filename: "{slug}.md"
 
@@ -85,13 +85,13 @@ content:
         label: Show on Homepage
         type: boolean
         default: false
-        description: "Show this post in the featured section on the homepage."
+        description: "Show this project in the featured section on the homepage."
 
       - name: short_description
         label: Short Description
         type: text
         required: true
-        description: "Used on the homepage and blog listing."
+        description: "Used on the homepage and Projects listing."
         options:
           maxlength: 300
 

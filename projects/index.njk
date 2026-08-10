@@ -1,9 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /blog/index.html
+permalink: /projects/index.html
 metaTitle: Case Studies | Igor Mihajlovski
 metaDescription: Explore Webflow development case studies by Igor Mihajlovski, including project goals, process, technology, integrations, and results.
-canonicalUrl: https://igormihajlovski.com/blog/
+canonicalUrl: https://igormihajlovski.com/projects/
 ogType: website
 ---
 <section class="listing-hero">
@@ -17,16 +17,16 @@ ogType: website
   <div class="container">
     {% if collections.caseStudies and collections.caseStudies.length %}
       <div class="card-wrapper case-study-listing-grid project-count-{{ collections.caseStudies.length }}">
-        {% for post in collections.caseStudies %}
+        {% for project in collections.caseStudies %}
           <article class="card-portfolio case-study-listing-card">
-            {% if post.data.hero.featured_image %}<img src="{{ post.data.hero.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ post.data.title | escape }} case study featured image" class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image" />{% endif %}
+            {% if project.data.hero.featured_image %}<img src="{{ project.data.hero.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ project.data.title | escape }} case study featured image" class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image" />{% endif %}
             <div class="card-description case-study-listing-content">
-              {% if post.data.category %}<div class="section-name">{{ post.data.category | escape }}</div>{% endif %}
-              <h2 class="card-heading">{{ post.data.title | escape }}</h2>
-              {% if post.data.short_description %}<p class="card-paragraph">{{ post.data.short_description | escape }}</p>{% endif %}
-              {% if post.data.published_date %}<time class="case-study-date" datetime="{{ post.data.published_date | htmlDate }}">{{ post.data.published_date | displayDate }}</time>{% endif %}
+              {% if project.data.category %}<div class="section-name">{{ project.data.category | escape }}</div>{% endif %}
+              <h2 class="card-heading">{{ project.data.title | escape }}</h2>
+              {% if project.data.short_description %}<p class="card-paragraph">{{ project.data.short_description | escape }}</p>{% endif %}
+              {% if project.data.published_date %}<time class="case-study-date" datetime="{{ project.data.published_date | htmlDate }}">{{ project.data.published_date | displayDate }}</time>{% endif %}
             </div>
-            <a href="/blog/{{ post.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>View Case Study</span></a>
+            <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>View Case Study</span></a>
           </article>
         {% endfor %}
       </div>

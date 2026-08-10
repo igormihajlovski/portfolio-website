@@ -1,0 +1,4 @@
+RedirectMatch 301 ^/blog/?$ /projects/
+RedirectMatch 301 ^/blog/jaeger-immobilienverwaltung/?$ /projects/jaeger-immobilienverwaltung/
+RedirectMatch 301 ^/blog/jaeger-immobilien-morsbach/?$ /projects/jaeger-immobilien-morsbach/
+RedirectMatch 301 ^/blog/personal-portfolio-website/?$ /projects/personal-portfolio-website/

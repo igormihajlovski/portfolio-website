@@ -48,11 +48,11 @@ The project includes a custom PHP contact form protected with Cloudflare Turnsti
 
 ## Case Study Content Workflow
 
-Pages CMS edits Markdown files in `content/posts/` using the authoritative
+Pages CMS edits Markdown files in `content/projects/` using the authoritative
 schema in `.pages.yml`. Each saved entry is collected by Eleventy and generates:
 
-- an individual page at `/blog/<slug>/`
-- a card on `/blog/`, sorted by `published_date` (newest first)
+- an individual page at `/projects/<slug>/`
+- a card on `/projects/`, sorted by `published_date` (newest first)
 - a homepage Portfolio card when `show_on_homepage` is enabled
 
 The homepage uses the same date sorting and displays no more than three enabled
@@ -110,8 +110,8 @@ portfolio-website/
 ├── images/
 ├── js/
 ├── php/
-├── blog/
-├── content/posts/
+├── projects/
+├── content/projects/
 ├── templates/
 ├── eleventy.config.js
 ├── package.json

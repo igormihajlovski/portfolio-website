@@ -4,7 +4,7 @@ eleventyComputed:
   metaTitle: "{% if seo.title %}{{ seo.title }}{% else %}{{ title }} | Igor Mihajlovski{% endif %}"
   metaDescription: "{% if seo.description %}{{ seo.description }}{% else %}{{ short_description }}{% endif %}"
   metaImage: "{% if seo.og_image %}{{ seo.og_image }}{% else %}{{ hero.featured_image }}{% endif %}"
-  canonicalUrl: "https://igormihajlovski.com/blog/{{ slug }}/"
+  canonicalUrl: "https://igormihajlovski.com/projects/{{ slug }}/"
 ogType: article
 ---
 <article class="case-study">

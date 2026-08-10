@@ -245,7 +245,7 @@
           <nav role="navigation" class="nav-menu w-nav-menu">
             <a href="#hero" class="nav-link w-nav-link">Home</a>
             <a href="#about-me" class="nav-link w-nav-link">About Me</a>
-            <a href="/blog/" class="nav-link w-nav-link">Portfolio</a>
+            <a href="/projects/" class="nav-link w-nav-link">Portfolio</a>
             <a href="#services" class="nav-link w-nav-link">Services</a>
             <a href="#contact" class="nav-btn w-nav-link">Contact Me</a>
           </nav>
@@ -511,24 +511,24 @@
         </p>
         {% set featuredCaseStudies = collections.caseStudies | homepageProjects %}
         <div class="card-wrapper cms-project-grid project-count-{{ featuredCaseStudies.length }}">
-          {% for post in featuredCaseStudies %}
+          {% for project in featuredCaseStudies %}
           <div class="card-portfolio cms-project-card">
-            {% if post.data.hero.featured_image %}
+            {% if project.data.hero.featured_image %}
             <img
-              src="{{ post.data.hero.featured_image | assetUrl | escape }}"
+              src="{{ project.data.hero.featured_image | assetUrl | escape }}"
               loading="lazy"
-              alt="{{ post.data.title | escape }} case study featured image"
+              alt="{{ project.data.title | escape }} case study featured image"
               class="portfolio-img--tablet portfolio-img-mobile cms-project-image"
             />
             {% endif %}
             <div class="card-description cms-project-description">
-              <h3 class="card-heading">{{ post.data.title | escape }}</h3>
-              <p class="card-paragraph">{{ post.data.short_description | escape }}</p>
+              <h3 class="card-heading">{{ project.data.title | escape }}</h3>
+              <p class="card-paragraph">{{ project.data.short_description | escape }}</p>
             </div>
             <div class="tags-button-wrapper cms-project-footer">
-              {% if post.data.hero.technologies and post.data.hero.technologies.length %}
+              {% if project.data.hero.technologies and project.data.hero.technologies.length %}
               <div class="tags-wrapper cms-project-tags">
-                {% for technology in post.data.hero.technologies %}
+                {% for technology in project.data.hero.technologies %}
                 <div class="tag-card">
                   <img src="images/Vector-check.svg" loading="lazy" alt="" class="tag-icon" />
                   <div>{{ technology | escape }}</div>
@@ -536,14 +536,14 @@
                 {% endfor %}
               </div>
               {% endif %}
-              <a href="/blog/{{ post.data.slug | escape }}/" class="main-btn project-btn w-inline-block">
+              <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn w-inline-block">
                 <div>View Case Study</div>
               </a>
             </div>
           </div>
           {% endfor %}
         </div>
-        <a href="/blog/" class="secondary-btn cms-projects-all-link w-inline-block">View All Case Studies</a>
+        <a href="/projects/" class="secondary-btn cms-projects-all-link w-inline-block">View All Case Studies</a>
       </div>
     </section>
     <section class="testimonial-section">
@@ -1022,7 +1022,7 @@
                 >Home</a
               >
               <a href="#about-me" class="footer-menu-links">About Me</a>
-              <a href="/blog/" class="footer-menu-links">Portfolio</a>
+              <a href="/projects/" class="footer-menu-links">Portfolio</a>
               <a href="#services" class="footer-menu-links">Services</a>
               <a href="#contact" class="footer-menu-links">Contact Me</a>
             </div>

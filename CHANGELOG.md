@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Minimal Eleventy static-generation pipeline with `_dist/` production output
 - Pages CMS Markdown collection for reusable Case Study pages
-- Automatically sorted Case Studies listing at `/blog/`
+- Automatically sorted Case Studies listing at `/projects/`
 - CMS-driven homepage Portfolio cards, limited to three enabled entries
 - Conditional Case Study sections and project links
 - Per-Case-Study canonical, Open Graph, and Twitter metadata

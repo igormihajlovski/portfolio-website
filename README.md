@@ -65,6 +65,22 @@ stored under `images/` and their CMS paths are used directly at build time.
 
 ---
 
+## Blog Content Workflow
+
+The Blog is a separate content system from Projects. Pages CMS writes Blog Posts
+to `content/blog/` using the dedicated Blog Posts schema in `.pages.yml`.
+Published entries generate:
+
+- an individual article at `/blog/<slug>/`
+- a card on `/blog/`, sorted by `published_date` (newest first)
+
+Draft entries are excluded from the Blog collection and do not generate public
+article pages. Blog Posts use the reusable `templates/layouts/blog-post.njk`
+layout. Until the first article is published, `/blog/` displays its empty state.
+The homepage does not include a Blog feed.
+
+---
+
 ## Local Development and Build
 
 Install the build dependencies once:
@@ -111,7 +127,9 @@ portfolio-website/
 ├── js/
 ├── php/
 ├── projects/
+├── blog/
 ├── content/projects/
+├── content/blog/
 ├── templates/
 ├── eleventy.config.js
 ├── package.json

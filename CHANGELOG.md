@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-08-10
+
+### Added
+
+- Separate Blog infrastructure and empty-state listing at `/blog/`
+- Dedicated `content/blog/` Markdown collection with published/draft handling
+- Blog Posts collection in Pages CMS
+- Reusable responsive Blog Article layout and scoped Blog styles
+- Blog navigation links in the existing Navbar and Footer
+- Blog-specific canonical, Open Graph, and Twitter metadata fallbacks
+
+### Preserved
+
+- Existing Projects collection, Case Study templates, cards, routes, and homepage logic
+- Exact legacy Case Study slug redirects from `/blog/<old-case-study>/` to `/projects/<slug>/`
+
 ## [1.1.0] - 2026-08-08
 
 ### Added

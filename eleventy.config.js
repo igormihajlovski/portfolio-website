@@ -24,6 +24,21 @@ function compareProjects(left, right) {
   );
 }
 
+function compareBlogPosts(left, right) {
+  const leftDate = asDate(left.data.published_date)?.getTime() || 0;
+  const rightDate = asDate(right.data.published_date)?.getTime() || 0;
+
+  if (leftDate !== rightDate) return rightDate - leftDate;
+
+  return String(left.data.slug || left.data.title || "").localeCompare(
+    String(right.data.slug || right.data.title || ""),
+  );
+}
+
+function isPublishedBlogPost(post) {
+  return String(post.data.status || "").trim().toLowerCase() === "published";
+}
+
 module.exports = function (eleventyConfig) {
   ["css", "js", "images", "documents", "php"].forEach((directory) => {
     eleventyConfig.addPassthroughCopy(directory);
@@ -37,6 +52,13 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addCollection("caseStudies", (collectionApi) =>
     collectionApi.getFilteredByTag("caseStudy").sort(compareProjects),
+  );
+
+  eleventyConfig.addCollection("blogPosts", (collectionApi) =>
+    collectionApi
+      .getFilteredByTag("blogPost")
+      .filter(isPublishedBlogPost)
+      .sort(compareBlogPosts),
   );
 
   eleventyConfig.addFilter("homepageProjects", (projects = []) =>

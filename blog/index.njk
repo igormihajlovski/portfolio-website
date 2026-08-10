@@ -1,0 +1,47 @@
+---
+layout: layouts/base.njk
+permalink: /blog/index.html
+blogStyles: true
+metaTitle: Blog | Igor Mihajlovski
+metaDescription: Articles about Webflow, web development, CMS solutions, integrations, automation, and lessons learned from real projects.
+canonicalUrl: https://igormihajlovski.com/blog/
+ogType: website
+---
+<section class="listing-hero blog-listing-hero">
+  <div class="container case-study-copy">
+    <div class="section-name">Blog</div>
+    <h1>Insights, Ideas &amp; Development Notes</h1>
+    <p class="case-study-lede">Articles about Webflow, web development, CMS architecture, integrations, automation, and lessons learned from real projects.</p>
+  </div>
+</section>
+<section class="case-study-section blog-listing-section" aria-labelledby="blog-listing-heading">
+  <div class="container">
+    <h2 id="blog-listing-heading" class="visually-hidden">Blog articles</h2>
+    {% if collections.blogPosts and collections.blogPosts.length %}
+      <div class="blog-grid post-count-{{ collections.blogPosts.length }}">
+        {% for post in collections.blogPosts %}
+          <article class="card-portfolio blog-card">
+            {% if post.data.featured_image %}
+              <img src="{{ post.data.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ (post.data.featured_image_alt or (post.data.title ~ ' article featured image')) | escape }}" class="blog-card-image" />
+            {% endif %}
+            <div class="card-description blog-card-content">
+              <div class="blog-card-meta">
+                {% if post.data.category %}<span class="section-name">{{ post.data.category | escape }}</span>{% endif %}
+                {% if post.data.published_date %}<time datetime="{{ post.data.published_date | htmlDate }}">{{ post.data.published_date | displayDate }}</time>{% endif %}
+              </div>
+              <h2 class="card-heading"><a href="{{ post.url | escape }}">{{ post.data.title | escape }}</a></h2>
+              <p class="card-paragraph">{{ post.data.short_description | escape }}</p>
+            </div>
+            <a href="{{ post.url | escape }}" class="main-btn project-btn blog-card-button w-inline-block"><span>Read Article</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="blog-empty-state" role="status">
+        <div class="section-name">Coming Soon</div>
+        <h2>New articles are coming soon.</h2>
+        <p>I&rsquo;m preparing practical notes about Webflow, CMS architecture, integrations, automation, and modern web development.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>

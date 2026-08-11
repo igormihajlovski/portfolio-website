@@ -210,89 +210,16 @@
     </script>
   </head>
   <body>
-    <div class="contact-widget" data-contact-widget>
-      <button
-        type="button"
-        class="whatsapp contact-widget-trigger"
-        aria-expanded="false"
-        aria-controls="contact-widget-panel"
-        aria-haspopup="dialog"
-        aria-label="Open contact options"
-      >
-        <img
-          src="images/whatsapp.svg"
-          loading="lazy"
-          alt=""
-          class="whatsapp-icon"
-        />
-      </button>
-      <div
-        id="contact-widget-panel"
-        class="contact-widget-panel"
-        role="dialog"
-        aria-labelledby="contact-widget-title"
-        aria-describedby="contact-widget-description"
-        aria-hidden="true"
-        inert
-      >
-        <h2 id="contact-widget-title" class="contact-widget-title">
-          Let&rsquo;s talk
-        </h2>
-        <p id="contact-widget-description" class="contact-widget-description">
-          Have a project in mind? I&rsquo;m happy to discuss it.
-        </p>
-        <div class="contact-widget-actions">
-          <a
-            href="https://wa.me/38970265014?text=Hi%20Igor%2C%20I%20found%20you%20through%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20project."
-            target="_blank"
-            rel="noopener noreferrer"
-            class="contact-widget-action"
-          >
-            <span
-              class="contact-widget-action-icon contact-widget-action-icon-whatsapp"
-              aria-hidden="true"
-            >
-              <img src="images/whatsapp.svg" alt="" />
-            </span>
-            <span class="contact-widget-action-copy">
-              <span class="contact-widget-action-title">WhatsApp</span>
-              <span class="contact-widget-action-subtitle"
-                >Start a conversation</span
-              >
-            </span>
-          </a>
-          <a href="tel:+38970265014" class="contact-widget-action">
-            <span class="contact-widget-action-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path
-                  d="M7.2 3.5 9.4 8 7.8 9.6a14.2 14.2 0 0 0 6.6 6.6l1.6-1.6 4.5 2.2v3a1.5 1.5 0 0 1-1.5 1.5A16.3 16.3 0 0 1 2.7 5a1.5 1.5 0 0 1 1.5-1.5h3Z"
-                />
-              </svg>
-            </span>
-            <span class="contact-widget-action-copy">
-              <span class="contact-widget-action-title">Call me</span>
-              <span class="contact-widget-action-subtitle"
-                >Speak with me directly</span
-              >
-            </span>
-          </a>
-          <a href="mailto:igorn001@gmail.com" class="contact-widget-action">
-            <span class="contact-widget-action-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M3 5.5h18v13H3z" />
-                <path d="m4 7 8 6 8-6" />
-              </svg>
-            </span>
-            <span class="contact-widget-action-copy">
-              <span class="contact-widget-action-title">Email</span>
-              <span class="contact-widget-action-subtitle"
-                >Send me a message</span
-              >
-            </span>
-          </a>
-        </div>
-      </div>
-    </div>
+    <a
+      href="https://wa.me/38970265014"
+      target="_blank"
+      class="whatsapp w-inline-block"
+      ><img
+        src="images/whatsapp.svg"
+        loading="lazy"
+        alt=""
+        class="whatsapp-icon"
+    /></a>
     <div
       data-animation="default"
       data-collapse="medium"
@@ -1161,7 +1088,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/webflow.js" type="text/javascript"></script>
-    <script src="js/contact-widget.js"></script>
     <script
       src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js"
       type="text/javascript"

@@ -22,7 +22,13 @@ ogType: website
         {% for post in collections.blogPosts %}
           <article class="card-portfolio blog-card">
             {% if post.data.featured_image %}
-              <img src="{{ post.data.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ (post.data.featured_image_alt or (post.data.title ~ ' article featured image')) | escape }}" class="blog-card-image" />
+              <img
+                src="{{ post.data.featured_image | assetUrl | escape }}"
+                loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
+                {% if loop.first %}fetchpriority="high"{% else %}decoding="async"{% endif %}
+                alt="{{ (post.data.featured_image_alt or (post.data.title ~ ' article featured image')) | escape }}"
+                class="blog-card-image"
+              />
             {% endif %}
             <div class="card-description blog-card-content">
               <div class="blog-card-meta">

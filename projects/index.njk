@@ -19,7 +19,15 @@ ogType: website
       <div class="card-wrapper case-study-listing-grid project-count-{{ collections.caseStudies.length }}">
         {% for project in collections.caseStudies %}
           <article class="card-portfolio case-study-listing-card">
-            {% if project.data.hero.featured_image %}<img src="{{ project.data.hero.featured_image | assetUrl | escape }}" loading="lazy" alt="{{ project.data.title | escape }} case study featured image" class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image" />{% endif %}
+            {% if project.data.hero.featured_image %}
+              <img
+                src="{{ project.data.hero.featured_image | assetUrl | escape }}"
+                loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
+                {% if loop.first %}fetchpriority="high"{% else %}decoding="async"{% endif %}
+                alt="{{ project.data.title | escape }} case study featured image"
+                class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image"
+              />
+            {% endif %}
             <div class="card-description case-study-listing-content">
               {% if project.data.category %}<div class="section-name">{{ project.data.category | escape }}</div>{% endif %}
               <h2 class="card-heading">{{ project.data.title | escape }}</h2>

@@ -29,7 +29,12 @@ ogType: article
     </div>
     {% if featured_image %}
       <div class="container blog-post-featured-media">
-        <img src="{{ featured_image | assetUrl | escape }}" alt="{{ (featured_image_alt or (title ~ ' article featured image')) | escape }}" />
+        <img
+          src="{{ featured_image | assetUrl | escape }}"
+          loading="eager"
+          fetchpriority="high"
+          alt="{{ (featured_image_alt or (title ~ ' article featured image')) | escape }}"
+        />
       </div>
     {% endif %}
   </header>

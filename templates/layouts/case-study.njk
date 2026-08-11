@@ -38,7 +38,13 @@ ogType: article
         <div class="case-study-hero-visual">
           {% if hero.featured_image %}
             <div class="case-study-hero-media">
-              <img class="case-study-featured-image" src="{{ hero.featured_image | assetUrl | escape }}" alt="{{ title | escape }} case study featured image" />
+              <img
+                class="case-study-featured-image"
+                src="{{ hero.featured_image | assetUrl | escape }}"
+                loading="eager"
+                fetchpriority="high"
+                alt="{{ title | escape }} case study featured image"
+              />
             </div>
           {% endif %}
           {% if project_links and project_links.live_url %}
@@ -182,7 +188,7 @@ ogType: article
           {% for item in gallery %}
             {% if item.image %}
               <figure class="gallery-item">
-                <img src="{{ item.image | assetUrl | escape }}" alt="{{ (item.alt or item.title or title) | escape }}" loading="lazy" />
+                <img src="{{ item.image | assetUrl | escape }}" alt="{{ (item.alt or item.title or title) | escape }}" loading="lazy" decoding="async" />
                 {% if item.caption %}<figcaption>{{ item.caption | escape }}</figcaption>{% endif %}
               </figure>
             {% endif %}

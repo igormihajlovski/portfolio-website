@@ -274,6 +274,11 @@ label {
   position: static;
 }
 
+.hero-image-wrapper > [data-animation-type="lottie"]:empty {
+  width: min(100%, 500px);
+  padding-bottom: min(calc(100% + 4.8px), 504.8px);
+}
+
 .webflow-development {
   background-color: var(--primary-button);
   color: var(--text);
@@ -1405,7 +1410,7 @@ label {
   }
 
   .hero-image-wrapper {
-    width: auto;
+    width: 100%;
     max-width: 280px;
     margin-top: 46px;
     margin-left: auto;

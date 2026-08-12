@@ -1,0 +1,251 @@
+.newsletter-section {
+  background-color: var(--box-cards-backgrouund);
+  border-top: 1px solid #dcd7c91f;
+  border-bottom: 1px solid #dcd7c91f;
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+.newsletter-section .newsletter-container {
+  grid-column-gap: 72px;
+  grid-row-gap: 48px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  text-align: left;
+  display: grid;
+}
+
+.newsletter-content {
+  max-width: 560px;
+}
+
+.newsletter-section .newsletter-eyebrow {
+  text-align: left;
+}
+
+.newsletter-content h2 {
+  margin-top: 16px;
+}
+
+.newsletter-intro {
+  max-width: 540px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  line-height: 160%;
+}
+
+.newsletter-form {
+  box-sizing: border-box;
+  background-color: var(--background);
+  border: 1px solid #dcd7c933;
+  border-radius: 8px;
+  width: 100%;
+  padding: 32px;
+  box-shadow: 0 12px 32px #00000026;
+}
+
+.newsletter-field label {
+  font-weight: 600;
+}
+
+.newsletter-field input {
+  box-sizing: border-box;
+  background-color: var(--text);
+  color: var(--box-cards-backgrouund);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 56px;
+  padding: 15px 18px;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  line-height: 150%;
+}
+
+.newsletter-field input::placeholder {
+  color: #495663;
+  opacity: 1;
+}
+
+.newsletter-consent {
+  grid-column-gap: 12px;
+  align-items: flex-start;
+  margin-top: 24px;
+  display: flex;
+}
+
+.newsletter-consent input {
+  accent-color: var(--accent-color);
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+}
+
+.newsletter-consent label {
+  margin-bottom: 0;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.newsletter-consent-title {
+  margin-bottom: 2px;
+  font-weight: 600;
+  display: block;
+}
+
+.newsletter-privacy,
+.newsletter-processing {
+  color: #dcd7c9cc;
+  margin-top: 18px;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  line-height: 160%;
+}
+
+.newsletter-processing {
+  margin-top: 12px;
+  font-size: 0.8125rem;
+}
+
+.newsletter-privacy a,
+.newsletter-processing a {
+  color: var(--accent-color);
+  text-underline-offset: 3px;
+}
+
+.newsletter-honeypot {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: -5000px;
+  overflow: hidden;
+}
+
+.newsletter-actions {
+  grid-column-gap: 20px;
+  grid-row-gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  display: flex;
+}
+
+.newsletter-submit {
+  background-color: var(--primary-button);
+  color: var(--text);
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 120%;
+  transition: background-color 0.2s ease;
+}
+
+.newsletter-submit:hover {
+  background-color: #02244d;
+}
+
+.newsletter-badge {
+  background-color: #fff;
+  flex: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  line-height: 0;
+  display: inline-flex;
+}
+
+.newsletter-badge img {
+  border-radius: 0;
+  width: 180px;
+  height: auto;
+  display: block;
+}
+
+.newsletter-field input:focus-visible,
+.newsletter-consent input:focus-visible,
+.newsletter-submit:focus-visible,
+.newsletter-privacy a:focus-visible,
+.newsletter-processing a:focus-visible,
+.newsletter-badge:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+.newsletter-field input:focus-visible {
+  border-color: var(--accent-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-submit {
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .newsletter-section .newsletter-container {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-content,
+  .newsletter-form {
+    max-width: 680px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .newsletter-content {
+    text-align: center;
+  }
+
+  .newsletter-section .newsletter-eyebrow {
+    text-align: center;
+  }
+
+  .newsletter-intro {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .newsletter-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .newsletter-form {
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .newsletter-section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .newsletter-section .newsletter-container {
+    grid-row-gap: 32px;
+  }
+
+  .newsletter-form {
+    padding: 20px;
+  }
+
+  .newsletter-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .newsletter-submit {
+    width: 100%;
+  }
+
+  .newsletter-badge img {
+    width: 165px;
+  }
+}

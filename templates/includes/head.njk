@@ -16,6 +16,7 @@
 <link href="/css/igor-mihajlovski-portfolio.webflow.css?v=2" rel="stylesheet" type="text/css" />
 <link href="/css/case-studies.css" rel="stylesheet" type="text/css" />
 {% if blogStyles %}<link href="/css/blog.css" rel="stylesheet" type="text/css" />{% endif %}
+<link href="/css/legal.css?v=1" rel="stylesheet" type="text/css" />
 <style>
   html.w-mod-js:not(.w-mod-ix3) :is(.top-line, .middle-line, .bottom-line) {
     visibility: hidden !important;
@@ -40,21 +41,4 @@
 <link href="/images/webclip-192.png" rel="icon" type="image/png" sizes="192x192" />
 <link href="/images/webclip.png" rel="icon" type="image/png" sizes="512x512" />
 <link href="{{ canonicalUrl | escape }}" rel="canonical" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BCKVPK8X20"></script>
-<script type="text/javascript">
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag("set", "developer_id.dZGVlNj", true);
-  gtag("js", new Date());
-  gtag("config", "G-BCKVPK8X20");
-</script>
-<script type="text/javascript">
-  (function (c, l, a, r, i, t, y) {
-    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-    t = l.createElement(r);
-    t.async = 1;
-    t.src = "https://www.clarity.ms/tag/" + i;
-    y = l.getElementsByTagName(r)[0];
-    y.parentNode.insertBefore(t, y);
-  })(window, document, "clarity", "script", "xyblem4a2e");
-</script>
+{% include "includes/analytics-consent.njk" %}

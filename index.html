@@ -47,6 +47,8 @@
       type="text/css"
     />
     <link href="css/case-studies.css" rel="stylesheet" type="text/css" />
+    <link href="css/legal.css?v=1" rel="stylesheet" type="text/css" />
+    <link href="css/newsletter.css?v=1" rel="stylesheet" type="text/css" />
     <style>
       html.w-mod-js:not(.w-mod-ix3) :is(.top-line, .middle-line, .bottom-line) {
         visibility: hidden !important;
@@ -124,7 +126,7 @@
         },
         "jobTitle": "Freelance Webflow Developer",
         "description": "Freelance Webflow developer building clean, responsive, and SEO-focused websites for modern businesses. Specialized in Webflow development, responsive design, CMS setup, and performance-focused websites.",
-        "email": "mailto:igorn001@gmail.com",
+        "email": "mailto:igor@igormihajlovski.com",
         "sameAs": [
           "https://www.linkedin.com/in/igor-mihajlovski-37914a164",
           "https://github.com/igormihajlovski"
@@ -168,19 +170,7 @@
         ]
       }
     </script>
-    <script
-      async=""
-      src="https://www.googletagmanager.com/gtag/js?id=G-BCKVPK8X20"
-    ></script>
-    <script type="text/javascript">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("set", "developer_id.dZGVlNj", true);
-      gtag("js", new Date());
-      gtag("config", "G-BCKVPK8X20");
-    </script>
+    {% include "includes/analytics-consent.njk" %}
     <script
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
@@ -194,20 +184,6 @@
         opacity: 0;
       }
     </style>
-    <script type="text/javascript">
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "xyblem4a2e");
-    </script>
   </head>
   <body>
     <div
@@ -1010,6 +986,109 @@
         </div>
       </div>
     </section>
+    <section
+      id="newsletter"
+      class="newsletter-section"
+      aria-labelledby="newsletter-heading"
+    >
+      <div class="container newsletter-container">
+        <div class="newsletter-content">
+          <div class="section-name newsletter-eyebrow">Stay updated</div>
+          <h2 id="newsletter-heading">Follow what I&rsquo;m building</h2>
+          <p class="newsletter-intro">
+            Get occasional updates about new projects, demos, tools, articles,
+            and other work. No spam &mdash; only relevant updates when
+            there&rsquo;s something worth sharing.
+          </p>
+        </div>
+        <form
+          class="newsletter-form"
+          action="https://igormihajlovski.us1.list-manage.com/subscribe/post?u=186d00000df182149db0c8b71&amp;id=672250aa2d&amp;f_id=0067c2e1f0"
+          method="post"
+          target="_blank"
+          accept-charset="UTF-8"
+        >
+          <div class="newsletter-field">
+            <label for="newsletter-email">Email Address</label>
+            <input
+              id="newsletter-email"
+              name="EMAIL"
+              type="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              maxlength="254"
+              required
+            />
+          </div>
+
+          <div class="newsletter-consent">
+            <input
+              id="gdpr_364697"
+              name="gdpr[364697]"
+              type="checkbox"
+              value="Y"
+              required
+            />
+            <label for="gdpr_364697">
+              <span class="newsletter-consent-title">Email</span>
+              I&rsquo;d like to receive occasional email updates from Igor
+              Mihajlovski.
+            </label>
+          </div>
+
+          <p class="newsletter-privacy">
+            You can unsubscribe at any time. See the
+            <a href="/privacy-policy/">Privacy Policy</a> for information about
+            how your data is handled.
+          </p>
+          <p class="newsletter-processing">
+            We use Mailchimp as our marketing platform. By subscribing, you
+            acknowledge that your information will be transferred to Mailchimp
+            for processing.
+            <a
+              href="https://mailchimp.com/legal/terms/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Learn more about Mailchimp&rsquo;s privacy practices.</a
+            >
+          </p>
+
+          <div class="newsletter-honeypot" aria-hidden="true">
+            <input
+              type="text"
+              name="b_186d00000df182149db0c8b71_672250aa2d"
+              tabindex="-1"
+              autocomplete="off"
+              value=""
+            />
+          </div>
+
+          <div class="newsletter-actions">
+            <input
+              class="newsletter-submit"
+              type="submit"
+              name="subscribe"
+              value="Subscribe"
+            />
+            <a
+              class="newsletter-badge"
+              href="https://mailchimp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Powered by Intuit Mailchimp"
+            >
+              <img
+                src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg"
+                loading="lazy"
+                width="220"
+                height="40"
+                alt="Intuit Mailchimp"
+              />
+            </a>
+          </div>
+        </form>
+      </div>
+    </section>
     <section id="contact" class="contact-section">
       <div class="container">
         <div class="section-name">Contact</div>
@@ -1031,7 +1110,7 @@
                   alt=""
                   class="contact-tag-icon"
                 />
-                <div class="email">igorn001@gmail.com</div>
+                <div class="email">igor@igormihajlovski.com</div>
               </div>
               <div class="tag-card contact-tag">
                 <img
@@ -1167,8 +1246,25 @@
               <a href="#services" class="footer-menu-links">Services</a>
               <a href="#contact" class="footer-menu-links">Contact Me</a>
             </div>
-            <div class="copyright-desktop">
-              Copyright © 2026 Igor Mihajlovski
+            <div class="footer-legal">
+              <a href="/privacy-policy/" class="footer-legal-link"
+                >Privacy Policy</a
+              >
+              <button
+                type="button"
+                class="footer-legal-link privacy-settings-button"
+                data-privacy-settings
+                aria-controls="analytics-consent"
+                aria-expanded="false"
+              >
+                Privacy settings
+              </button>
+              <div class="copyright-desktop">
+                Copyright © 2026 Igor Mihajlovski
+              </div>
+              <div class="copyright-responsive">
+                Copyright © 2026 Igor Mihajlovski
+              </div>
             </div>
           </div>
           <div class="third-column">
@@ -1215,8 +1311,8 @@
           </div>
         </div>
       </div>
-      <div class="copyright-responsive">Copyright © 2026 Igor Mihajlovski</div>
     </section>
+    {% include "includes/analytics-consent-ui.njk" %}
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=697e45df7d51cf8c3766ddee"
       type="text/javascript"
@@ -1225,6 +1321,7 @@
     ></script>
     <script src="js/webflow.js" type="text/javascript"></script>
     <script src="js/contact-widget.js?v=2"></script>
+    <script src="js/analytics-consent.js?v=1" defer></script>
     <script
       src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js"
       type="text/javascript"

@@ -1,0 +1,75 @@
+<link href="/css/analytics-consent.css?v=1" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+  (function (window) {
+    var storageKey = "portfolio_analytics_consent";
+    var validChoices = { accepted: true, necessary: true };
+    var choice = null;
+
+    try {
+      choice = window.localStorage.getItem(storageKey);
+    } catch (error) {
+      choice = null;
+    }
+
+    if (!validChoices[choice]) {
+      try {
+        choice = window.sessionStorage.getItem(storageKey);
+      } catch (error) {
+        choice = null;
+      }
+    }
+
+    if (!validChoices[choice]) choice = null;
+
+    window.portfolioConsent = {
+      storageKey: storageKey,
+      choice: choice,
+    };
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () {
+      window.dataLayer.push(arguments);
+    };
+
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+    });
+
+    if (choice === "accepted") {
+      window.gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "granted",
+      });
+    }
+
+    window.clarity = window.clarity || function () {
+      (window.clarity.q = window.clarity.q || []).push(arguments);
+    };
+    window.loadPortfolioClarity = function () {
+      if (window.loadPortfolioClarity.loaded) return;
+      window.loadPortfolioClarity.loaded = true;
+
+      var script = document.createElement("script");
+      var firstScript = document.getElementsByTagName("script")[0];
+      script.async = true;
+      script.src = "https://www.clarity.ms/tag/xyblem4a2e";
+      firstScript.parentNode.insertBefore(script, firstScript);
+    };
+    window.clarity("consentv2", {
+      ad_Storage: "denied",
+      analytics_Storage: choice === "accepted" ? "granted" : "denied",
+    });
+    if (choice === "accepted") window.loadPortfolioClarity();
+  })(window);
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BCKVPK8X20"></script>
+<script type="text/javascript">
+  window.gtag("set", "developer_id.dZGVlNj", true);
+  window.gtag("js", new Date());
+  window.gtag("config", "G-BCKVPK8X20");
+</script>

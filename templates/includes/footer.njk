@@ -11,7 +11,12 @@
           <a href="/#services" class="footer-menu-links">Services</a>
           <a href="/#contact" class="footer-menu-links">Contact Me</a>
         </div>
-        <div class="copyright-desktop">Copyright © 2026 Igor Mihajlovski</div>
+        <div class="footer-legal">
+          <a href="/privacy-policy/" class="footer-legal-link">Privacy Policy</a>
+          <button type="button" class="footer-legal-link privacy-settings-button" data-privacy-settings aria-controls="analytics-consent" aria-expanded="false">Privacy settings</button>
+          <div class="copyright-desktop">Copyright © 2026 Igor Mihajlovski</div>
+          <div class="copyright-responsive">Copyright © 2026 Igor Mihajlovski</div>
+        </div>
       </div>
       <div class="third-column">
         <a href="https://www.linkedin.com/in/igor-mihajlovski-37914a164/" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Linkedin-logo.svg" loading="lazy" alt="Igor Mihajlovski LinkedIn profile" class="social-icon" /></a>
@@ -21,5 +26,5 @@
       </div>
     </div>
   </div>
-  <div class="copyright-responsive">Copyright © 2026 Igor Mihajlovski</div>
 </section>
+{% include "includes/analytics-consent-ui.njk" %}

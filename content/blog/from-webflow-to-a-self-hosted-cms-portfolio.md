@@ -912,8 +912,7 @@ article_content: >-
   You can also explore the live website:
 
 
-  [Visit Igor Mihajlovski's
-  Portfolio]([https://igormihajlovski.com/](https://igormihajlovski.com/))
+  [Visit Igor Mihajlovski's Portfolio](https://igormihajlovski.com/)
 
 
   ## Conclusion

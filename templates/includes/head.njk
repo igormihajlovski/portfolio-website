@@ -3,6 +3,7 @@
 <meta name="description" content="{{ metaDescription | escape }}" />
 <meta property="og:title" content="{{ metaTitle | escape }}" />
 <meta property="og:description" content="{{ metaDescription | escape }}" />
+<meta property="og:url" content="{{ canonicalUrl | escape }}" />
 {% if metaImage %}<meta property="og:image" content="{{ metaImage | absoluteUrl | escape }}" />{% endif %}
 <meta property="og:type" content="{{ ogType | default('website') }}" />
 <meta name="twitter:title" content="{{ metaTitle | escape }}" />

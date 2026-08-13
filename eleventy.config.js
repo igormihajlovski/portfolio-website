@@ -1,4 +1,5 @@
 const MarkdownIt = require("markdown-it");
+const site = require("./_data/site.json");
 
 const markdown = new MarkdownIt({
   html: true,
@@ -136,6 +137,20 @@ module.exports = function (eleventyConfig) {
       .sort(compareBlogPosts),
   );
 
+  eleventyConfig.addCollection("sitemapPages", (collectionApi) =>
+    collectionApi
+      .getAll()
+      .filter((entry) => {
+        if (!entry.url || !entry.outputPath?.endsWith(".html")) return false;
+        if (entry.data.eleventyExcludeFromCollections === true) return false;
+        if (entry.data.sitemap?.exclude === true) return false;
+
+        const robotsDirective = String(entry.data.robots || "");
+        return !/\bnoindex\b/i.test(robotsDirective);
+      })
+      .sort((left, right) => left.url.localeCompare(right.url)),
+  );
+
   eleventyConfig.addFilter("homepageProjects", (projects = []) =>
     [...projects]
       .filter((project) => project.data.show_on_homepage === true)
@@ -180,7 +195,7 @@ module.exports = function (eleventyConfig) {
     if (/^https?:\/\//.test(value)) return value;
 
     const path = value.startsWith("/") ? value : `/${value}`;
-    return `https://igormihajlovski.com${path}`;
+    return `${site.url}${path}`;
   });
 
   return {

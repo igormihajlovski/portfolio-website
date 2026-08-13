@@ -29,7 +29,7 @@ const CONTACT_RECIPIENT_NAME = 'Igor Mihajlovski';
  * Website details
  */
 const WEBSITE_NAME = 'Igor Mihajlovski Portfolio';
-const WEBSITE_URL = 'https://www.igormihajlovski.com';
+const WEBSITE_URL = 'https://igormihajlovski.com';
 
 /*
  * Email subject prefix

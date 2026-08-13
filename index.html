@@ -20,6 +20,7 @@
       content="Freelance Webflow developer building clean, responsive, and SEO-focused websites for modern businesses. View projects and get a fast, scalable website built in Webflow."
       property="og:description"
     />
+    <meta property="og:url" content="{{ site.url }}/" />
     <meta
       content="https://cdn.prod.website-files.com/697e45df7d51cf8c3766ddee/69dfbd16167ab402be2dcfa9_Social%20share%20Hero%20Section.png"
       property="og:image"
@@ -111,14 +112,14 @@
       type="image/png"
       sizes="512x512"
     />
-    <link href="https://igormihajlovski.com/" rel="canonical" />
+    <link href="{{ site.url }}/" rel="canonical" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "@id": "https://www.igormihajlovski.com/#person",
+        "@id": "{{ site.url }}/#person",
         "name": "Igor Mihajlovski",
-        "url": "https://www.igormihajlovski.com/",
+        "url": "{{ site.url }}/",
         "image": {
           "@type": "ImageObject",
           "url": "https://cdn.prod.website-files.com/697e45df7d51cf8c3766ddee/69838128ab2a39a999dcde4d_Hero%20image%20with%20mask%20Compressed.png",
@@ -343,7 +344,7 @@
     >
       <div class="container nav-container">
         <div class="inner-nav">
-          <a href="https://www.igormihajlovski.com" class="brand w-nav-brand"
+          <a href="/" class="brand w-nav-brand"
             ><img
               src="images/Logo-Igor-Mihajlovski-Portfolio-Brend.svg"
               loading="eager"

@@ -181,6 +181,11 @@ module.exports = function (eleventyConfig) {
     return date ? date.toISOString().slice(0, 10) : "";
   });
 
+  eleventyConfig.addFilter("rssDate", (value) => {
+    const date = asDate(value);
+    return date ? date.toUTCString() : "";
+  });
+
   eleventyConfig.addFilter("assetUrl", (value = "") => {
     if (!value) return "";
     if (/^(?:https?:)?\/\//.test(value) || value.startsWith("data:")) {

@@ -1,0 +1,49 @@
+---
+layout: false
+permalink: /blog/feed.xml
+eleventyExcludeFromCollections: true
+---
+{% set feedTitle = "Igor Mihajlovski Blog" -%}
+{% set feedDescription = "Articles about Webflow, web development, CMS solutions, integrations, automation, and lessons learned from real projects." -%}
+{% set blogUrl = "/blog/" | absoluteUrl -%}
+{% set feedUrl = "/blog/feed.xml" | absoluteUrl -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>{{ feedTitle | escape }}</title>
+    <link>{{ blogUrl | escape }}</link>
+    <atom:link href="{{ feedUrl | escape }}" rel="self" type="application/rss+xml" />
+    <description>{{ feedDescription | escape }}</description>
+    <language>en</language>
+    {%- for post in collections.blogPosts %}
+      {%- set itemTitle = post.data.title or "" %}
+      {%- set publishedDate = post.data.published_date | rssDate %}
+      {%- set robots = post.data.robots or "" %}
+      {%- if post.url and (itemTitle | trim) and publishedDate and "noindex" not in (robots | lower) %}
+        {%- set absolutePostUrl = post.url | absoluteUrl %}
+    <item>
+      <title>{{ itemTitle | escape }}</title>
+      <link>{{ absolutePostUrl | escape }}</link>
+      <guid isPermaLink="true">{{ absolutePostUrl | escape }}</guid>
+      <pubDate>{{ publishedDate | escape }}</pubDate>
+      <dc:creator>{{ (post.data.author or "Igor Mihajlovski") | escape }}</dc:creator>
+      <description>{{ (post.data.short_description or "") | escape }}</description>
+        {%- if post.data.category %}
+      <category>{{ post.data.category | escape }}</category>
+        {%- endif %}
+        {%- for tag in post.data.tags or [] %}
+          {%- if (tag | lower) != "blogpost" and (tag | lower) != (post.data.category | default("") | lower) %}
+      <category>{{ tag | escape }}</category>
+          {%- endif %}
+        {%- endfor %}
+        {%- if post.data.featured_image %}
+      <media:content url="{{ post.data.featured_image | absoluteUrl | escape }}" medium="image" />
+        {%- endif %}
+    </item>
+      {%- endif %}
+    {%- endfor %}
+  </channel>
+</rss>

@@ -7,6 +7,12 @@ const {
   dictionaryKeyCounts,
   validateDictionaryParity,
 } = require("./_lib/ui-i18n.js");
+const {
+  isPublishedContent,
+  localizedContentPermalink,
+  validateContentRecord,
+  validateProjectSlugPairs,
+} = require("./_lib/localized-content.js");
 
 const languageEntries = Object.values(languages);
 const defaultLanguages = languageEntries.filter((language) => language.default);
@@ -163,7 +169,11 @@ function compareBlogPosts(left, right) {
 }
 
 function isPublishedBlogPost(post) {
-  return String(post.data.status || "").trim().toLowerCase() === "published";
+  return isPublishedContent(post.data, "Blog");
+}
+
+function isPublishedProject(project) {
+  return isPublishedContent(project.data, "Project");
 }
 
 function absoluteSiteUrl(value = "") {
@@ -324,20 +334,13 @@ function validateTranslatableEntries(entries, contentType) {
   const seenTranslationKeys = new Map();
 
   for (const entry of entries) {
-    const languageCode = getEntryLanguage(entry, contentType);
-    const translationId = String(entry.data?.translation_id || "").trim();
-
-    if (!translationId) {
-      throw new Error(
-        `[i18n] ${contentType} entry "${entry.inputPath}" is missing required translation_id metadata.`,
-      );
-    }
-
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(translationId)) {
-      throw new Error(
-        `[i18n] ${contentType} entry "${entry.inputPath}" has invalid translation_id "${translationId}".`,
-      );
-    }
+    const record = validateContentRecord(
+      entry.data,
+      contentType,
+      entry.inputPath,
+    );
+    const languageCode = record.language.code;
+    const translationId = record.translationId;
 
     const translationKey = `${contentType}:${languageCode}:${translationId}`;
     const existingPath = seenTranslationKeys.get(translationKey);
@@ -351,6 +354,8 @@ function validateTranslatableEntries(entries, contentType) {
     seenTranslationKeys.set(translationKey, entry.inputPath);
   }
 
+  if (contentType === "Project") validateProjectSlugPairs(entries);
+
   return entries;
 }
 
@@ -359,6 +364,13 @@ function getLocalizedContent(collectionApi, tag, contentType) {
     collectionApi.getFilteredByTag(tag),
     contentType,
   );
+}
+
+function getPublishedLocalizedContent(collectionApi, tag, contentType) {
+  const isPublished =
+    contentType === "Project" ? isPublishedProject : isPublishedBlogPost;
+
+  return getLocalizedContent(collectionApi, tag, contentType).filter(isPublished);
 }
 
 function isDefaultLanguageEntry(entry, contentType) {
@@ -417,32 +429,33 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("styleguide.html");
 
   eleventyConfig.addCollection("caseStudies", (collectionApi) =>
-    getLocalizedContent(collectionApi, "caseStudy", "Project")
+    getPublishedLocalizedContent(collectionApi, "caseStudy", "Project")
       .filter((entry) => isDefaultLanguageEntry(entry, "Project"))
       .sort(compareProjects),
   );
 
   eleventyConfig.addCollection("blogPosts", (collectionApi) =>
-    getLocalizedContent(collectionApi, "blogPost", "Blog")
+    getPublishedLocalizedContent(collectionApi, "blogPost", "Blog")
       .filter((entry) => isDefaultLanguageEntry(entry, "Blog"))
-      .filter(isPublishedBlogPost)
       .sort(compareBlogPosts),
   );
 
   eleventyConfig.addCollection("caseStudiesByLanguage", (collectionApi) =>
     groupContentByLanguage(
-      getLocalizedContent(collectionApi, "caseStudy", "Project").sort(
-        compareProjects,
-      ),
+      getPublishedLocalizedContent(
+        collectionApi,
+        "caseStudy",
+        "Project",
+      ).sort(compareProjects),
       "Project",
     ),
   );
 
   eleventyConfig.addCollection("blogPostsByLanguage", (collectionApi) =>
     groupContentByLanguage(
-      getLocalizedContent(collectionApi, "blogPost", "Blog")
-        .filter(isPublishedBlogPost)
-        .sort(compareBlogPosts),
+      getPublishedLocalizedContent(collectionApi, "blogPost", "Blog").sort(
+        compareBlogPosts,
+      ),
       "Blog",
     ),
   );
@@ -452,12 +465,12 @@ module.exports = function (eleventyConfig) {
 
     addEntriesToTranslationMap(
       translationMap,
-      getLocalizedContent(collectionApi, "caseStudy", "Project"),
+      getPublishedLocalizedContent(collectionApi, "caseStudy", "Project"),
       "Project",
     );
     addEntriesToTranslationMap(
       translationMap,
-      getLocalizedContent(collectionApi, "blogPost", "Blog"),
+      getPublishedLocalizedContent(collectionApi, "blogPost", "Blog"),
       "Blog",
     );
 
@@ -465,13 +478,16 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("rssUpdates", (collectionApi) => {
-    const blogUpdates = getLocalizedContent(collectionApi, "blogPost", "Blog")
+    const blogUpdates = getPublishedLocalizedContent(
+      collectionApi,
+      "blogPost",
+      "Blog",
+    )
       .filter((entry) => isDefaultLanguageEntry(entry, "Blog"))
-      .filter(isPublishedBlogPost)
       .map(normalizeBlogRssUpdate)
       .filter(Boolean);
 
-    const projectUpdates = getLocalizedContent(
+    const projectUpdates = getPublishedLocalizedContent(
       collectionApi,
       "caseStudy",
       "Project",
@@ -578,5 +594,19 @@ module.exports._i18nTest = {
   whatsappUrl,
   dictionaryKeyCounts,
   validateDictionaryParity,
+  validateTranslatableEntries,
+};
+
+module.exports._contentTest = {
+  DEFAULT_LANGUAGE,
+  addEntriesToTranslationMap,
+  getEntryLanguage,
+  groupContentByLanguage,
+  isDefaultLanguageEntry,
+  isPublishedBlogPost,
+  isPublishedProject,
+  localizedContentPermalink,
+  validateContentRecord,
+  validateProjectSlugPairs,
   validateTranslatableEntries,
 };

@@ -1,11 +1,11 @@
 const {
   isPublishedContent,
   localizedContentPermalink,
-} = require("../../_lib/localized-content.js");
+} = require("../../../_lib/localized-content.js");
 
 module.exports = {
   tags: ["caseStudy"],
-  lang: "en",
+  lang: "de",
   status: "Draft",
   layout: "layouts/case-study.njk",
   eleventyComputed: {

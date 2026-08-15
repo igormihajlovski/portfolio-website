@@ -3,705 +3,790 @@ media:
     label: Images
     input: images
     output: /images
-    categories: [image]
+    categories:
+      - image
     rename: safe
-
-content:
-  - name: projects
-    label: Projects
-    type: collection
-    path: content/projects
-    format: yaml-frontmatter
-    filename: "{slug}.md"
-
-    view:
-      fields: [title, category, published_date, show_on_homepage]
-      primary: title
-      sort: [published_date, title]
-      search: [title, category, short_description]
-      default:
-        sort: published_date
-        order: desc
-
+components:
+  translation_id:
+    label: Translation ID
+    type: string
+    required: true
+    description: >-
+      Stable internal identifier. Use the same value across translations and do not change it after
+      creation or publication.
+    pattern:
+      regex: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+      message: Use lowercase letters, numbers, and single hyphens only.
+    options:
+      minlength: 3
+      maxlength: 120
+  content_slug:
+    label: Slug
+    type: string
+    required: true
+    pattern:
+      regex: ^[a-z0-9-]+$
+      message: Use lowercase letters, numbers, and hyphens only.
+    options:
+      minlength: 3
+      maxlength: 100
+  published_date:
+    label: Published Date
+    type: date
+    required: true
+    options:
+      format: yyyy-MM-dd
+  publication_status:
+    type: select
+    label: Publication Status
+    required: true
+    default: Draft
+    description: >-
+      Controls production publication. Draft creates no route and is excluded from listings,
+      sitemap, counterparts, and RSS.
+    options:
+      values:
+        - Draft
+        - Published
+  project_title:
+    label: Project Title
+    type: string
+    required: true
+  project_category:
+    label: Category
+    type: select
+    required: true
+    options:
+      values:
+        - Case Study
+        - Webflow
+        - CRM Integration
+        - Automation
+        - Development
+        - SEO
+        - Tutorial
+  project_newsletter_published_at:
+    label: Newsletter Published At
+    type: date
+    required: false
+    default: ''
+    description: >-
+      Leave empty to exclude this Project from newsletter/RSS updates. Set once only when this
+      Project is ready to be announced to subscribers.
+    options:
+      time: true
+      format: yyyy-MM-dd'T'HH:mm:ssXXX
+  project_project_status:
+    label: Project Status (Lifecycle)
+    type: select
+    required: true
+    default: Completed
+    options:
+      values:
+        - Completed
+        - In Progress
+        - Maintenance
+    description: Describes the project lifecycle only. It does not control publication.
+  project_featured_project:
+    label: Featured Project
+    type: boolean
+    default: false
+  project_show_on_homepage:
+    label: Show on Homepage
+    type: boolean
+    default: false
+    description: Show this project in the featured section on the homepage.
+  project_short_description:
+    label: Short Description
+    type: text
+    required: true
+    description: Used on the homepage and Projects listing.
+    options:
+      maxlength: 300
+  project_hero:
+    label: 1. Hero
+    type: object
+    required: true
     fields:
-      # =========================
-      # General
-      # =========================
-
-      - name: title
-        label: Project Title
-        type: string
-        required: true
-
-      - name: slug
-        label: Slug
-        type: string
-        required: true
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: "Use lowercase letters, numbers, and hyphens only."
-        options:
-          minlength: 3
-          maxlength: 100
-
-      - name: translation_id
-        label: Translation ID
-        type: string
-        required: true
-        description: "Stable internal translation identifier. Set it once and do not change it after publication."
-        pattern:
-          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          message: "Use lowercase letters, numbers, and single hyphens only."
-        options:
-          minlength: 3
-          maxlength: 120
-
-      - name: category
-        label: Category
-        type: select
-        required: true
-        options:
-          values:
-            - Case Study
-            - Webflow
-            - CRM Integration
-            - Automation
-            - Development
-            - SEO
-            - Tutorial
-
-      - name: published_date
-        label: Published Date
-        type: date
-        required: true
-        options:
-          format: yyyy-MM-dd
-
-      - name: newsletter_published_at
-        label: Newsletter Published At
-        type: date
-        required: false
-        default: ""
-        description: "Leave empty to exclude this Project from newsletter/RSS updates. Set once only when this Project is ready to be announced to subscribers."
-        options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
-
-      - name: project_status
-        label: Project Status
-        type: select
-        required: true
-        default: Completed
-        options:
-          values:
-            - Completed
-            - In Progress
-            - Maintenance
-
-      - name: featured_project
-        label: Featured Project
-        type: boolean
-        default: false
-
-      - name: show_on_homepage
-        label: Show on Homepage
-        type: boolean
-        default: false
-        description: "Show this project in the featured section on the homepage."
-
-      - name: short_description
-        label: Short Description
+      - name: subtitle
+        label: Short Subtitle
         type: text
         required: true
-        description: "Used on the homepage and Projects listing."
         options:
-          maxlength: 300
-
-      # =========================
-      # 1. Hero
-      # =========================
-
-      - name: hero
-        label: 1. Hero
-        type: object
-        required: true
-        fields:
-          - name: subtitle
-            label: Short Subtitle
-            type: text
-            required: true
-            options:
-              maxlength: 240
-
-          - name: featured_image
-            label: Featured Image
-            type: image
-            required: true
-            options:
-              media: images
-              path: blog
-              rename: safe
-
-          - name: services
-            label: Services
-            type: string
-            list: true
-            required: true
-
-          - name: technologies
-            label: Technologies
-            type: string
-            list: true
-            required: true
-
-      # =========================
-      # 2. Project Information
-      # =========================
-
-      - name: project_information
-        label: 2. Project Information
-        type: object
-        required: true
-        fields:
-          - name: client
-            label: Client
-            type: string
-            required: true
-
-          - name: industry
-            label: Industry
-            type: string
-            required: true
-
-          - name: country
-            label: Country
-            type: string
-            required: true
-
-          - name: business_type
-            label: Business Type
-            type: string
-            required: true
-
-          - name: platform
-            label: Platform
-            type: string
-            required: true
-
-          - name: cms
-            label: CMS
-            type: string
-            required: false
-
-          - name: duration
-            label: Duration
-            type: string
-            required: false
-
-          - name: website
-            label: Website
-            type: string
-            required: false
-
-      # =========================
-      # 3. Project Overview
-      # =========================
-
-      - name: project_overview
-        label: 3. Project Overview
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 4. Challenge
-      # =========================
-
-      - name: challenge
-        label: 4. Challenge
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 5. Goals
-      # =========================
-
-      - name: goals
-        label: 5. Goals
-        type: string
-        list: true
-        required: true
-
-      # =========================
-      # 6. My Role
-      # =========================
-
-      - name: my_role
-        label: 6. My Role
-        type: object
-        required: true
-        fields:
-          - name: roles
-            label: Roles
-            type: string
-            list: true
-            required: true
-
-          - name: responsibilities
-            label: Responsibilities
-            type: string
-            list: true
-            required: true
-
-      # =========================
-      # 7. My Approach
-      # =========================
-
-      - name: my_approach
-        label: 7. My Approach
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 8. Design Process
-      # =========================
-
-      - name: design_process
-        label: 8. Design Process
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 9. Development Process
-      # =========================
-
-      - name: development_process
-        label: 9. Development Process
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 10. Tech Stack
-      # =========================
-
-      - name: tech_stack
-        label: 10. Tech Stack
-        type: object
-        required: true
-        fields:
-          - name: development
-            label: Development
-            type: string
-            list: true
-
-          - name: cms
-            label: CMS
-            type: string
-            list: true
-
-          - name: libraries
-            label: Libraries
-            type: string
-            list: true
-
-          - name: integrations
-            label: Integrations
-            type: string
-            list: true
-
-          - name: tools
-            label: Tools
-            type: string
-            list: true
-
-      # =========================
-      # 11. Third-Party Integrations
-      # =========================
-
-      - name: third_party_integrations
-        label: 11. Third-Party Integrations
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{name} ({index})"
-        fields:
-          - name: name
-            label: Name
-            type: string
-            required: true
-
-          - name: purpose
-            label: Purpose
-            type: text
-            required: true
-
-          - name: website
-            label: Website
-            type: string
-            required: false
-
-      # =========================
-      # 12. Key Features
-      # =========================
-
-      - name: key_features
-        label: 12. Key Features
-        type: string
-        list: true
-        required: true
-
-      # =========================
-      # 13. Deliverables
-      # =========================
-
-      - name: deliverables
-        label: 13. Deliverables
-        type: string
-        list: true
-        required: true
-
-      # =========================
-      # 14. Results
-      # =========================
-
-      - name: results
-        label: 14. Results
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 15. Lessons Learned
-      # =========================
-
-      - name: lessons_learned
-        label: 15. Lessons Learned
-        type: rich-text
-        required: true
-        options:
-          format: markdown
-          media: images
-          path: blog
-          rename: safe
-          switcher: true
-
-      # =========================
-      # 16. Project Gallery
-      # =========================
-
-      - name: gallery
-        label: 16. Project Gallery
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{title} ({index})"
-        fields:
-          - name: title
-            label: Image Title
-            type: string
-            required: true
-
-          - name: image
-            label: Image
-            type: image
-            required: true
-            options:
-              media: images
-              path: blog
-              rename: safe
-
-          - name: alt
-            label: Alt Text
-            type: string
-            required: true
-
-          - name: caption
-            label: Caption
-            type: text
-            required: false
-
-      # =========================
-      # 17. Project Links
-      # =========================
-
-      - name: project_links
-        label: 17. Project Links
-        type: object
-        fields:
-          - name: live_url
-            label: Live Project URL
-            type: string
-            required: false
-
-          - name: live_button_text
-            label: Live Project Button Text
-            type: string
-            required: false
-            default: "View Project"
-
-          - name: github_url
-            label: GitHub URL
-            type: string
-            required: false
-
-          - name: github_button_text
-            label: GitHub Button Text
-            type: string
-            required: false
-            default: "View Source Code"
-
-          - name: demo_url
-            label: Demo URL
-            type: string
-            required: false
-
-          - name: demo_button_text
-            label: Demo Button Text
-            type: string
-            required: false
-            default: "View Demo"
-
-      # =========================
-      # 18. SEO
-      # =========================
-
-      - name: seo
-        label: 18. SEO
-        type: object
-        required: true
-        fields:
-          - name: title
-            label: SEO Title
-            type: string
-            required: true
-            options:
-              maxlength: 60
-
-          - name: description
-            label: SEO Description
-            type: text
-            required: true
-            options:
-              maxlength: 160
-
-          - name: og_image
-            label: Open Graph Image
-            type: image
-            required: false
-            options:
-              media: images
-              path: blog
-              rename: safe
-
-  - name: blog
-    label: Blog Posts
-    type: collection
-    path: content/blog
-    format: yaml-frontmatter
-    filename: "{slug}.md"
-
-    view:
-      fields: [title, category, published_date, status, featured]
-      primary: title
-      sort: [published_date, title]
-      search: [title, category, short_description, tags]
-      default:
-        sort: published_date
-        order: desc
-
-    fields:
-      # =========================
-      # General
-      # =========================
-
-      - name: title
-        label: Title
-        type: string
-        required: true
-
-      - name: slug
-        label: Slug
-        type: string
-        required: true
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: "Use lowercase letters, numbers, and hyphens only."
-        options:
-          minlength: 3
-          maxlength: 100
-
-      - name: translation_id
-        label: Translation ID
-        type: string
-        required: true
-        description: "Stable internal translation identifier. Set it once and do not change it after publication."
-        pattern:
-          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          message: "Use lowercase letters, numbers, and single hyphens only."
-        options:
-          minlength: 3
-          maxlength: 120
-
-      - name: published_date
-        label: Published Date
-        type: date
-        required: true
-        options:
-          format: yyyy-MM-dd
-
-      - name: status
-        label: Status
-        type: select
-        required: true
-        default: Draft
-        options:
-          values:
-            - Draft
-            - Published
-
-      - name: featured
-        label: Featured
-        type: boolean
-        default: false
-
-      - name: category
-        label: Category
-        type: string
-        required: true
-
-      - name: tags
-        label: Tags
-        type: string
-        list: true
-        required: false
-
-      - name: short_description
-        label: Short Description / Excerpt
-        type: text
-        required: true
-        description: "A concise summary used on Blog cards and as the SEO description fallback."
-        options:
-          maxlength: 300
-
-      # =========================
-      # Hero / Media
-      # =========================
-
+          maxlength: 240
       - name: featured_image
         label: Featured Image
+        type: image
+        required: true
+        options:
+          media: images
+          path: blog
+          rename: safe
+      - name: services
+        label: Services
+        type: string
+        list: true
+        required: true
+      - name: technologies
+        label: Technologies
+        type: string
+        list: true
+        required: true
+  project_project_information:
+    label: 2. Project Information
+    type: object
+    required: true
+    fields:
+      - name: client
+        label: Client
+        type: string
+        required: true
+      - name: industry
+        label: Industry
+        type: string
+        required: true
+      - name: country
+        label: Country
+        type: string
+        required: true
+      - name: business_type
+        label: Business Type
+        type: string
+        required: true
+      - name: platform
+        label: Platform
+        type: string
+        required: true
+      - name: cms
+        label: CMS
+        type: string
+        required: false
+      - name: duration
+        label: Duration
+        type: string
+        required: false
+      - name: website
+        label: Website
+        type: string
+        required: false
+  project_project_overview:
+    label: 3. Project Overview
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_challenge:
+    label: 4. Challenge
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_goals:
+    label: 5. Goals
+    type: string
+    list: true
+    required: true
+  project_my_role:
+    label: 6. My Role
+    type: object
+    required: true
+    fields:
+      - name: roles
+        label: Roles
+        type: string
+        list: true
+        required: true
+      - name: responsibilities
+        label: Responsibilities
+        type: string
+        list: true
+        required: true
+  project_my_approach:
+    label: 7. My Approach
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_design_process:
+    label: 8. Design Process
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_development_process:
+    label: 9. Development Process
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_tech_stack:
+    label: 10. Tech Stack
+    type: object
+    required: true
+    fields:
+      - name: development
+        label: Development
+        type: string
+        list: true
+      - name: cms
+        label: CMS
+        type: string
+        list: true
+      - name: libraries
+        label: Libraries
+        type: string
+        list: true
+      - name: integrations
+        label: Integrations
+        type: string
+        list: true
+      - name: tools
+        label: Tools
+        type: string
+        list: true
+  project_third_party_integrations:
+    label: 11. Third-Party Integrations
+    type: object
+    list:
+      collapsible:
+        collapsed: true
+        summary: '{name} ({index})'
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: purpose
+        label: Purpose
+        type: text
+        required: true
+      - name: website
+        label: Website
+        type: string
+        required: false
+  project_key_features:
+    label: 12. Key Features
+    type: string
+    list: true
+    required: true
+  project_deliverables:
+    label: 13. Deliverables
+    type: string
+    list: true
+    required: true
+  project_results:
+    label: 14. Results
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_lessons_learned:
+    label: 15. Lessons Learned
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  project_gallery:
+    label: 16. Project Gallery
+    type: object
+    list:
+      collapsible:
+        collapsed: true
+        summary: '{title} ({index})'
+    fields:
+      - name: title
+        label: Image Title
+        type: string
+        required: true
+      - name: image
+        label: Image
+        type: image
+        required: true
+        options:
+          media: images
+          path: blog
+          rename: safe
+      - name: alt
+        label: Alt Text
+        type: string
+        required: true
+      - name: caption
+        label: Caption
+        type: text
+        required: false
+  project_project_links:
+    label: 17. Project Links
+    type: object
+    fields:
+      - name: live_url
+        label: Live Project URL
+        type: string
+        required: false
+      - name: live_button_text
+        label: Live Project Button Text
+        type: string
+        required: false
+        description: Optional localized label. Leave empty to use the locale-aware shared UI label.
+      - name: github_url
+        label: GitHub URL
+        type: string
+        required: false
+      - name: github_button_text
+        label: GitHub Button Text
+        type: string
+        required: false
+        description: Optional localized label. Leave empty to use the locale-aware shared UI label.
+      - name: demo_url
+        label: Demo URL
+        type: string
+        required: false
+      - name: demo_button_text
+        label: Demo Button Text
+        type: string
+        required: false
+        description: Optional localized label. Leave empty to use the locale-aware shared UI label.
+  project_seo:
+    label: 18. SEO
+    type: object
+    required: true
+    fields:
+      - name: title
+        label: SEO Title
+        type: string
+        required: true
+        options:
+          maxlength: 60
+      - name: description
+        label: SEO Description
+        type: text
+        required: true
+        options:
+          maxlength: 160
+      - name: og_image
+        label: Open Graph Image
         type: image
         required: false
         options:
           media: images
           path: blog
           rename: safe
-
-      - name: featured_image_alt
-        label: Featured Image Alt Text
+  blog_title:
+    label: Title
+    type: string
+    required: true
+  blog_featured:
+    label: Featured
+    type: boolean
+    default: false
+  blog_category:
+    label: Category
+    type: string
+    required: true
+  blog_tags:
+    label: Tags
+    type: string
+    list: true
+    required: false
+  blog_short_description:
+    label: Short Description / Excerpt
+    type: text
+    required: true
+    description: A concise summary used on Blog cards and as the SEO description fallback.
+    options:
+      maxlength: 300
+  blog_featured_image:
+    label: Featured Image
+    type: image
+    required: false
+    options:
+      media: images
+      path: blog
+      rename: safe
+  blog_featured_image_alt:
+    label: Featured Image Alt Text
+    type: string
+    required: false
+    description: Describe the image for accessibility. The article title is used as a fallback.
+  blog_author:
+    label: Author
+    type: string
+    required: true
+    default: Igor Mihajlovski
+  blog_article_content:
+    label: Article Content
+    type: rich-text
+    required: true
+    options:
+      format: markdown
+      media: images
+      path: blog
+      rename: safe
+      switcher: true
+  blog_related_project_label:
+    label: Related Project Label
+    type: string
+    required: false
+  blog_related_project_url:
+    label: Related Project URL
+    type: string
+    required: false
+    description: Optional URL for a relevant Case Study, such as /projects/example/.
+  blog_seo:
+    label: SEO
+    type: object
+    required: false
+    fields:
+      - name: title
+        label: SEO Title
         type: string
         required: false
-        description: "Describe the image for accessibility. The article title is used as a fallback."
-
-      # =========================
-      # Article
-      # =========================
-
-      - name: author
-        label: Author
-        type: string
-        required: true
-        default: "Igor Mihajlovski"
-
-      - name: article_content
-        label: Article Content
-        type: rich-text
-        required: true
         options:
-          format: markdown
+          maxlength: 60
+      - name: description
+        label: SEO Description
+        type: text
+        required: false
+        options:
+          maxlength: 160
+      - name: og_image
+        label: Open Graph Image
+        type: image
+        required: false
+        options:
           media: images
           path: blog
           rename: safe
-          switcher: true
-
-      # =========================
-      # Related Content
-      # =========================
-
-      - name: related_project_label
-        label: Related Project Label
-        type: string
-        required: false
-
-      - name: related_project_url
-        label: Related Project URL
-        type: string
-        required: false
-        description: "Optional URL for a relevant Case Study, such as /projects/example/."
-
-      # =========================
-      # SEO
-      # =========================
-
-      - name: seo
-        label: SEO
-        type: object
-        required: false
+  blog_related_project_translation_id:
+    type: string
+    label: Related Project Translation ID
+    required: false
+    description: >-
+      Optional stable Project translation ID for future locale-aware counterpart resolution. This
+      does not replace existing visible links yet.
+    pattern:
+      regex: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+      message: Use lowercase letters, numbers, and single hyphens only.
+    options:
+      minlength: 3
+      maxlength: 120
+content:
+  - name: projects
+    label: Projects
+    type: group
+    items:
+      - name: projects_en
+        label: Projects — English
+        type: collection
+        path: content/projects
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - show_on_homepage
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+          default:
+            sort: published_date
+            order: desc
         fields:
           - name: title
-            label: SEO Title
-            type: string
-            required: false
-            options:
-              maxlength: 60
-
-          - name: description
-            label: SEO Description
-            type: text
-            required: false
-            options:
-              maxlength: 160
-
-          - name: og_image
-            label: Open Graph Image
-            type: image
-            required: false
-            options:
-              media: images
-              path: blog
-              rename: safe
+            component: project_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: status
+            component: publication_status
+          - name: category
+            component: project_category
+          - name: published_date
+            component: published_date
+          - name: newsletter_published_at
+            component: project_newsletter_published_at
+          - name: project_status
+            component: project_project_status
+          - name: featured_project
+            component: project_featured_project
+          - name: show_on_homepage
+            component: project_show_on_homepage
+          - name: short_description
+            component: project_short_description
+          - name: hero
+            component: project_hero
+          - name: project_information
+            component: project_project_information
+          - name: project_overview
+            component: project_project_overview
+          - name: challenge
+            component: project_challenge
+          - name: goals
+            component: project_goals
+          - name: my_role
+            component: project_my_role
+          - name: my_approach
+            component: project_my_approach
+          - name: design_process
+            component: project_design_process
+          - name: development_process
+            component: project_development_process
+          - name: tech_stack
+            component: project_tech_stack
+          - name: third_party_integrations
+            component: project_third_party_integrations
+          - name: key_features
+            component: project_key_features
+          - name: deliverables
+            component: project_deliverables
+          - name: results
+            component: project_results
+          - name: lessons_learned
+            component: project_lessons_learned
+          - name: gallery
+            component: project_gallery
+          - name: project_links
+            component: project_project_links
+          - name: seo
+            component: project_seo
+      - name: projects_de
+        label: Projects — Deutsch
+        type: collection
+        path: content/de/projects
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - show_on_homepage
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+          default:
+            sort: published_date
+            order: desc
+        fields:
+          - name: title
+            component: project_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: status
+            component: publication_status
+          - name: category
+            component: project_category
+          - name: published_date
+            component: published_date
+          - name: project_status
+            component: project_project_status
+          - name: featured_project
+            component: project_featured_project
+          - name: show_on_homepage
+            component: project_show_on_homepage
+          - name: short_description
+            component: project_short_description
+          - name: hero
+            component: project_hero
+          - name: project_information
+            component: project_project_information
+          - name: project_overview
+            component: project_project_overview
+          - name: challenge
+            component: project_challenge
+          - name: goals
+            component: project_goals
+          - name: my_role
+            component: project_my_role
+          - name: my_approach
+            component: project_my_approach
+          - name: design_process
+            component: project_design_process
+          - name: development_process
+            component: project_development_process
+          - name: tech_stack
+            component: project_tech_stack
+          - name: third_party_integrations
+            component: project_third_party_integrations
+          - name: key_features
+            component: project_key_features
+          - name: deliverables
+            component: project_deliverables
+          - name: results
+            component: project_results
+          - name: lessons_learned
+            component: project_lessons_learned
+          - name: gallery
+            component: project_gallery
+          - name: project_links
+            component: project_project_links
+          - name: seo
+            component: project_seo
+  - name: blog
+    label: Blog
+    type: group
+    items:
+      - name: blog_en
+        label: Blog — English
+        type: collection
+        path: content/blog
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - featured
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+            - tags
+          default:
+            sort: published_date
+            order: desc
+        fields:
+          - name: title
+            component: blog_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: published_date
+            component: published_date
+          - name: status
+            component: publication_status
+          - name: featured
+            component: blog_featured
+          - name: category
+            component: blog_category
+          - name: tags
+            component: blog_tags
+          - name: short_description
+            component: blog_short_description
+          - name: featured_image
+            component: blog_featured_image
+          - name: featured_image_alt
+            component: blog_featured_image_alt
+          - name: author
+            component: blog_author
+          - name: article_content
+            component: blog_article_content
+          - name: related_project_translation_id
+            component: blog_related_project_translation_id
+          - name: related_project_label
+            component: blog_related_project_label
+          - name: related_project_url
+            component: blog_related_project_url
+          - name: seo
+            component: blog_seo
+      - name: blog_de
+        label: Blog — Deutsch
+        type: collection
+        path: content/de/blog
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - featured
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+            - tags
+          default:
+            sort: published_date
+            order: desc
+        fields:
+          - name: title
+            component: blog_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: published_date
+            component: published_date
+          - name: status
+            component: publication_status
+          - name: featured
+            component: blog_featured
+          - name: category
+            component: blog_category
+          - name: tags
+            component: blog_tags
+          - name: short_description
+            component: blog_short_description
+          - name: featured_image
+            component: blog_featured_image
+          - name: featured_image_alt
+            component: blog_featured_image_alt
+          - name: author
+            component: blog_author
+          - name: article_content
+            component: blog_article_content
+          - name: related_project_translation_id
+            component: blog_related_project_translation_id
+          - name: related_project_label
+            component: blog_related_project_label
+          - name: related_project_url
+            component: blog_related_project_url
+          - name: seo
+            component: blog_seo

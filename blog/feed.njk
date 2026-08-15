@@ -18,7 +18,9 @@ eleventyExcludeFromCollections: true
     <atom:link href="{{ feedUrl | escape }}" rel="self" type="application/rss+xml" />
     <description>{{ feedDescription | escape }}</description>
     <language>en</language>
-    {%- for post in collections.blogPosts %}
+    {%- for update in collections.rssUpdates %}
+      {%- if update.contentType == "Blog" %}
+      {%- set post = update.source %}
       {%- set itemTitle = post.data.title or "" %}
       {%- set publishedDate = post.data.published_date | rssDate %}
       {%- set robots = post.data.robots or "" %}
@@ -41,6 +43,22 @@ eleventyExcludeFromCollections: true
         {%- endfor %}
         {%- if post.data.featured_image %}
       <media:content url="{{ post.data.featured_image | absoluteUrl | escape }}" medium="image" />
+        {%- endif %}
+    </item>
+      {%- endif %}
+      {%- else %}
+    <item>
+      <title>{{ update.title | escape }}</title>
+      <link>{{ update.canonicalUrl | escape }}</link>
+      <guid isPermaLink="true">{{ update.guid | escape }}</guid>
+      <pubDate>{{ update.publishedAt | rssDate | escape }}</pubDate>
+      <dc:creator>{{ update.author | escape }}</dc:creator>
+      <description>{{ update.description | escape }}</description>
+        {%- for category in update.categories %}
+      <category>{{ category | escape }}</category>
+        {%- endfor %}
+        {%- if update.featuredImage %}
+      <media:content url="{{ update.featuredImage | absoluteUrl | escape }}" medium="image" />
         {%- endif %}
     </item>
       {%- endif %}

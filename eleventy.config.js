@@ -115,6 +115,118 @@ function isPublishedBlogPost(post) {
   return String(post.data.status || "").trim().toLowerCase() === "published";
 }
 
+function absoluteSiteUrl(value = "") {
+  if (!value) return "";
+  if (/^https?:\/\//.test(value)) return value;
+
+  const path = value.startsWith("/") ? value : `/${value}`;
+  return `${site.url}${path}`;
+}
+
+function hasNoindexDirective(entry) {
+  return /\bnoindex\b/i.test(String(entry.data?.robots || ""));
+}
+
+function asNewsletterDate(value) {
+  if (!value) return null;
+
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? null : value;
+  }
+
+  const timestamp = String(value).trim();
+  if (
+    !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(
+      timestamp,
+    )
+  ) {
+    return null;
+  }
+
+  const date = new Date(timestamp);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function normalizeBlogRssUpdate(post) {
+  const title = post.data.title || "";
+  const publishedAt = asDate(post.data.published_date);
+
+  if (!post.url || !String(title).trim() || !publishedAt) return null;
+  if (hasNoindexDirective(post)) return null;
+
+  const canonicalUrl = absoluteSiteUrl(post.url);
+  const category = post.data.category || "";
+  const categories = [];
+
+  if (category) categories.push(category);
+
+  for (const tag of post.data.tags || []) {
+    const normalizedTag = String(tag).toLowerCase();
+    if (
+      normalizedTag !== "blogpost" &&
+      normalizedTag !== String(category).toLowerCase()
+    ) {
+      categories.push(tag);
+    }
+  }
+
+  return {
+    contentType: "Blog",
+    title,
+    canonicalUrl,
+    guid: canonicalUrl,
+    publishedAt,
+    description: post.data.short_description || "",
+    featuredImage: absoluteSiteUrl(post.data.featured_image || ""),
+    categories,
+    author: post.data.author || "Igor Mihajlovski",
+    source: post,
+  };
+}
+
+function normalizeProjectRssUpdate(project) {
+  const data = project.data || project;
+  const title = data.title || "";
+  const slug = String(data.slug || "").trim();
+  const description = data.short_description || "";
+  const publishedAt = asNewsletterDate(data.newsletter_published_at);
+
+  if (!publishedAt) return null;
+  if (!String(title).trim() || !String(description).trim()) return null;
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
+  if (hasNoindexDirective({ data })) return null;
+
+  const canonicalUrl = absoluteSiteUrl(`/projects/${slug}/`);
+  const categories = ["Project"];
+  const projectCategory = String(data.category || "").trim();
+
+  if (projectCategory && projectCategory.toLowerCase() !== "project") {
+    categories.push(data.category);
+  }
+
+  return {
+    contentType: "Project",
+    title,
+    canonicalUrl,
+    guid: canonicalUrl,
+    publishedAt,
+    description,
+    featuredImage: absoluteSiteUrl(data.hero?.featured_image || ""),
+    categories,
+    author: "Igor Mihajlovski",
+    source: project,
+  };
+}
+
+function compareRssUpdates(left, right) {
+  const leftDate = left.publishedAt?.getTime() || 0;
+  const rightDate = right.publishedAt?.getTime() || 0;
+
+  if (leftDate !== rightDate) return rightDate - leftDate;
+
+  return left.canonicalUrl.localeCompare(right.canonicalUrl);
+}
+
 module.exports = function (eleventyConfig) {
   ["css", "js", "images", "documents", "php"].forEach((directory) => {
     eleventyConfig.addPassthroughCopy(directory);
@@ -136,6 +248,21 @@ module.exports = function (eleventyConfig) {
       .filter(isPublishedBlogPost)
       .sort(compareBlogPosts),
   );
+
+  eleventyConfig.addCollection("rssUpdates", (collectionApi) => {
+    const blogUpdates = collectionApi
+      .getFilteredByTag("blogPost")
+      .filter(isPublishedBlogPost)
+      .map(normalizeBlogRssUpdate)
+      .filter(Boolean);
+
+    const projectUpdates = collectionApi
+      .getFilteredByTag("caseStudy")
+      .map(normalizeProjectRssUpdate)
+      .filter(Boolean);
+
+    return [...blogUpdates, ...projectUpdates].sort(compareRssUpdates);
+  });
 
   eleventyConfig.addCollection("sitemapPages", (collectionApi) =>
     collectionApi
@@ -213,4 +340,12 @@ module.exports = function (eleventyConfig) {
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",
   };
+};
+
+module.exports._rssTest = {
+  asNewsletterDate,
+  isPublishedBlogPost,
+  normalizeBlogRssUpdate,
+  normalizeProjectRssUpdate,
+  compareRssUpdates,
 };

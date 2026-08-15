@@ -3,9 +3,9 @@
   <head>
     {% include "includes/head.njk" %}
   </head>
-  <body class="case-study-site">
+  <body{% if not homePage %} class="case-study-site"{% endif %}>
     {% include "includes/header.njk" %}
-    <main>{{ content | safe }}</main>
+    {% if homePage %}{{ content | safe }}{% else %}<main>{{ content | safe }}</main>{% endif %}
     {% include "includes/footer.njk" %}
     {% include "includes/scripts.njk" %}
   </body>

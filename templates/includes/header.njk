@@ -16,7 +16,7 @@
         <span class="contact-widget-action-copy"><span class="contact-widget-action-title">Call me</span><span class="contact-widget-action-subtitle">Speak with me directly</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
       </a>
-      <a href="/#contact" class="contact-widget-action">
+      <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="contact-widget-action">
         <span class="contact-widget-action-icon" style="display: inline-flex; width: 36px; height: 36px; min-width: 36px; overflow: hidden" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.5h18v13H3z" /><path d="m4 7 8 6 8-6" /></svg></span>
         <span class="contact-widget-action-copy"><span class="contact-widget-action-title">Email</span><span class="contact-widget-action-subtitle">Send me a message</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
@@ -31,12 +31,12 @@
         <img src="/images/Logo-Igor-Mihajlovski-Portfolio-Brend.svg" loading="eager" alt="Igor Mihajlovski – Webflow Developer" height="48" class="logo-mobile" />
       </a>
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a href="/#hero" class="nav-link w-nav-link">Home</a>
-        <a href="/#about-me" class="nav-link w-nav-link">About Me</a>
+        <a href="{% if homePage %}#hero{% else %}/#hero{% endif %}" class="nav-link w-nav-link">Home</a>
+        <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="nav-link w-nav-link">About Me</a>
         <a href="/projects/" class="nav-link w-nav-link">Portfolio</a>
         <a href="/blog/" class="nav-link w-nav-link">Blog</a>
-        <a href="/#services" class="nav-link w-nav-link">Services</a>
-        <a href="/#contact" class="nav-btn w-nav-link">Contact Me</a>
+        <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="nav-link w-nav-link">Services</a>
+        <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="nav-btn w-nav-link">Contact Me</a>
       </nav>
       <div class="menu-button w-nav-button">
         <div class="hamburger-wrapper">

@@ -8,7 +8,7 @@
 <meta property="og:type" content="{{ ogType | default('website') }}" />
 <meta name="twitter:title" content="{{ metaTitle | escape }}" />
 <meta name="twitter:description" content="{{ metaDescription | escape }}" />
-{% if metaImage %}<meta name="twitter:image" content="{{ metaImage | absoluteUrl | escape }}" />{% endif %}
+{% if metaImage and not suppressTwitterImage %}<meta name="twitter:image" content="{{ metaImage | absoluteUrl | escape }}" />{% endif %}
 <meta name="twitter:card" content="{% if metaImage %}summary_large_image{% else %}summary{% endif %}" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="hM_wPrtIn6I409cKvss7abYFWBK-JZDYm_rfmT1WqZ4" name="google-site-verification" />
@@ -18,6 +18,7 @@
 <link href="/css/case-studies.css" rel="stylesheet" type="text/css" />
 {% if blogStyles %}<link href="/css/blog.css" rel="stylesheet" type="text/css" />{% endif %}
 <link href="/css/legal.css?v=1" rel="stylesheet" type="text/css" />
+{% if newsletterStyles %}<link href="/css/newsletter.css?v=1" rel="stylesheet" type="text/css" />{% endif %}
 <style>
   html.w-mod-js:not(.w-mod-ix3) :is(.top-line, .middle-line, .bottom-line) {
     visibility: hidden !important;
@@ -41,6 +42,18 @@
 <link href="/images/webclip-180.png" rel="apple-touch-icon" sizes="180x180" />
 <link href="/images/webclip-192.png" rel="icon" type="image/png" sizes="192x192" />
 <link href="/images/webclip.png" rel="icon" type="image/png" sizes="512x512" />
-<link rel="alternate" type="application/rss+xml" title="Igor Mihajlovski Blog" href="{{ '/blog/feed.xml' | absoluteUrl | escape }}" />
+{% if not suppressRssAlternate %}<link rel="alternate" type="application/rss+xml" title="Igor Mihajlovski Blog" href="{{ '/blog/feed.xml' | absoluteUrl | escape }}" />{% endif %}
 <link href="{{ canonicalUrl | escape }}" rel="canonical" />
+{% if homeSchema %}{% include "includes/home-person-schema.njk" %}{% endif %}
 {% include "includes/analytics-consent.njk" %}
+{% if turnstile %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
+{% if faqStyles %}
+<style>
+  .faq-vertical-line {
+    transition: opacity 0.3s ease;
+  }
+  .faq-item.active .faq-vertical-line {
+    opacity: 0;
+  }
+</style>
+{% endif %}

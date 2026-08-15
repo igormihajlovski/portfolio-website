@@ -5,11 +5,11 @@
       <div class="second-column">
         <div class="footer-menu">
           <a href="/" class="footer-menu-links">Home</a>
-          <a href="/#about-me" class="footer-menu-links">About Me</a>
+          <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="footer-menu-links">About Me</a>
           <a href="/projects/" class="footer-menu-links">Portfolio</a>
           <a href="/blog/" class="footer-menu-links">Blog</a>
-          <a href="/#services" class="footer-menu-links">Services</a>
-          <a href="/#contact" class="footer-menu-links">Contact Me</a>
+          <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="footer-menu-links">Services</a>
+          <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="footer-menu-links">Contact Me</a>
         </div>
         <div class="footer-legal">
           <a href="/privacy-policy/" class="footer-legal-link">Privacy Policy</a>

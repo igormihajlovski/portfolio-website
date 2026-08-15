@@ -1,24 +1,24 @@
 <div class="contact-widget" data-contact-widget style="position: fixed; right: 20px; bottom: 16px; z-index: 9999">
-  <button type="button" class="whatsapp contact-widget-trigger" aria-expanded="false" aria-controls="contact-widget-panel" aria-label="Open contact options">
+  <button type="button" class="whatsapp contact-widget-trigger" aria-expanded="false" aria-controls="contact-widget-panel" aria-label="{{ 'contactWidget.openLabel' | t(lang) | escape }}" data-open-label="{{ 'contactWidget.openLabel' | t(lang) | escape }}" data-close-label="{{ 'contactWidget.closeLabel' | t(lang) | escape }}">
     <img src="/images/whatsapp.svg" loading="lazy" width="48" height="48" alt="" class="whatsapp-icon" />
   </button>
   <section id="contact-widget-panel" class="contact-widget-panel" aria-labelledby="contact-widget-title" aria-describedby="contact-widget-description" style="position: absolute; right: 0; bottom: calc(100% + 12px); width: 320px; max-width: calc(100vw - 40px)" hidden>
-    <h2 id="contact-widget-title" class="contact-widget-title">Let&rsquo;s talk</h2>
-    <p id="contact-widget-description" class="contact-widget-description">Have a project in mind? I&rsquo;m happy to discuss it.</p>
+    <h2 id="contact-widget-title" class="contact-widget-title">{{ 'contactWidget.title' | t(lang) | escape }}</h2>
+    <p id="contact-widget-description" class="contact-widget-description">{{ 'contactWidget.description' | t(lang) | escape }}</p>
     <div class="contact-widget-actions">
-      <a href="https://wa.me/38970265014?text=Hi%20Igor%2C%20I%20found%20you%20through%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="contact-widget-action">
+      <a href="{{ 'contactWidget.whatsappMessage' | t(lang) | whatsappUrl | escape }}" target="_blank" rel="noopener noreferrer" class="contact-widget-action">
         <span class="contact-widget-action-icon contact-widget-action-icon-whatsapp" style="display: inline-flex; width: 36px; height: 36px; min-width: 36px; overflow: hidden" aria-hidden="true"><img src="/images/whatsapp.svg" width="20" height="20" alt="" /></span>
-        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">WhatsApp</span><span class="contact-widget-action-subtitle">Start a conversation</span></span>
+        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">{{ 'contactWidget.whatsappLabel' | t(lang) | escape }}</span><span class="contact-widget-action-subtitle">{{ 'contactWidget.whatsappSubtitle' | t(lang) | escape }}</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
       </a>
       <a href="tel:+38970265014" class="contact-widget-action">
         <span class="contact-widget-action-icon" style="display: inline-flex; width: 36px; height: 36px; min-width: 36px; overflow: hidden" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.2 3.5 9.4 8 7.8 9.6a14.2 14.2 0 0 0 6.6 6.6l1.6-1.6 4.5 2.2v3a1.5 1.5 0 0 1-1.5 1.5A16.3 16.3 0 0 1 2.7 5a1.5 1.5 0 0 1 1.5-1.5h3Z" /></svg></span>
-        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">Call me</span><span class="contact-widget-action-subtitle">Speak with me directly</span></span>
+        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">{{ 'contactWidget.callLabel' | t(lang) | escape }}</span><span class="contact-widget-action-subtitle">{{ 'contactWidget.callSubtitle' | t(lang) | escape }}</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
       </a>
       <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="contact-widget-action">
         <span class="contact-widget-action-icon" style="display: inline-flex; width: 36px; height: 36px; min-width: 36px; overflow: hidden" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.5h18v13H3z" /><path d="m4 7 8 6 8-6" /></svg></span>
-        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">Email</span><span class="contact-widget-action-subtitle">Send me a message</span></span>
+        <span class="contact-widget-action-copy"><span class="contact-widget-action-title">{{ 'contactWidget.emailLabel' | t(lang) | escape }}</span><span class="contact-widget-action-subtitle">{{ 'contactWidget.emailSubtitle' | t(lang) | escape }}</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
       </a>
     </div>
@@ -28,15 +28,15 @@
   <div class="container nav-container">
     <div class="inner-nav">
       <a href="/" class="brand w-nav-brand">
-        <img src="/images/Logo-Igor-Mihajlovski-Portfolio-Brend.svg" loading="eager" alt="Igor Mihajlovski – Webflow Developer" height="48" class="logo-mobile" />
+        <img src="/images/Logo-Igor-Mihajlovski-Portfolio-Brend.svg" loading="eager" alt="{{ 'header.logoAlt' | t(lang) | escape }}" height="48" class="logo-mobile" />
       </a>
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a href="{% if homePage %}#hero{% else %}/#hero{% endif %}" class="nav-link w-nav-link">Home</a>
-        <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="nav-link w-nav-link">About Me</a>
-        <a href="/projects/" class="nav-link w-nav-link">Portfolio</a>
-        <a href="/blog/" class="nav-link w-nav-link">Blog</a>
-        <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="nav-link w-nav-link">Services</a>
-        <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="nav-btn w-nav-link">Contact Me</a>
+        <a href="{% if homePage %}#hero{% else %}/#hero{% endif %}" class="nav-link w-nav-link">{{ 'nav.home' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="nav-link w-nav-link">{{ 'nav.about' | t(lang) | escape }}</a>
+        <a href="/projects/" class="nav-link w-nav-link">{{ 'nav.projects' | t(lang) | escape }}</a>
+        <a href="/blog/" class="nav-link w-nav-link">{{ 'nav.blog' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="nav-link w-nav-link">{{ 'nav.services' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="nav-btn w-nav-link">{{ 'nav.contact' | t(lang) | escape }}</a>
       </nav>
       <div class="menu-button w-nav-button">
         <div class="hamburger-wrapper">

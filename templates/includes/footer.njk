@@ -1,28 +1,28 @@
 <section class="footer-section">
   <div class="container">
     <div class="footer-wraper">
-      <div class="first-column"><div>Designed &amp; Developed by Igor Mihajlovski</div></div>
+      <div class="first-column"><div>{{ 'footer.credit' | t(lang) | escape }}</div></div>
       <div class="second-column">
         <div class="footer-menu">
-          <a href="/" class="footer-menu-links">Home</a>
-          <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="footer-menu-links">About Me</a>
-          <a href="/projects/" class="footer-menu-links">Portfolio</a>
-          <a href="/blog/" class="footer-menu-links">Blog</a>
-          <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="footer-menu-links">Services</a>
-          <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="footer-menu-links">Contact Me</a>
+          <a href="/" class="footer-menu-links">{{ 'nav.home' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="footer-menu-links">{{ 'nav.about' | t(lang) | escape }}</a>
+          <a href="/projects/" class="footer-menu-links">{{ 'nav.projects' | t(lang) | escape }}</a>
+          <a href="/blog/" class="footer-menu-links">{{ 'nav.blog' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="footer-menu-links">{{ 'nav.services' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="footer-menu-links">{{ 'nav.contact' | t(lang) | escape }}</a>
         </div>
         <div class="footer-legal">
-          <a href="/privacy-policy/" class="footer-legal-link">Privacy Policy</a>
-          <button type="button" class="footer-legal-link privacy-settings-button" data-privacy-settings aria-controls="analytics-consent" aria-expanded="false">Privacy settings</button>
-          <div class="copyright-desktop">Copyright © 2026 Igor Mihajlovski</div>
-          <div class="copyright-responsive">Copyright © 2026 Igor Mihajlovski</div>
+          <a href="/privacy-policy/" class="footer-legal-link">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
+          <button type="button" class="footer-legal-link privacy-settings-button" data-privacy-settings aria-controls="analytics-consent" aria-expanded="false">{{ 'footer.privacySettings' | t(lang) | escape }}</button>
+          <div class="copyright-desktop">{{ 'footer.copyright' | t(lang) | escape }}</div>
+          <div class="copyright-responsive">{{ 'footer.copyright' | t(lang) | escape }}</div>
         </div>
       </div>
       <div class="third-column">
-        <a href="https://www.linkedin.com/in/igor-mihajlovski-37914a164/" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Linkedin-logo.svg" loading="lazy" alt="Igor Mihajlovski LinkedIn profile" class="social-icon" /></a>
-        <a href="https://github.com/igormihajlovski" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Github-logo.svg" loading="lazy" alt="Igor Mihajlovski GitHub profile" class="social-icon" /></a>
-        <a href="https://www.instagram.com/igormihajlovski1/" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Instagram-logo.svg" loading="lazy" alt="Igor Mihajlovski Instagram profile" class="social-icon" /></a>
-        <a href="https://www.facebook.com/matejigor.mihajlovski" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Facebook-logo.svg" loading="lazy" alt="Igor Mihajlovski Facebook profile" class="social-icon" /></a>
+        <a href="https://www.linkedin.com/in/igor-mihajlovski-37914a164/" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Linkedin-logo.svg" loading="lazy" alt="{{ 'footer.socialProfile' | t(lang, { platform: 'LinkedIn' }) | escape }}" class="social-icon" /></a>
+        <a href="https://github.com/igormihajlovski" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Github-logo.svg" loading="lazy" alt="{{ 'footer.socialProfile' | t(lang, { platform: 'GitHub' }) | escape }}" class="social-icon" /></a>
+        <a href="https://www.instagram.com/igormihajlovski1/" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Instagram-logo.svg" loading="lazy" alt="{{ 'footer.socialProfile' | t(lang, { platform: 'Instagram' }) | escape }}" class="social-icon" /></a>
+        <a href="https://www.facebook.com/matejigor.mihajlovski" target="_blank" rel="noopener noreferrer" class="social-link-block w-inline-block"><img src="/images/Facebook-logo.svg" loading="lazy" alt="{{ 'footer.socialProfile' | t(lang, { platform: 'Facebook' }) | escape }}" class="social-icon" /></a>
       </div>
     </div>
   </div>

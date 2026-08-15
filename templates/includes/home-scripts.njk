@@ -28,7 +28,10 @@
     const submitButton = form.querySelector('input[type="submit"]');
 
     const originalButtonText = submitButton.value;
-    const waitingButtonText = submitButton.dataset.wait || "Please wait...";
+    const waitingButtonText = submitButton.dataset.wait;
+    const fallbackErrorText = form.dataset.errorFallback;
+
+    if (!waitingButtonText || !fallbackErrorText) return;
 
     form.addEventListener(
       "submit",
@@ -60,7 +63,7 @@
 
           if (!response.ok || result.success !== true) {
             throw new Error(
-              result.message || "Something went wrong. Please try again.",
+              result.message || fallbackErrorText,
             );
           }
 
@@ -75,7 +78,7 @@
           errorText.textContent =
             error instanceof Error
               ? error.message
-              : "Something went wrong. Please try again.";
+              : fallbackErrorText;
 
           errorMessage.style.display = "block";
 

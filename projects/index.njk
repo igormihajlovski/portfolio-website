@@ -8,9 +8,9 @@ ogType: website
 ---
 <section class="listing-hero">
   <div class="container case-study-copy">
-    <div class="section-name">Portfolio</div>
-    <h1>Case Studies</h1>
-    <p class="case-study-lede">A closer look at selected projects, the thinking behind them, and how they were built.</p>
+    <div class="section-name">{{ 'projects.eyebrow' | t(lang) | escape }}</div>
+    <h1>{{ 'projects.heading' | t(lang) | escape }}</h1>
+    <p class="case-study-lede">{{ 'projects.intro' | t(lang) | escape }}</p>
   </div>
 </section>
 <section class="case-study-section case-study-listing-section">
@@ -24,7 +24,7 @@ ogType: website
                 src="{{ project.data.hero.featured_image | assetUrl | escape }}"
                 loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
                 {% if loop.first %}fetchpriority="high"{% else %}decoding="async"{% endif %}
-                alt="{{ project.data.title | escape }} case study featured image"
+                alt="{{ 'common.caseStudyFeaturedImage' | t(lang, { title: project.data.title }) | escape }}"
                 class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image"
               />
             {% endif %}
@@ -32,14 +32,14 @@ ogType: website
               {% if project.data.category %}<div class="section-name">{{ project.data.category | escape }}</div>{% endif %}
               <h2 class="card-heading">{{ project.data.title | escape }}</h2>
               {% if project.data.short_description %}<p class="card-paragraph">{{ project.data.short_description | escape }}</p>{% endif %}
-              {% if project.data.published_date %}<time class="case-study-date" datetime="{{ project.data.published_date | htmlDate }}">{{ project.data.published_date | displayDate }}</time>{% endif %}
+              {% if project.data.published_date %}<time class="case-study-date" datetime="{{ project.data.published_date | htmlDate }}">{{ project.data.published_date | displayDate(lang) }}</time>{% endif %}
             </div>
-            <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>View Case Study</span></a>
+            <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>{{ 'common.viewCaseStudy' | t(lang) | escape }}</span></a>
           </article>
         {% endfor %}
       </div>
     {% else %}
-      <p class="empty-state">Case studies will appear here when they are published through Pages CMS.</p>
+      <p class="empty-state">{{ 'projects.emptyState' | t(lang) | escape }}</p>
     {% endif %}
   </div>
 </section>

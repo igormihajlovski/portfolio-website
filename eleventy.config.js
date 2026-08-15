@@ -1,6 +1,12 @@
 const MarkdownIt = require("markdown-it");
 const site = require("./_data/site.json");
 const languages = require("./_data/languages.js");
+const {
+  createTranslator,
+  dictionaries,
+  dictionaryKeyCounts,
+  validateDictionaryParity,
+} = require("./_lib/ui-i18n.js");
 
 const languageEntries = Object.values(languages);
 const defaultLanguages = languageEntries.filter((language) => language.default);
@@ -12,6 +18,21 @@ if (defaultLanguages.length !== 1) {
 }
 
 const DEFAULT_LANGUAGE = defaultLanguages[0].code;
+const configuredLanguageCodes = languageEntries.map((language) => language.code);
+const dictionaryLanguageCodes = Object.keys(dictionaries);
+const missingDictionaries = configuredLanguageCodes.filter(
+  (languageCode) => !dictionaryLanguageCodes.includes(languageCode),
+);
+const unconfiguredDictionaries = dictionaryLanguageCodes.filter(
+  (languageCode) => !configuredLanguageCodes.includes(languageCode),
+);
+
+if (missingDictionaries.length || unconfiguredDictionaries.length) {
+  throw new Error(
+    `[i18n] UI dictionary languages do not match configured languages (missing: ${missingDictionaries.join(", ") || "none"}; unconfigured: ${unconfiguredDictionaries.join(", ") || "none"}).`,
+  );
+}
+
 const FIXED_ROUTES = Object.freeze({
   home: "/",
   projects: "/projects/",
@@ -116,6 +137,18 @@ function compareProjects(left, right) {
   return String(left.data.slug || left.data.title || "").localeCompare(
     String(right.data.slug || right.data.title || ""),
   );
+}
+
+function displayDate(value, languageCode) {
+  const date = asDate(value);
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat(getLanguage(languageCode).intlLocale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
 }
 
 function compareBlogPosts(left, right) {
@@ -256,6 +289,20 @@ function getLanguage(languageCode = DEFAULT_LANGUAGE) {
   }
 
   return language;
+}
+
+const translate = createTranslator({
+  getLanguage,
+  defaultLanguage: DEFAULT_LANGUAGE,
+});
+
+function whatsappUrl(message) {
+  const encodedMessage = encodeURIComponent(String(message || "")).replace(
+    /'/g,
+    "%27",
+  );
+
+  return `https://wa.me/38970265014?text=${encodedMessage}`;
 }
 
 function getEntryLanguage(entry, contentType) {
@@ -463,17 +510,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("blogArticle", analyzeBlogArticle);
 
-  eleventyConfig.addFilter("displayDate", (value, languageCode) => {
-    const date = asDate(value);
-    if (!date) return "";
-
-    return new Intl.DateTimeFormat(getLanguage(languageCode).intlLocale, {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      timeZone: "UTC",
-    }).format(date);
-  });
+  eleventyConfig.addFilter("displayDate", displayDate);
 
   eleventyConfig.addFilter("htmlDate", (value) => {
     const date = asDate(value);
@@ -508,6 +545,8 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("localizedUrl", localizedUrl);
+  eleventyConfig.addFilter("t", translate);
+  eleventyConfig.addFilter("whatsappUrl", whatsappUrl);
 
   return {
     dir: {
@@ -533,6 +572,11 @@ module.exports._i18nTest = {
   DEFAULT_LANGUAGE,
   FIXED_ROUTES,
   getLanguage,
+  displayDate,
   localizedUrl,
+  translate,
+  whatsappUrl,
+  dictionaryKeyCounts,
+  validateDictionaryParity,
   validateTranslatableEntries,
 };

@@ -17,12 +17,12 @@ ogType: article
       <h1>{{ title | escape }}</h1>
       {% if short_description %}<p class="blog-post-lede">{{ short_description | escape }}</p>{% endif %}
       <div class="blog-post-byline">
-        {% if published_date %}<time datetime="{{ published_date | htmlDate }}">{{ published_date | displayDate }}</time>{% endif %}
-        <span class="blog-post-reading-time">{{ article.readingMinutes }} min read</span>
-        {% if author %}<span>By {{ author | escape }}</span>{% endif %}
+        {% if published_date %}<time datetime="{{ published_date | htmlDate }}">{{ published_date | displayDate(lang) }}</time>{% endif %}
+        <span class="blog-post-reading-time">{{ 'blog.readingTime' | t(lang, { minutes: article.readingMinutes }) | escape }}</span>
+        {% if author %}<span>{{ 'blog.byAuthor' | t(lang, { author: author }) | escape }}</span>{% endif %}
       </div>
       {% if tags and tags.length %}
-        <ul class="blog-post-tags" aria-label="Article tags">
+        <ul class="blog-post-tags" aria-label="{{ 'blog.articleTags' | t(lang) | escape }}">
           {% for tag in tags %}<li>{{ tag | escape }}</li>{% endfor %}
         </ul>
       {% endif %}
@@ -33,7 +33,7 @@ ogType: article
           src="{{ featured_image | assetUrl | escape }}"
           loading="eager"
           fetchpriority="high"
-          alt="{{ (featured_image_alt or (title ~ ' article featured image')) | escape }}"
+          alt="{{ (featured_image_alt or ('common.articleFeaturedImage' | t(lang, { title: title }))) | escape }}"
         />
       </div>
     {% endif %}
@@ -42,8 +42,8 @@ ogType: article
   <section class="blog-article-section">
     <div class="container blog-article-shell">
       {% if article.tableOfContents.length >= 4 %}
-        <nav class="blog-table-of-contents" aria-label="Table of contents">
-          <h2>Table of Contents</h2>
+        <nav class="blog-table-of-contents" aria-label="{{ 'blog.tableOfContentsLabel' | t(lang) | escape }}">
+          <h2>{{ 'blog.tableOfContentsHeading' | t(lang) | escape }}</h2>
           <ol>
             {% for item in article.tableOfContents %}
               <li><a href="#{{ item.id | escape }}">{{ item.text | escape }}</a></li>
@@ -56,9 +56,9 @@ ogType: article
       </div>
       {% if related_project_url %}
         <aside class="blog-related-project" aria-labelledby="related-project-heading">
-          <div class="section-name">Related Case Study</div>
-          <h2 id="related-project-heading">Continue exploring the project</h2>
-          <a href="{{ related_project_url | escape }}" class="secondary-btn w-inline-block">{{ (related_project_label or "View Related Project") | escape }}</a>
+          <div class="section-name">{{ 'blog.relatedLabel' | t(lang) | escape }}</div>
+          <h2 id="related-project-heading">{{ 'blog.relatedHeading' | t(lang) | escape }}</h2>
+          <a href="{{ related_project_url | escape }}" class="secondary-btn w-inline-block">{{ (related_project_label or ('blog.relatedCta' | t(lang))) | escape }}</a>
         </aside>
       {% endif %}
     </div>

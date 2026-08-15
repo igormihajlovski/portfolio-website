@@ -21,23 +21,21 @@ homeScripts: true
     <div class="hero-wrapper">
       <div class="hero-content">
         <div class="skills-wrapper">
-          <div class="webflow-development">Webflow Development</div>
+          <div class="webflow-development">{{ 'home.hero.eyebrow' | t(lang) | escape }}</div>
         </div>
         <h1>
-          Clean, structured sites built in
+          {{ 'home.hero.headingBeforeBrand' | t(lang) | escape }}
           <span class="span-blue">Webflow</span>
         </h1>
         <p class="hero-paragraph">
-          I focus on clean structure, responsive layouts, and websites that
-          are easy to maintain and scale. When a project doesn’t require a
-          separate designer, I can also handle simple, functional design.
+          {{ 'home.hero.description' | t(lang) | escape }}
         </p>
         <div class="button-wrapper">
           <a href="#portfolio" class="main-btn w-inline-block">
-            <div>View Webflow Projects</div>
+            <div>{{ 'home.hero.projectsCta' | t(lang) | escape }}</div>
           </a>
           <a href="#contact" class="secondary-btn w-inline-block">
-            <div>Contact Me</div>
+            <div>{{ 'home.hero.contactCta' | t(lang) | escape }}</div>
           </a>
         </div>
       </div>
@@ -61,10 +59,10 @@ homeScripts: true
 </section>
 <section id="services" class="services-section">
   <div class="container services-container">
-    <div class="section-name">Services</div>
-    <h2>What I can help you with</h2>
+    <div class="section-name">{{ 'home.services.eyebrow' | t(lang) | escape }}</div>
+    <h2>{{ 'home.services.heading' | t(lang) | escape }}</h2>
     <p class="section-paragraph">
-      Focused on Webflow development, with design support when needed.
+      {{ 'home.services.intro' | t(lang) | escape }}
     </p>
     <div class="card-wrapper">
       <div class="card">
@@ -80,16 +78,14 @@ homeScripts: true
               /images/Development-p-1080.jpg 1080w,
               /images/Development.jpg        1280w
             "
-            alt="Webflow development workspace"
+            alt="{{ 'home.services.developmentImageAlt' | t(lang) | escape }}"
             class="card-image"
           />
         </div>
         <div class="card-description">
-          <h3 class="card-heading">Development</h3>
+          <h3 class="card-heading">{{ 'home.services.developmentTitle' | t(lang) | escape }}</h3>
           <p class="card-paragraph">
-            I build responsive and fast websites in Webflow, structured in a
-            clean and logical way, so they are easy to use, easy to manage,
-            and perform smoothly on all devices.
+            {{ 'home.services.developmentDescription' | t(lang) | escape }}
           </p>
           <div class="tags-wrapper">
             <div class="tag-card">
@@ -99,7 +95,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Clean structure</div>
+              <div>{{ 'home.services.developmentTag1' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -108,7 +104,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Responsive layouts</div>
+              <div>{{ 'home.services.developmentTag2' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -117,7 +113,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>CMS setup</div>
+              <div>{{ 'home.services.developmentTag3' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -126,7 +122,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Performance focused</div>
+              <div>{{ 'home.services.developmentTag4' | t(lang) | escape }}</div>
             </div>
           </div>
         </div>
@@ -144,16 +140,14 @@ homeScripts: true
               /images/Design-p-1080.jpg 1080w,
               /images/Design.jpg        1280w
             "
-            alt="Website design layout on desktop"
+            alt="{{ 'home.services.designImageAlt' | t(lang) | escape }}"
             class="card-image"
           />
         </div>
         <div class="card-description">
-          <h3 class="card-heading">Design</h3>
+          <h3 class="card-heading">{{ 'home.services.designTitle' | t(lang) | escape }}</h3>
           <p class="card-paragraph">
-            I design simple and clean websites for clients who don’t need a
-            dedicated designer, making sure the layout is clear, modern, and
-            easy to use, and optimized for usability.
+            {{ 'home.services.designDescription' | t(lang) | escape }}
           </p>
           <div class="tags-wrapper">
             <div class="tag-card">
@@ -163,7 +157,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Layout &amp; structure</div>
+              <div>{{ 'home.services.designTag1' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -172,7 +166,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Basic UI decisions</div>
+              <div>{{ 'home.services.designTag2' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -181,7 +175,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Content-focused design</div>
+              <div>{{ 'home.services.designTag3' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -190,7 +184,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Consistent visual style</div>
+              <div>{{ 'home.services.designTag4' | t(lang) | escape }}</div>
             </div>
           </div>
         </div>
@@ -207,16 +201,14 @@ homeScripts: true
               /images/Support-p-800.jpg  800w,
               /images/Support.jpg       1280w
             "
-            alt="Website support and maintenance"
+            alt="{{ 'home.services.supportImageAlt' | t(lang) | escape }}"
             class="card-image"
           />
         </div>
         <div class="card-description">
-          <h3 class="card-heading">Support</h3>
+          <h3 class="card-heading">{{ 'home.services.supportTitle' | t(lang) | escape }}</h3>
           <p class="card-paragraph">
-            After launch, I help keep your website up to date with fixes,
-            small improvements, and continuous support to ensure everything
-            runs smoothly and efficiently over time.
+            {{ 'home.services.supportDescription' | t(lang) | escape }}
           </p>
           <div class="tags-wrapper">
             <div class="tag-card">
@@ -226,7 +218,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Content updates</div>
+              <div>{{ 'home.services.supportTag1' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -235,7 +227,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Bug fixes</div>
+              <div>{{ 'home.services.supportTag2' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -244,7 +236,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Small improvements</div>
+              <div>{{ 'home.services.supportTag3' | t(lang) | escape }}</div>
             </div>
             <div class="tag-card">
               <img
@@ -253,7 +245,7 @@ homeScripts: true
                 alt=""
                 class="tag-icon"
               />
-              <div>Ongoing maintenance</div>
+              <div>{{ 'home.services.supportTag4' | t(lang) | escape }}</div>
             </div>
           </div>
         </div>
@@ -263,11 +255,10 @@ homeScripts: true
 </section>
 <section id="portfolio" class="portfolio-section">
   <div class="container">
-    <div class="section-name">Portfolio</div>
-    <h2>Selected projects</h2>
+    <div class="section-name">{{ 'home.portfolio.eyebrow' | t(lang) | escape }}</div>
+    <h2>{{ 'home.portfolio.heading' | t(lang) | escape }}</h2>
     <p class="section-paragraph">
-      A selection of Webflow projects focused on performance and clean
-      structure.
+      {{ 'home.portfolio.intro' | t(lang) | escape }}
     </p>
     {% set featuredCaseStudies = collections.caseStudies | homepageProjects %}
     <div class="card-wrapper cms-project-grid project-count-{{ featuredCaseStudies.length }}">
@@ -277,7 +268,7 @@ homeScripts: true
         <img
           src="{{ project.data.hero.featured_image | assetUrl | escape }}"
           loading="lazy"
-          alt="{{ project.data.title | escape }} case study featured image"
+          alt="{{ 'common.caseStudyFeaturedImage' | t(lang, { title: project.data.title }) | escape }}"
           class="portfolio-img--tablet portfolio-img-mobile cms-project-image"
         />
         {% endif %}
@@ -297,21 +288,21 @@ homeScripts: true
           </div>
           {% endif %}
           <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn w-inline-block">
-            <div>View Case Study</div>
+            <div>{{ 'common.viewCaseStudy' | t(lang) | escape }}</div>
           </a>
         </div>
       </div>
       {% endfor %}
     </div>
-    <a href="/projects/" class="secondary-btn cms-projects-all-link w-inline-block">View All Case Studies</a>
+    <a href="/projects/" class="secondary-btn cms-projects-all-link w-inline-block">{{ 'common.viewAllCaseStudies' | t(lang) | escape }}</a>
   </div>
 </section>
 <section class="testimonial-section">
   <div class="container">
-    <div class="section-name">Testimonials</div>
-    <h2>What clients say</h2>
+    <div class="section-name">{{ 'home.testimonials.eyebrow' | t(lang) | escape }}</div>
+    <h2>{{ 'home.testimonials.heading' | t(lang) | escape }}</h2>
     <p class="section-paragraph">
-      Real feedback from people I’ve worked with
+      {{ 'home.testimonials.intro' | t(lang) | escape }}
     </p>
     <div class="card-wrapper">
       <div class="card-testimonial">
@@ -364,7 +355,7 @@ homeScripts: true
                 /images/Christian-Jaeger-Testimonial-Review-p-1080.jpg 1080w,
                 /images/Christian-Jaeger-Testimonial-Review.jpg        1280w
               "
-              alt="Photo of Igor Mihajlovski with Christian Jaeger during a client meeting"
+              alt="{{ 'home.testimonials.imageAlt' | t(lang) | escape }}"
               class="client-img"
             />
           </div>
@@ -385,21 +376,21 @@ homeScripts: true
         alt=""
         class="shield-icon"
       />
-      <div class="testimonial-note">Trusted by clients across Europe</div>
+      <div class="testimonial-note">{{ 'home.testimonials.trustNote' | t(lang) | escape }}</div>
       <div class="horizontal-line"></div>
     </div>
   </div>
 </section>
 <section id="about-me" class="about-me-section">
   <div class="container">
-    <div class="section-name">About me</div>
+    <div class="section-name">{{ 'home.about.eyebrow' | t(lang) | escape }}</div>
     <div class="about-me-wrapper">
       <div class="about-me-img-wrapper">
         <div class="about-me-img-gradient">
           <img
             src="/images/Igor-Mihajlovski-About-Me.png"
             loading="lazy"
-            alt="Igor Mihajlovski image"
+            alt="{{ 'home.about.imageAlt' | t(lang) | escape }}"
             class="igor-mihajlovski-about-me-img"
           />
           <div class="circle"></div>
@@ -408,17 +399,13 @@ homeScripts: true
       <div class="about-me-bio">
         <h2>Igor Mihajlovski</h2>
         <p class="about-me-bio-p">
-          I’m a Webflow developer with a background in mathematics and
-          currently working as a professor.
+          {{ 'home.about.paragraph1' | t(lang) | escape }}
         </p>
         <p class="about-me-bio-p">
-          Over time, I developed a strong interest in web development and
-          design, where I enjoy building clean, structured, and responsive
-          websites using Webflow.
+          {{ 'home.about.paragraph2' | t(lang) | escape }}
         </p>
         <p class="about-me-bio-p">
-          I’m interested in working on modern business websites and landing
-          pages where clarity and usability matter.
+          {{ 'home.about.paragraph3' | t(lang) | escape }}
         </p>
       </div>
     </div>
@@ -426,16 +413,15 @@ homeScripts: true
 </section>
 <section class="faq-section">
   <div class="container">
-    <div class="section-name">FAQ</div>
-    <h2>Frequently Asked Questions</h2>
+    <div class="section-name">{{ 'home.faq.eyebrow' | t(lang) | escape }}</div>
+    <h2>{{ 'home.faq.heading' | t(lang) | escape }}</h2>
     <p class="section-paragraph">
-      Here are some answers to common questions about working with me and
-      Webflow development
+      {{ 'home.faq.intro' | t(lang) | escape }}
     </p>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">01</div>
-        <h3 class="question">Why choose Webflow for a business website?</h3>
+        <h3 class="question">{{ 'home.faq.question1' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -443,17 +429,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Webflow allows businesses to have fast, responsive, and
-          easy-to-manage websites without relying on heavy plugins or
-          complicated maintenance. It combines clean development, modern
-          design, and strong performance in one platform.
+          {{ 'home.faq.answer1' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">02</div>
-        <h3 class="question">Do you build responsive websites?</h3>
+        <h3 class="question">{{ 'home.faq.question2' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -461,18 +444,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. Every website is designed and developed to work smoothly
-          across desktop, tablet, and mobile devices, ensuring a consistent
-          user experience on all screen sizes.
+          {{ 'home.faq.answer2' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">03</div>
-        <h3 class="question">
-          Is SEO included in your development process?
-        </h3>
+        <h3 class="question">{{ 'home.faq.question3' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -480,18 +459,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I build websites with SEO best practices in mind, including
-          clean structure, semantic layout, performance optimization,
-          responsive design, and proper heading hierarchy.
+          {{ 'home.faq.answer3' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">04</div>
-        <h3 class="question">
-          Can you migrate an existing website to Webflow?
-        </h3>
+        <h3 class="question">{{ 'home.faq.question4' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -499,16 +474,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I can help migrate websites from platforms like WordPress to
-          Webflow while maintaining clean structure, responsiveness, and
-          SEO-focused organization.
+          {{ 'home.faq.answer4' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">05</div>
-        <h3 class="question">Do you use Webflow CMS?</h3>
+        <h3 class="question">{{ 'home.faq.question5' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -516,16 +489,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I can build CMS-powered websites in Webflow for blogs,
-          projects, services, team members, or other dynamic content that
-          clients can easily manage.
+          {{ 'home.faq.answer5' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">06</div>
-        <h3 class="question">How long does a typical project take?</h3>
+        <h3 class="question">{{ 'home.faq.question6' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -533,19 +504,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Project timelines depend on the size and complexity of the
-          website. Smaller websites and landing pages can usually be
-          completed faster, while larger or CMS-based projects require more
-          planning and development time.
+          {{ 'home.faq.answer6' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">07</div>
-        <h3 class="question">
-          Do you provide ongoing support after launch?
-        </h3>
+        <h3 class="question">{{ 'home.faq.question7' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -553,15 +519,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I can help with updates, improvements, CMS adjustments, and
-          ongoing maintenance after the website is launched.
+          {{ 'home.faq.answer7' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">08</div>
-        <h3 class="question">What types of websites do you build?</h3>
+        <h3 class="question">{{ 'home.faq.question8' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -569,16 +534,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          I mainly build modern business websites, landing pages, portfolio
-          websites, and CMS-based Webflow projects focused on clean
-          structure, usability, and performance.
+          {{ 'home.faq.answer8' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">09</div>
-        <h3 class="question">Can you integrate Webflow with a CRM?</h3>
+        <h3 class="question">{{ 'home.faq.question9' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -586,20 +549,14 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I can integrate Webflow with CRM systems using APIs and
-          automation platforms such as Make. This allows property listings,
-          customer data, or other business information to sync
-          automatically, reducing manual work and keeping your website
-          always up to date.
+          {{ 'home.faq.answer9' | t(lang) | escape }}
         </p>
       </nav>
     </div>
     <div data-hover="false" data-delay="0" class="faq-item w-dropdown">
       <div class="question-toggle w-dropdown-toggle">
         <div class="faq-number">10</div>
-        <h3 class="question">
-          Can you automate workflows between Webflow and other tools?
-        </h3>
+        <h3 class="question">{{ 'home.faq.question10' | t(lang) | escape }}</h3>
         <div class="faq-icon">
           <div class="faq-horizontal-line"></div>
           <div class="faq-vertical-line"></div>
@@ -607,10 +564,7 @@ homeScripts: true
       </div>
       <nav class="faq-body w-dropdown-list">
         <p class="answer">
-          Yes. I build automation workflows that connect Webflow with
-          external services such as CRMs, forms, email platforms, and other
-          business tools. This helps eliminate repetitive tasks and creates
-          a more efficient workflow for your business.
+          {{ 'home.faq.answer10' | t(lang) | escape }}
         </p>
       </nav>
     </div>
@@ -624,11 +578,11 @@ homeScripts: true
         />
       </div>
       <div class="cta-content">
-        <h3 class="cta-h3">Still have a question?</h3>
-        <div>Let&#x27;s talk about your project.</div>
+        <h3 class="cta-h3">{{ 'home.faq.ctaHeading' | t(lang) | escape }}</h3>
+        <div>{{ 'home.faq.ctaText' | t(lang) | escape }}</div>
       </div>
       <a href="#contact" class="main-btn cta-button w-inline-block">
-        <div>Get in Touch</div>
+        <div>{{ 'home.faq.ctaButton' | t(lang) | escape }}</div>
       </a>
     </div>
   </div>
@@ -640,12 +594,10 @@ homeScripts: true
 >
   <div class="container newsletter-container">
     <div class="newsletter-content">
-      <div class="section-name newsletter-eyebrow">Stay updated</div>
-      <h2 id="newsletter-heading">Follow what I&rsquo;m building</h2>
+      <div class="section-name newsletter-eyebrow">{{ 'newsletter.eyebrow' | t(lang) | escape }}</div>
+      <h2 id="newsletter-heading">{{ 'newsletter.heading' | t(lang) | escape }}</h2>
       <p class="newsletter-intro">
-        Get occasional updates about new projects, demos, tools, articles,
-        and other work. No spam &mdash; only relevant updates when
-        there&rsquo;s something worth sharing.
+        {{ 'newsletter.intro' | t(lang) | escape }}
       </p>
     </div>
     <form
@@ -656,12 +608,12 @@ homeScripts: true
       accept-charset="UTF-8"
     >
       <div class="newsletter-field">
-        <label for="newsletter-email">Email Address</label>
+        <label for="newsletter-email">{{ 'newsletter.emailLabel' | t(lang) | escape }}</label>
         <input
           id="newsletter-email"
           name="EMAIL"
           type="email"
-          placeholder="your@email.com"
+          placeholder="{{ 'newsletter.emailPlaceholder' | t(lang) | escape }}"
           autocomplete="email"
           maxlength="254"
           required
@@ -677,26 +629,23 @@ homeScripts: true
           required
         />
         <label for="gdpr_364697">
-          <span class="newsletter-consent-title">Email</span>
-          I&rsquo;d like to receive occasional email updates from Igor
-          Mihajlovski.
+          <span class="newsletter-consent-title">{{ 'newsletter.consentTitle' | t(lang) | escape }}</span>
+          {{ 'newsletter.consentText' | t(lang) | escape }}
         </label>
       </div>
 
       <p class="newsletter-privacy">
-        You can unsubscribe at any time. See the
-        <a href="/privacy-policy/">Privacy Policy</a> for information about
-        how your data is handled.
+        {{ 'newsletter.privacyBeforeLink' | t(lang) | escape }}
+        <a href="/privacy-policy/">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
+        {{ 'newsletter.privacyAfterLink' | t(lang) | escape }}
       </p>
       <p class="newsletter-processing">
-        We use Mailchimp as our marketing platform. By subscribing, you
-        acknowledge that your information will be transferred to Mailchimp
-        for processing.
+        {{ 'newsletter.processing' | t(lang) | escape }}
         <a
           href="https://mailchimp.com/legal/terms/"
           target="_blank"
           rel="noopener noreferrer"
-          >Learn more about Mailchimp&rsquo;s privacy practices.</a
+          >{{ 'newsletter.mailchimpPrivacy' | t(lang) | escape }}</a
         >
       </p>
 
@@ -715,14 +664,14 @@ homeScripts: true
           class="newsletter-submit"
           type="submit"
           name="subscribe"
-          value="Subscribe"
+          value="{{ 'newsletter.subscribe' | t(lang) | escape }}"
         />
         <a
           class="newsletter-badge"
           href="https://mailchimp.com/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Powered by Intuit Mailchimp"
+          aria-label="{{ 'newsletter.poweredBy' | t(lang) | escape }}"
         >
           <img
             src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg"
@@ -738,16 +687,15 @@ homeScripts: true
 </section>
 <section id="contact" class="contact-section">
   <div class="container">
-    <div class="section-name">Contact</div>
+    <div class="section-name">{{ 'contact.eyebrow' | t(lang) | escape }}</div>
     <div class="contact-wrapper">
       <div class="contact-info">
-        <h2>Let’s work together</h2>
+        <h2>{{ 'contact.heading' | t(lang) | escape }}</h2>
         <p class="contact-paragraph">
-          If you have a project in mind or need help with a Webflow website,
-          feel free to get in touch using the form.
+          {{ 'contact.description1' | t(lang) | escape }}
         </p>
         <p class="contact-paragraph">
-          If you prefer email, you can also contact me directly below.
+          {{ 'contact.description2' | t(lang) | escape }}
         </p>
         <div class="tag-card-contact-wrapper">
           <div class="tag-card contact-tag">
@@ -766,7 +714,7 @@ homeScripts: true
               alt=""
               class="contact-tag-icon"
             />
-            <div class="email">I usually reply within 24 hours.</div>
+            <div class="email">{{ 'contact.replyTime' | t(lang) | escape }}</div>
           </div>
         </div>
       </div>
@@ -779,8 +727,9 @@ homeScripts: true
             action="/php/contact.php"
             method="post"
             novalidate
+            data-error-fallback="{{ 'contact.errorFallback' | t(lang) | escape }}"
           >
-            <label for="name">Name</label>
+            <label for="name">{{ 'contact.nameLabel' | t(lang) | escape }}</label>
 
             <input
               class="input-field w-input"
@@ -788,30 +737,30 @@ homeScripts: true
               minlength="2"
               name="name"
               data-name="Name"
-              placeholder="Your name"
+              placeholder="{{ 'contact.namePlaceholder' | t(lang) | escape }}"
               type="text"
               id="name"
               required
             />
 
-            <label for="email">Email Address</label>
+            <label for="email">{{ 'contact.emailLabel' | t(lang) | escape }}</label>
 
             <input
               class="input-field w-input"
               maxlength="254"
               name="email"
               data-name="Email"
-              placeholder="your@email.com"
+              placeholder="{{ 'contact.emailPlaceholder' | t(lang) | escape }}"
               type="email"
               id="email"
               required
             />
 
-            <label for="message">Message</label>
+            <label for="message">{{ 'contact.messageLabel' | t(lang) | escape }}</label>
 
             <textarea
               required
-              placeholder="Tell me about your project"
+              placeholder="{{ 'contact.messagePlaceholder' | t(lang) | escape }}"
               minlength="10"
               maxlength="5000"
               id="message"
@@ -831,7 +780,7 @@ homeScripts: true
                 overflow: hidden;
               "
             >
-              <label for="website">Website</label>
+              <label for="website">{{ 'contact.websiteLabel' | t(lang) | escape }}</label>
 
               <input
                 type="text"
@@ -852,23 +801,23 @@ homeScripts: true
 
             <input
               type="submit"
-              data-wait="Please wait..."
+              data-wait="{{ 'contact.waitMessage' | t(lang) | escape }}"
               class="form-btn w-button"
-              value="Send message"
+              value="{{ 'contact.submit' | t(lang) | escape }}"
             />
           </form>
 
           <div class="form-message-sent w-form-done" style="color: #021526">
             <div>
-              <strong>Thank you!</strong><br />
-              Your message has been sent successfully.<br />
-              I'll get back to you within 24 hours.
+              <strong>{{ 'contact.successHeading' | t(lang) | escape }}</strong><br />
+              {{ 'contact.successMessage' | t(lang) | escape }}<br />
+              {{ 'contact.successFollowUp' | t(lang) | escape }}
             </div>
           </div>
 
           <div class="error-message w-form-fail">
             <div class="text-block">
-              Oops! Something went wrong while submitting the form.
+              {{ 'contact.errorMessage' | t(lang) | escape }}
             </div>
           </div>
         </div>

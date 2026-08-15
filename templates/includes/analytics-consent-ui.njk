@@ -8,18 +8,18 @@
   hidden
 >
   <div class="analytics-consent-copy">
-    <h2 id="analytics-consent-title">Your privacy</h2>
+    <h2 id="analytics-consent-title">{{ 'consent.title' | t(lang) | escape }}</h2>
     <p id="analytics-consent-description">
-      I use analytics to understand how visitors use this website and improve its performance and experience. You can allow analytics or continue with only necessary technologies.
+      {{ 'consent.description' | t(lang) | escape }}
     </p>
-    <a href="/privacy-policy/">Privacy Policy</a>
+    <a href="/privacy-policy/">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
   </div>
   <div class="analytics-consent-actions">
     <button type="button" class="analytics-consent-button analytics-consent-button-secondary" data-consent-choice="necessary">
-      Necessary Only
+      {{ 'consent.necessaryOnly' | t(lang) | escape }}
     </button>
     <button type="button" class="analytics-consent-button analytics-consent-button-primary" data-consent-choice="accepted">
-      Accept Analytics
+      {{ 'consent.acceptAnalytics' | t(lang) | escape }}
     </button>
   </div>
 </aside>

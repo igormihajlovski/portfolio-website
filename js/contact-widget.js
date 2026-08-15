@@ -8,17 +8,22 @@
 
       if (!trigger || !panel) return;
 
+      const openLabel = trigger.dataset.openLabel;
+      const closeLabel = trigger.dataset.closeLabel;
+
+      if (!openLabel || !closeLabel) return;
+
       const isOpen = () => !panel.hidden;
 
       const openWidget = () => {
         panel.hidden = false;
         trigger.setAttribute("aria-expanded", "true");
-        trigger.setAttribute("aria-label", "Close contact options");
+        trigger.setAttribute("aria-label", closeLabel);
       };
 
       const closeWidget = (restoreFocus = false) => {
         trigger.setAttribute("aria-expanded", "false");
-        trigger.setAttribute("aria-label", "Open contact options");
+        trigger.setAttribute("aria-label", openLabel);
 
         if (restoreFocus) trigger.focus();
 

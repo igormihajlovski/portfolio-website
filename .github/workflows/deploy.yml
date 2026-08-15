@@ -35,3 +35,71 @@ jobs:
           port: 21
           local-dir: ./_dist/
           server-dir: ./
+
+      - name: Stage RSS delivery artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -s _dist/blog/feed.xml
+
+          rss_deploy_dir="$(mktemp -d "${RUNNER_TEMP}/rss-deploy.XXXXXX")"
+          cp -- _dist/blog/feed.xml "${rss_deploy_dir}/feed.xml"
+
+          mapfile -d '' staged_files < <(
+            find "${rss_deploy_dir}" -maxdepth 1 -type f -print0
+          )
+
+          if [[ ${#staged_files[@]} -ne 1 ]] ||
+             [[ "${staged_files[0]}" != "${rss_deploy_dir}/feed.xml" ]]; then
+            echo "::error::RSS deployment staging must contain only feed.xml"
+            exit 1
+          fi
+
+          printf 'RSS_DEPLOY_DIR=%s\n' "${rss_deploy_dir}" >> "${GITHUB_ENV}"
+
+      - name: Deploy feed.xml to RSS delivery vhost
+        shell: bash
+        env:
+          RSS_FTP_SERVER: ${{ secrets.RSS_FTP_SERVER }}
+          RSS_FTP_USERNAME: ${{ secrets.RSS_FTP_USERNAME }}
+          RSS_FTP_PASSWORD: ${{ secrets.RSS_FTP_PASSWORD }}
+          RSS_FTP_SERVER_DIR: ${{ vars.RSS_FTP_SERVER_DIR }}
+        run: |
+          set -euo pipefail
+
+          : "${RSS_FTP_SERVER:?RSS_FTP_SERVER is required}"
+          : "${RSS_FTP_USERNAME:?RSS_FTP_USERNAME is required}"
+          : "${RSS_FTP_PASSWORD:?RSS_FTP_PASSWORD is required}"
+          : "${RSS_FTP_SERVER_DIR:?RSS_FTP_SERVER_DIR is required}"
+          : "${RSS_DEPLOY_DIR:?RSS_DEPLOY_DIR is required}"
+
+          if [[ "${RSS_FTP_SERVER}" == *"://"* ]] ||
+             [[ "${RSS_FTP_SERVER}" == */* ]]; then
+            echo "::error::RSS_FTP_SERVER must contain a hostname only"
+            exit 1
+          fi
+
+          rss_server_dir="${RSS_FTP_SERVER_DIR#./}"
+          rss_server_dir="${rss_server_dir#/}"
+          rss_server_dir="${rss_server_dir%/}"
+
+          if [[ "${rss_server_dir}" == *".."* ]] ||
+             [[ "${rss_server_dir}" == *'\'* ]] ||
+             [[ ! "${rss_server_dir}" =~ ^[A-Za-z0-9._/-]*$ ]]; then
+            echo "::error::RSS_FTP_SERVER_DIR contains an unsafe path"
+            exit 1
+          fi
+
+          rss_remote_path="feed.xml"
+          if [[ -n "${rss_server_dir}" ]] && [[ "${rss_server_dir}" != "." ]]; then
+            rss_remote_path="${rss_server_dir}/feed.xml"
+          fi
+
+          curl --fail --silent --show-error \
+            --connect-timeout 20 \
+            --max-time 120 \
+            --ftp-method singlecwd \
+            --user "${RSS_FTP_USERNAME}:${RSS_FTP_PASSWORD}" \
+            --upload-file "${RSS_DEPLOY_DIR}/feed.xml" \
+            "ftp://${RSS_FTP_SERVER}:21/${rss_remote_path}"

@@ -44,6 +44,18 @@ content:
           minlength: 3
           maxlength: 100
 
+      - name: translation_id
+        label: Translation ID
+        type: string
+        required: true
+        description: "Stable internal translation identifier. Set it once and do not change it after publication."
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers, and single hyphens only."
+        options:
+          minlength: 3
+          maxlength: 120
+
       - name: category
         label: Category
         type: select
@@ -553,6 +565,18 @@ content:
         options:
           minlength: 3
           maxlength: 100
+
+      - name: translation_id
+        label: Translation ID
+        type: string
+        required: true
+        description: "Stable internal translation identifier. Set it once and do not change it after publication."
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers, and single hyphens only."
+        options:
+          minlength: 3
+          maxlength: 120
 
       - name: published_date
         label: Published Date

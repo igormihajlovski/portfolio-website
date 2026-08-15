@@ -1,6 +1,7 @@
 ---
 title: From Webflow to a Self-Hosted CMS Portfolio
 slug: from-webflow-to-self-hosted-cms-portfolio
+translation_id: blog-from-webflow-to-self-hosted-cms-portfolio
 published_date: 2026-08-10
 status: Published
 featured: true

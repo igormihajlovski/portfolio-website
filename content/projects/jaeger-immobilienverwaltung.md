@@ -1,6 +1,7 @@
 ---
 title: Jaeger Immobilienverwaltung
 slug: jaeger-immobilienverwaltung
+translation_id: project-jaeger-immobilienverwaltung
 category: Case Study
 published_date: 2026-08-07
 project_status: Completed

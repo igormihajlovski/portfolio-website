@@ -1,6 +1,7 @@
 ---
 title: Personal Portfolio Website
 slug: personal-portfolio-website
+translation_id: project-personal-portfolio-website
 category: Development
 published_date: 2026-08-09
 project_status: Maintenance

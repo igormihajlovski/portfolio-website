@@ -4,6 +4,7 @@ function isPublished(status) {
 
 module.exports = {
   tags: ["blogPost"],
+  lang: "en",
   layout: "layouts/blog-post.njk",
   blogStyles: true,
   eleventyComputed: {

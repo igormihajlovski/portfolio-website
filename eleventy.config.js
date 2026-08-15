@@ -1,5 +1,23 @@
 const MarkdownIt = require("markdown-it");
 const site = require("./_data/site.json");
+const languages = require("./_data/languages.js");
+
+const languageEntries = Object.values(languages);
+const defaultLanguages = languageEntries.filter((language) => language.default);
+
+if (defaultLanguages.length !== 1) {
+  throw new Error(
+    `[i18n] Expected exactly one default language, found ${defaultLanguages.length}.`,
+  );
+}
+
+const DEFAULT_LANGUAGE = defaultLanguages[0].code;
+const FIXED_ROUTES = Object.freeze({
+  home: "/",
+  projects: "/projects/",
+  blog: "/blog/",
+  privacy: "/privacy-policy/",
+});
 
 const markdown = new MarkdownIt({
   html: true,
@@ -227,6 +245,119 @@ function compareRssUpdates(left, right) {
   return left.canonicalUrl.localeCompare(right.canonicalUrl);
 }
 
+function getLanguage(languageCode = DEFAULT_LANGUAGE) {
+  const normalizedCode = String(languageCode || DEFAULT_LANGUAGE)
+    .trim()
+    .toLowerCase();
+  const language = languages[normalizedCode];
+
+  if (!language) {
+    throw new Error(`[i18n] Unsupported language code: "${normalizedCode}".`);
+  }
+
+  return language;
+}
+
+function getEntryLanguage(entry, contentType) {
+  const languageCode = String(entry.data?.lang || "")
+    .trim()
+    .toLowerCase();
+
+  if (!languageCode) {
+    throw new Error(
+      `[i18n] ${contentType} entry "${entry.inputPath}" is missing required lang metadata.`,
+    );
+  }
+
+  getLanguage(languageCode);
+  return languageCode;
+}
+
+function validateTranslatableEntries(entries, contentType) {
+  const seenTranslationKeys = new Map();
+
+  for (const entry of entries) {
+    const languageCode = getEntryLanguage(entry, contentType);
+    const translationId = String(entry.data?.translation_id || "").trim();
+
+    if (!translationId) {
+      throw new Error(
+        `[i18n] ${contentType} entry "${entry.inputPath}" is missing required translation_id metadata.`,
+      );
+    }
+
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(translationId)) {
+      throw new Error(
+        `[i18n] ${contentType} entry "${entry.inputPath}" has invalid translation_id "${translationId}".`,
+      );
+    }
+
+    const translationKey = `${contentType}:${languageCode}:${translationId}`;
+    const existingPath = seenTranslationKeys.get(translationKey);
+
+    if (existingPath) {
+      throw new Error(
+        `[i18n] Duplicate translation key "${translationKey}" in "${existingPath}" and "${entry.inputPath}".`,
+      );
+    }
+
+    seenTranslationKeys.set(translationKey, entry.inputPath);
+  }
+
+  return entries;
+}
+
+function getLocalizedContent(collectionApi, tag, contentType) {
+  return validateTranslatableEntries(
+    collectionApi.getFilteredByTag(tag),
+    contentType,
+  );
+}
+
+function isDefaultLanguageEntry(entry, contentType) {
+  return getEntryLanguage(entry, contentType) === DEFAULT_LANGUAGE;
+}
+
+function groupContentByLanguage(entries, contentType) {
+  const groupedEntries = Object.fromEntries(
+    languageEntries.map((language) => [language.code, []]),
+  );
+
+  for (const entry of entries) {
+    groupedEntries[getEntryLanguage(entry, contentType)].push(entry);
+  }
+
+  return groupedEntries;
+}
+
+function addEntriesToTranslationMap(
+  translationMap,
+  entries,
+  contentType,
+) {
+  translationMap[contentType] = {};
+
+  for (const entry of entries) {
+    const translationId = String(entry.data.translation_id).trim();
+    const languageCode = getEntryLanguage(entry, contentType);
+
+    translationMap[contentType][translationId] ||= {};
+    translationMap[contentType][translationId][languageCode] = entry;
+  }
+}
+
+function localizedUrl(routeKey, languageCode = DEFAULT_LANGUAGE) {
+  if (!Object.prototype.hasOwnProperty.call(FIXED_ROUTES, routeKey)) {
+    throw new Error(`[i18n] Unknown fixed route key: "${routeKey}".`);
+  }
+
+  const language = getLanguage(languageCode);
+  const route = FIXED_ROUTES[routeKey];
+
+  if (!language.prefix) return route;
+  return route === "/" ? `${language.prefix}/` : `${language.prefix}${route}`;
+}
+
 module.exports = function (eleventyConfig) {
   ["css", "js", "images", "documents", "php"].forEach((directory) => {
     eleventyConfig.addPassthroughCopy(directory);
@@ -239,25 +370,66 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.ignores.add("styleguide.html");
 
   eleventyConfig.addCollection("caseStudies", (collectionApi) =>
-    collectionApi.getFilteredByTag("caseStudy").sort(compareProjects),
+    getLocalizedContent(collectionApi, "caseStudy", "Project")
+      .filter((entry) => isDefaultLanguageEntry(entry, "Project"))
+      .sort(compareProjects),
   );
 
   eleventyConfig.addCollection("blogPosts", (collectionApi) =>
-    collectionApi
-      .getFilteredByTag("blogPost")
+    getLocalizedContent(collectionApi, "blogPost", "Blog")
+      .filter((entry) => isDefaultLanguageEntry(entry, "Blog"))
       .filter(isPublishedBlogPost)
       .sort(compareBlogPosts),
   );
 
+  eleventyConfig.addCollection("caseStudiesByLanguage", (collectionApi) =>
+    groupContentByLanguage(
+      getLocalizedContent(collectionApi, "caseStudy", "Project").sort(
+        compareProjects,
+      ),
+      "Project",
+    ),
+  );
+
+  eleventyConfig.addCollection("blogPostsByLanguage", (collectionApi) =>
+    groupContentByLanguage(
+      getLocalizedContent(collectionApi, "blogPost", "Blog")
+        .filter(isPublishedBlogPost)
+        .sort(compareBlogPosts),
+      "Blog",
+    ),
+  );
+
+  eleventyConfig.addCollection("translationMap", (collectionApi) => {
+    const translationMap = {};
+
+    addEntriesToTranslationMap(
+      translationMap,
+      getLocalizedContent(collectionApi, "caseStudy", "Project"),
+      "Project",
+    );
+    addEntriesToTranslationMap(
+      translationMap,
+      getLocalizedContent(collectionApi, "blogPost", "Blog"),
+      "Blog",
+    );
+
+    return translationMap;
+  });
+
   eleventyConfig.addCollection("rssUpdates", (collectionApi) => {
-    const blogUpdates = collectionApi
-      .getFilteredByTag("blogPost")
+    const blogUpdates = getLocalizedContent(collectionApi, "blogPost", "Blog")
+      .filter((entry) => isDefaultLanguageEntry(entry, "Blog"))
       .filter(isPublishedBlogPost)
       .map(normalizeBlogRssUpdate)
       .filter(Boolean);
 
-    const projectUpdates = collectionApi
-      .getFilteredByTag("caseStudy")
+    const projectUpdates = getLocalizedContent(
+      collectionApi,
+      "caseStudy",
+      "Project",
+    )
+      .filter((entry) => isDefaultLanguageEntry(entry, "Project"))
       .map(normalizeProjectRssUpdate)
       .filter(Boolean);
 
@@ -291,11 +463,11 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("blogArticle", analyzeBlogArticle);
 
-  eleventyConfig.addFilter("displayDate", (value) => {
+  eleventyConfig.addFilter("displayDate", (value, languageCode) => {
     const date = asDate(value);
     if (!date) return "";
 
-    return new Intl.DateTimeFormat("en", {
+    return new Intl.DateTimeFormat(getLanguage(languageCode).intlLocale, {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -330,6 +502,13 @@ module.exports = function (eleventyConfig) {
     return `${site.url}${path}`;
   });
 
+  eleventyConfig.addFilter(
+    "htmlLang",
+    (languageCode) => getLanguage(languageCode).htmlLang,
+  );
+
+  eleventyConfig.addFilter("localizedUrl", localizedUrl);
+
   return {
     dir: {
       input: ".",
@@ -348,4 +527,12 @@ module.exports._rssTest = {
   normalizeBlogRssUpdate,
   normalizeProjectRssUpdate,
   compareRssUpdates,
+};
+
+module.exports._i18nTest = {
+  DEFAULT_LANGUAGE,
+  FIXED_ROUTES,
+  getLanguage,
+  localizedUrl,
+  validateTranslatableEntries,
 };

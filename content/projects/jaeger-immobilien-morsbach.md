@@ -1,6 +1,7 @@
 ---
 title: Jaeger Immobilien Morsbach
 slug: jaeger-immobilien-morsbach
+translation_id: project-jaeger-immobilien-morsbach
 category: CRM Integration
 published_date: 2026-08-09
 project_status: Completed

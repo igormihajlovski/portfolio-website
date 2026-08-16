@@ -1,17 +1,18 @@
 ---
 layout: layouts/base.njk
+translationType: Project
 eleventyComputed:
   metaTitle: "{% if seo.title %}{{ seo.title }}{% else %}{{ title }} | Igor Mihajlovski{% endif %}"
   metaDescription: "{% if seo.description %}{{ seo.description }}{% else %}{{ short_description }}{% endif %}"
   metaImage: "{% if seo.og_image %}{{ seo.og_image }}{% else %}{{ hero.featured_image }}{% endif %}"
-  canonicalUrl: "https://igormihajlovski.com/projects/{{ slug }}/"
+  canonicalUrl: "{{ page.url | absoluteUrl }}"
 ogType: article
 ---
 <article class="case-study">
   <header class="case-study-hero">
     <div class="container case-study-hero-layout">
       <div class="case-study-hero-heading">
-        {% if category %}<div class="section-name">{{ category | escape }}</div>{% endif %}
+        {% if category %}<div class="section-name">{{ category | projectCategoryLabel(lang) | escape }}</div>{% endif %}
         <h1>{{ title | escape }}</h1>
       </div>
       <div class="case-study-hero-grid">

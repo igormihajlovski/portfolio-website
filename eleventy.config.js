@@ -48,6 +48,16 @@ const FIXED_ROUTES = Object.freeze({
 
 const FIXED_PAGE_IDS = Object.freeze(Object.keys(FIXED_ROUTES));
 
+const PROJECT_CATEGORY_TRANSLATION_KEYS = Object.freeze({
+  "Case Study": "projectCategories.caseStudy",
+  Webflow: "projectCategories.webflow",
+  "CRM Integration": "projectCategories.crmIntegration",
+  Automation: "projectCategories.automation",
+  Development: "projectCategories.development",
+  SEO: "projectCategories.seo",
+  Tutorial: "projectCategories.tutorial",
+});
+
 const markdown = new MarkdownIt({
   html: true,
   linkify: true,
@@ -315,6 +325,12 @@ function whatsappUrl(message) {
   );
 
   return `https://wa.me/38970265014?text=${encodedMessage}`;
+}
+
+function projectCategoryLabel(category, languageCode = DEFAULT_LANGUAGE) {
+  const value = String(category || "").trim();
+  const translationKey = PROJECT_CATEGORY_TRANSLATION_KEYS[value];
+  return translationKey ? translate(translationKey, languageCode) : value;
 }
 
 function getEntryLanguage(entry, contentType) {
@@ -622,6 +638,7 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("localizedUrl", localizedUrl);
+  eleventyConfig.addFilter("projectCategoryLabel", projectCategoryLabel);
   eleventyConfig.addFilter("t", translate);
   eleventyConfig.addFilter("whatsappUrl", whatsappUrl);
 
@@ -652,6 +669,7 @@ module.exports._i18nTest = {
   getLanguage,
   displayDate,
   localizedUrl,
+  projectCategoryLabel,
   validateFixedPageTranslations,
   translate,
   whatsappUrl,

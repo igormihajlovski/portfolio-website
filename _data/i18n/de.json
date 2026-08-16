@@ -52,6 +52,15 @@
     "caseStudyFeaturedImage": "Titelbild der Fallstudie {title}",
     "articleFeaturedImage": "Titelbild des Artikels {title}"
   },
+  "projectCategories": {
+    "caseStudy": "Fallstudie",
+    "webflow": "Webflow",
+    "crmIntegration": "CRM-Integration",
+    "automation": "Automatisierung",
+    "development": "Entwicklung",
+    "seo": "SEO",
+    "tutorial": "Tutorial"
+  },
   "home": {
     "schema": {
       "imageCaption": "Porträt des Webflow-Entwicklers Igor Mihajlovski",

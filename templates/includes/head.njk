@@ -7,8 +7,15 @@
 {% if metaImage %}<meta property="og:image" content="{{ metaImage | absoluteUrl | escape }}" />{% endif %}
 <meta property="og:type" content="{{ ogType | default('website') }}" />
 <meta property="og:locale" content="{{ lang | ogLocale | escape }}" />
+{% set localizedContentPair = null %}
+{% if translationType and translation_id %}
+  {% set localizedContentPair = collections.translationMap[translationType][translation_id] %}
+{% endif %}
+{% set hasLocalizedContentPair = localizedContentPair and localizedContentPair.en and localizedContentPair.de %}
 {% if fixedPageId %}
   {% set fixedPagePair = collections.fixedPageTranslationMap[fixedPageId] %}
+{% endif %}
+{% if fixedPageId or hasLocalizedContentPair %}
   {% for languageCode, language in languages %}
     {% if languageCode != lang %}<meta property="og:locale:alternate" content="{{ language.ogLocale | escape }}" />{% endif %}
   {% endfor %}
@@ -97,6 +104,11 @@
 <link rel="alternate" hreflang="{{ language.hreflang | escape }}" href="{{ fixedPageId | localizedUrl(languageCode) | absoluteUrl | escape }}" />
   {% endfor %}
 <link rel="alternate" hreflang="x-default" href="{{ fixedPageId | localizedUrl | absoluteUrl | escape }}" />
+{% elif hasLocalizedContentPair %}
+  {% for languageCode, language in languages %}
+<link rel="alternate" hreflang="{{ language.hreflang | escape }}" href="{{ localizedContentPair[languageCode].url | absoluteUrl | escape }}" />
+  {% endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ localizedContentPair.en.url | absoluteUrl | escape }}" />
 {% endif %}
 {% if homeSchema %}{% include "includes/home-person-schema.njk" %}{% endif %}
 {% include "includes/analytics-consent.njk" %}

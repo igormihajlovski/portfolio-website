@@ -22,7 +22,7 @@
               />
             {% endif %}
             <div class="card-description case-study-listing-content">
-              {% if project.data.category %}<div class="section-name">{{ project.data.category | escape }}</div>{% endif %}
+              {% if project.data.category %}<div class="section-name">{{ project.data.category | projectCategoryLabel(lang) | escape }}</div>{% endif %}
               <h2 class="card-heading">{{ project.data.title | escape }}</h2>
               {% if project.data.short_description %}<p class="card-paragraph">{{ project.data.short_description | escape }}</p>{% endif %}
               {% if project.data.published_date %}<time class="case-study-date" datetime="{{ project.data.published_date | htmlDate }}">{{ project.data.published_date | displayDate(lang) }}</time>{% endif %}

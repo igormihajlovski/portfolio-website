@@ -37,44 +37,159 @@
     visibility: hidden !important;
   }
 
-  .language-switcher {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  .language-selector {
+    position: relative;
+    flex: none;
     margin-left: 12px;
     margin-right: 4px;
+    z-index: 2;
   }
 
-  .language-switcher-link {
-    border: 1px solid transparent;
+  .language-selector--mobile {
+    display: none;
+  }
+
+  .language-selector-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 54px;
+    min-height: 36px;
+    border: 1px solid #198cb480;
+    border-radius: 4px;
+    background: var(--box-cards-backgrouund);
+    color: var(--text);
+    padding: 8px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.16s ease, background-color 0.16s ease;
+  }
+
+  .language-selector-trigger:hover,
+  .language-selector-trigger:focus-visible,
+  .language-selector.is-open .language-selector-trigger {
+    border-color: var(--primary-button);
+    background: #02244d;
+  }
+
+  .language-selector-trigger:focus-visible,
+  .language-selector-link:focus-visible {
+    outline: 2px solid var(--primary-button);
+    outline-offset: 2px;
+  }
+
+  .language-selector-chevron {
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.16s ease;
+  }
+
+  .language-selector.is-open .language-selector-chevron {
+    transform: translateY(2px) rotate(225deg);
+  }
+
+  .language-selector-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: grid;
+    gap: 2px;
+    width: max-content;
+    min-width: 112px;
+    max-width: calc(100vw - 32px);
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #198cb466;
+    border-radius: 6px;
+    background: var(--box-cards-backgrouund);
+    box-shadow: 0 12px 30px #00000040;
+    list-style: none;
+  }
+
+  .w-mod-js .language-selector-menu {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s;
+  }
+
+  .w-mod-js .language-selector.is-open .language-selector-menu {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+
+  html:not(.w-mod-js) .language-selector-trigger {
+    display: none;
+  }
+
+  .language-selector-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 40px;
     border-radius: 4px;
     color: var(--text);
-    padding: 7px 6px;
-    font-size: 0.75rem;
+    padding: 9px 10px;
+    font-size: 0.8125rem;
     font-weight: 600;
     line-height: 1;
     text-decoration: none;
   }
 
-  .language-switcher-link:hover,
-  .language-switcher-link:focus-visible {
-    border-color: var(--primary-button);
+  .language-selector-link:hover,
+  .language-selector-link:focus-visible {
+    background: #198cb426;
   }
 
-  .language-switcher-link.is-active {
+  .language-selector-link.is-active {
     background: var(--primary-button);
     color: var(--background);
   }
 
+  .language-selector-current {
+    font-size: 0.75rem;
+  }
+
   @media screen and (max-width: 991px) {
-    .language-switcher {
-      justify-content: center;
-      margin: 8px 0 2px;
+    .language-selector--desktop {
+      display: none;
     }
 
-    .language-switcher-link {
-      padding: 9px 8px;
+    .language-selector--mobile {
+      display: block;
+      margin-right: 14px;
+      margin-left: auto;
+    }
+
+    .language-selector-trigger {
+      min-width: 58px;
+      min-height: 44px;
+      padding: 10px 11px;
+      font-size: 0.8125rem;
+    }
+
+    .language-selector-link {
+      min-height: 44px;
       font-size: 0.875rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .language-selector-trigger,
+    .language-selector-chevron,
+    .w-mod-js .language-selector-menu {
+      transition: none;
     }
   }
 </style>

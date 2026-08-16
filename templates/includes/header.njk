@@ -1,3 +1,43 @@
+{% macro renderLanguageSelector(variant, languages, lang, fixedPageId, localizedContentPair) %}
+  {% set activeLanguageName = languages[lang].uiNameKey | t(lang) %}
+  <div class="language-selector language-selector--{{ variant }}" data-language-selector>
+    <button
+      type="button"
+      id="language-selector-trigger-{{ variant }}"
+      class="language-selector-trigger"
+      aria-expanded="false"
+      aria-controls="language-selector-menu-{{ variant }}"
+      aria-label="{{ 'languageSwitcher.label' | t(lang) | escape }}: {{ activeLanguageName | escape }}"
+    >
+      <span class="language-selector-trigger-label" lang="{{ languages[lang].htmlLang | escape }}">{{ languages[lang].shortLabel | escape }}</span>
+      <span class="language-selector-chevron" aria-hidden="true"></span>
+    </button>
+    <ul
+      id="language-selector-menu-{{ variant }}"
+      class="language-selector-menu"
+      aria-labelledby="language-selector-trigger-{{ variant }}"
+    >
+      {% for languageCode, language in languages %}
+        {% if fixedPageId or localizedContentPair[languageCode] %}
+          {% set languageName = language.uiNameKey | t(lang) %}
+          <li class="language-selector-item">
+            <a
+              class="language-selector-link{% if languageCode == lang %} is-active{% endif %}"
+              href="{% if fixedPageId %}{{ fixedPageId | localizedUrl(languageCode) }}{% else %}{{ localizedContentPair[languageCode].url }}{% endif %}"
+              lang="{{ language.htmlLang | escape }}"
+              hreflang="{{ language.hreflang | escape }}"
+              {% if languageCode == lang %}aria-current="page" aria-label="{{ languageName | escape }}"{% else %}aria-label="{{ 'languageSwitcher.switchTo' | t(lang, { language: languageName }) | escape }}"{% endif %}
+            >
+              <span>{{ language.shortLabel | escape }}</span>
+              {% if languageCode == lang %}<span class="language-selector-current" aria-hidden="true">&#10003;</span>{% endif %}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
 <div class="contact-widget" data-contact-widget style="position: fixed; right: 20px; bottom: 16px; z-index: 9999">
   <button type="button" class="whatsapp contact-widget-trigger" aria-expanded="false" aria-controls="contact-widget-panel" aria-label="{{ 'contactWidget.openLabel' | t(lang) | escape }}" data-open-label="{{ 'contactWidget.openLabel' | t(lang) | escape }}" data-close-label="{{ 'contactWidget.closeLabel' | t(lang) | escape }}">
     <img src="/images/whatsapp.svg" loading="lazy" width="48" height="48" alt="" class="whatsapp-icon" />
@@ -24,6 +64,10 @@
     </div>
   </section>
 </div>
+{% set localizedContentPair = null %}
+{% if translationType and translation_id %}
+  {% set localizedContentPair = collections.translationMap[translationType][translation_id] %}
+{% endif %}
 <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
   <div class="container nav-container">
     <div class="inner-nav">
@@ -36,27 +80,14 @@
         <a href="{{ 'projects' | localizedUrl(lang) }}" class="nav-link w-nav-link">{{ 'nav.projects' | t(lang) | escape }}</a>
         <a href="{{ 'blog' | localizedUrl(lang) }}" class="nav-link w-nav-link">{{ 'nav.blog' | t(lang) | escape }}</a>
         <a href="{% if homePage %}#services{% else %}{{ 'home' | localizedUrl(lang) }}#services{% endif %}" class="nav-link w-nav-link">{{ 'nav.services' | t(lang) | escape }}</a>
-        {% set localizedContentPair = null %}
-        {% if translationType and translation_id %}
-          {% set localizedContentPair = collections.translationMap[translationType][translation_id] %}
-        {% endif %}
         {% if fixedPageId or localizedContentPair %}
-        {% if fixedPageId %}{% set fixedPagePair = collections.fixedPageTranslationMap[fixedPageId] %}{% endif %}
-        <div class="language-switcher" role="group" aria-label="{{ 'languageSwitcher.label' | t(lang) | escape }}">
-          {% for languageCode, language in languages %}
-            {% if fixedPageId or localizedContentPair[languageCode] %}
-            {% if languageCode == lang %}
-            <span class="language-switcher-link is-active" lang="{{ language.htmlLang | escape }}" aria-current="page">{{ language.shortLabel | escape }}</span>
-            {% else %}
-            {% set languageName = language.uiNameKey | t(lang) %}
-            <a class="language-switcher-link" href="{% if fixedPageId %}{{ fixedPageId | localizedUrl(languageCode) }}{% else %}{{ localizedContentPair[languageCode].url }}{% endif %}" lang="{{ language.htmlLang | escape }}" hreflang="{{ language.hreflang | escape }}" aria-label="{{ 'languageSwitcher.switchTo' | t(lang, { language: languageName }) | escape }}">{{ language.shortLabel | escape }}</a>
-            {% endif %}
-            {% endif %}
-          {% endfor %}
-        </div>
+          {{ renderLanguageSelector("desktop", languages, lang, fixedPageId, localizedContentPair) }}
         {% endif %}
         <a href="{% if homePage %}#contact{% else %}{{ 'home' | localizedUrl(lang) }}#contact{% endif %}" class="nav-btn w-nav-link">{{ 'nav.contact' | t(lang) | escape }}</a>
       </nav>
+      {% if fixedPageId or localizedContentPair %}
+        {{ renderLanguageSelector("mobile", languages, lang, fixedPageId, localizedContentPair) }}
+      {% endif %}
       <div class="menu-button w-nav-button">
         <div class="hamburger-wrapper">
           <div class="top-line"></div>

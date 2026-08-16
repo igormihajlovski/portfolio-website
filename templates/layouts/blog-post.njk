@@ -1,11 +1,12 @@
 ---
 layout: layouts/base.njk
 blogStyles: true
+translationType: Blog
 eleventyComputed:
   metaTitle: "{% if seo and seo.title %}{{ seo.title }}{% else %}{{ title }} | Igor Mihajlovski{% endif %}"
   metaDescription: "{% if seo and seo.description %}{{ seo.description }}{% else %}{{ short_description }}{% endif %}"
   metaImage: "{% if seo and seo.og_image %}{{ seo.og_image }}{% else %}{{ featured_image }}{% endif %}"
-  canonicalUrl: "https://igormihajlovski.com/blog/{{ slug }}/"
+  canonicalUrl: "{{ page.url | absoluteUrl }}"
 ogType: article
 ---
 {% set article = article_content | blogArticle %}

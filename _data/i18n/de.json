@@ -14,6 +14,7 @@
     "label": "Sprache",
     "english": "Englisch",
     "german": "Deutsch",
+    "macedonian": "Mazedonisch",
     "switchTo": "Zu {language} wechseln"
   },
   "contactWidget": {

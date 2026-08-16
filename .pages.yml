@@ -666,6 +666,87 @@ content:
             component: project_project_links
           - name: seo
             component: project_seo
+      - name: projects_mk
+        label: Projects — Македонски
+        type: collection
+        path: content/mk/projects
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - show_on_homepage
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+          default:
+            sort: published_date
+            order: desc
+        fields:
+          - name: title
+            component: project_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: status
+            component: publication_status
+          - name: category
+            component: project_category
+          - name: published_date
+            component: published_date
+          - name: project_status
+            component: project_project_status
+          - name: featured_project
+            component: project_featured_project
+          - name: show_on_homepage
+            component: project_show_on_homepage
+          - name: short_description
+            component: project_short_description
+          - name: hero
+            component: project_hero
+          - name: project_information
+            component: project_project_information
+          - name: project_overview
+            component: project_project_overview
+          - name: challenge
+            component: project_challenge
+          - name: goals
+            component: project_goals
+          - name: my_role
+            component: project_my_role
+          - name: my_approach
+            component: project_my_approach
+          - name: design_process
+            component: project_design_process
+          - name: development_process
+            component: project_development_process
+          - name: tech_stack
+            component: project_tech_stack
+          - name: third_party_integrations
+            component: project_third_party_integrations
+          - name: key_features
+            component: project_key_features
+          - name: deliverables
+            component: project_deliverables
+          - name: results
+            component: project_results
+          - name: lessons_learned
+            component: project_lessons_learned
+          - name: gallery
+            component: project_gallery
+          - name: project_links
+            component: project_project_links
+          - name: seo
+            component: project_seo
   - name: blog
     label: Blog
     type: group
@@ -734,6 +815,66 @@ content:
         label: Blog — Deutsch
         type: collection
         path: content/de/blog
+        format: yaml-frontmatter
+        filename: '{slug}.md'
+        view:
+          fields:
+            - title
+            - category
+            - published_date
+            - status
+            - featured
+          primary: title
+          sort:
+            - published_date
+            - title
+          search:
+            - title
+            - category
+            - short_description
+            - tags
+          default:
+            sort: published_date
+            order: desc
+        fields:
+          - name: title
+            component: blog_title
+          - name: slug
+            component: content_slug
+          - name: translation_id
+            component: translation_id
+          - name: published_date
+            component: published_date
+          - name: status
+            component: publication_status
+          - name: featured
+            component: blog_featured
+          - name: category
+            component: blog_category
+          - name: tags
+            component: blog_tags
+          - name: short_description
+            component: blog_short_description
+          - name: featured_image
+            component: blog_featured_image
+          - name: featured_image_alt
+            component: blog_featured_image_alt
+          - name: author
+            component: blog_author
+          - name: article_content
+            component: blog_article_content
+          - name: related_project_translation_id
+            component: blog_related_project_translation_id
+          - name: related_project_label
+            component: blog_related_project_label
+          - name: related_project_url
+            component: blog_related_project_url
+          - name: seo
+            component: blog_seo
+      - name: blog_mk
+        label: Blog — Македонски
+        type: collection
+        path: content/mk/blog
         format: yaml-frontmatter
         filename: '{slug}.md'
         view:

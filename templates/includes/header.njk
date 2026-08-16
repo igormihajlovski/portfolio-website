@@ -40,16 +40,17 @@
         {% if translationType and translation_id %}
           {% set localizedContentPair = collections.translationMap[translationType][translation_id] %}
         {% endif %}
-        {% set hasLocalizedContentPair = localizedContentPair and localizedContentPair.en and localizedContentPair.de %}
-        {% if fixedPageId or hasLocalizedContentPair %}
+        {% if fixedPageId or localizedContentPair %}
         {% if fixedPageId %}{% set fixedPagePair = collections.fixedPageTranslationMap[fixedPageId] %}{% endif %}
         <div class="language-switcher" role="group" aria-label="{{ 'languageSwitcher.label' | t(lang) | escape }}">
           {% for languageCode, language in languages %}
+            {% if fixedPageId or localizedContentPair[languageCode] %}
             {% if languageCode == lang %}
             <span class="language-switcher-link is-active" lang="{{ language.htmlLang | escape }}" aria-current="page">{{ language.shortLabel | escape }}</span>
             {% else %}
             {% set languageName = language.uiNameKey | t(lang) %}
             <a class="language-switcher-link" href="{% if fixedPageId %}{{ fixedPageId | localizedUrl(languageCode) }}{% else %}{{ localizedContentPair[languageCode].url }}{% endif %}" lang="{{ language.htmlLang | escape }}" hreflang="{{ language.hreflang | escape }}" aria-label="{{ 'languageSwitcher.switchTo' | t(lang, { language: languageName }) | escape }}">{{ language.shortLabel | escape }}</a>
+            {% endif %}
             {% endif %}
           {% endfor %}
         </div>

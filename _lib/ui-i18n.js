@@ -1,9 +1,11 @@
 const english = require("../_data/i18n/en.json");
 const german = require("../_data/i18n/de.json");
+const macedonian = require("../_data/i18n/mk.json");
 
 const dictionaries = Object.freeze({
   en: english,
   de: german,
+  mk: macedonian,
 });
 
 function flattenDictionary(value, path = "", result = new Map()) {

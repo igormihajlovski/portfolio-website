@@ -11,13 +11,12 @@
 {% if translationType and translation_id %}
   {% set localizedContentPair = collections.translationMap[translationType][translation_id] %}
 {% endif %}
-{% set hasLocalizedContentPair = localizedContentPair and localizedContentPair.en and localizedContentPair.de %}
 {% if fixedPageId %}
   {% set fixedPagePair = collections.fixedPageTranslationMap[fixedPageId] %}
 {% endif %}
-{% if fixedPageId or hasLocalizedContentPair %}
+{% if fixedPageId or localizedContentPair %}
   {% for languageCode, language in languages %}
-    {% if languageCode != lang %}<meta property="og:locale:alternate" content="{{ language.ogLocale | escape }}" />{% endif %}
+    {% if languageCode != lang and (fixedPageId or localizedContentPair[languageCode]) %}<meta property="og:locale:alternate" content="{{ language.ogLocale | escape }}" />{% endif %}
   {% endfor %}
 {% endif %}
 <meta name="twitter:title" content="{{ metaTitle | escape }}" />
@@ -104,11 +103,15 @@
 <link rel="alternate" hreflang="{{ language.hreflang | escape }}" href="{{ fixedPageId | localizedUrl(languageCode) | absoluteUrl | escape }}" />
   {% endfor %}
 <link rel="alternate" hreflang="x-default" href="{{ fixedPageId | localizedUrl | absoluteUrl | escape }}" />
-{% elif hasLocalizedContentPair %}
+{% elif localizedContentPair %}
   {% for languageCode, language in languages %}
+  {% if localizedContentPair[languageCode] %}
 <link rel="alternate" hreflang="{{ language.hreflang | escape }}" href="{{ localizedContentPair[languageCode].url | absoluteUrl | escape }}" />
+  {% endif %}
   {% endfor %}
+  {% if localizedContentPair.en %}
 <link rel="alternate" hreflang="x-default" href="{{ localizedContentPair.en.url | absoluteUrl | escape }}" />
+  {% endif %}
 {% endif %}
 {% if homeSchema %}{% include "includes/home-person-schema.njk" %}{% endif %}
 {% include "includes/analytics-consent.njk" %}

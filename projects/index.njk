@@ -1,45 +1,12 @@
 ---
 layout: layouts/base.njk
 permalink: /projects/index.html
+lang: en
+tags: fixedPage
+fixedPageId: projects
 metaTitle: Case Studies | Igor Mihajlovski
 metaDescription: Explore Webflow development case studies by Igor Mihajlovski, including project goals, process, technology, integrations, and results.
 canonicalUrl: https://igormihajlovski.com/projects/
 ogType: website
 ---
-<section class="listing-hero">
-  <div class="container case-study-copy">
-    <div class="section-name">{{ 'projects.eyebrow' | t(lang) | escape }}</div>
-    <h1>{{ 'projects.heading' | t(lang) | escape }}</h1>
-    <p class="case-study-lede">{{ 'projects.intro' | t(lang) | escape }}</p>
-  </div>
-</section>
-<section class="case-study-section case-study-listing-section">
-  <div class="container">
-    {% if collections.caseStudies and collections.caseStudies.length %}
-      <div class="card-wrapper case-study-listing-grid project-count-{{ collections.caseStudies.length }}">
-        {% for project in collections.caseStudies %}
-          <article class="card-portfolio case-study-listing-card">
-            {% if project.data.hero.featured_image %}
-              <img
-                src="{{ project.data.hero.featured_image | assetUrl | escape }}"
-                loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
-                {% if loop.first %}fetchpriority="high"{% else %}decoding="async"{% endif %}
-                alt="{{ 'common.caseStudyFeaturedImage' | t(lang, { title: project.data.title }) | escape }}"
-                class="portfolio-img--tablet portfolio-img-mobile case-study-listing-image"
-              />
-            {% endif %}
-            <div class="card-description case-study-listing-content">
-              {% if project.data.category %}<div class="section-name">{{ project.data.category | escape }}</div>{% endif %}
-              <h2 class="card-heading">{{ project.data.title | escape }}</h2>
-              {% if project.data.short_description %}<p class="card-paragraph">{{ project.data.short_description | escape }}</p>{% endif %}
-              {% if project.data.published_date %}<time class="case-study-date" datetime="{{ project.data.published_date | htmlDate }}">{{ project.data.published_date | displayDate(lang) }}</time>{% endif %}
-            </div>
-            <a href="/projects/{{ project.data.slug | escape }}/" class="main-btn project-btn case-study-listing-button w-inline-block"><span>{{ 'common.viewCaseStudy' | t(lang) | escape }}</span></a>
-          </article>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p class="empty-state">{{ 'projects.emptyState' | t(lang) | escape }}</p>
-    {% endif %}
-  </div>
-</section>
+{% include "includes/projects-listing.njk" %}

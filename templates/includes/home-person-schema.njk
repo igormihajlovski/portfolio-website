@@ -4,14 +4,14 @@
     "@type": "Person",
     "@id": "{{ site.url }}/#person",
     "name": "Igor Mihajlovski",
-    "url": "{{ site.url }}/",
+    "url": "{{ canonicalUrl }}",
     "image": {
       "@type": "ImageObject",
       "url": "https://cdn.prod.website-files.com/697e45df7d51cf8c3766ddee/69838128ab2a39a999dcde4d_Hero%20image%20with%20mask%20Compressed.png",
-      "caption": "Portrait of Webflow developer Igor Mihajlovski"
+      "caption": {{ 'home.schema.imageCaption' | t(lang) | jsonString | safe }}
     },
-    "jobTitle": "Freelance Webflow Developer",
-    "description": "Freelance Webflow developer building clean, responsive, and SEO-focused websites for modern businesses. Specialized in Webflow development, responsive design, CMS setup, and performance-focused websites.",
+    "jobTitle": {{ 'home.schema.jobTitle' | t(lang) | jsonString | safe }},
+    "description": {{ 'home.schema.description' | t(lang) | jsonString | safe }},
     "email": "mailto:igor@igormihajlovski.com",
     "sameAs": [
       "https://www.linkedin.com/in/igor-mihajlovski-37914a164",
@@ -28,7 +28,7 @@
     ],
     "hasOccupation": {
       "@type": "Occupation",
-      "name": "Webflow Developer",
+      "name": {{ 'home.schema.occupationName' | t(lang) | jsonString | safe }},
       "skills": [
         "Webflow",
         "Figma",
@@ -42,9 +42,9 @@
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "Webflow Development Services",
-        "serviceType": "Web Development",
-        "description": "Development of clean, responsive, and scalable websites in Webflow, including CMS setup, SEO structure, and ongoing support."
+        "name": {{ 'home.schema.serviceName' | t(lang) | jsonString | safe }},
+        "serviceType": {{ 'home.schema.serviceType' | t(lang) | jsonString | safe }},
+        "description": {{ 'home.schema.serviceDescription' | t(lang) | jsonString | safe }}
       }
     },
     "workExample": [

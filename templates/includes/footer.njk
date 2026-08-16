@@ -4,15 +4,15 @@
       <div class="first-column"><div>{{ 'footer.credit' | t(lang) | escape }}</div></div>
       <div class="second-column">
         <div class="footer-menu">
-          <a href="/" class="footer-menu-links">{{ 'nav.home' | t(lang) | escape }}</a>
-          <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="footer-menu-links">{{ 'nav.about' | t(lang) | escape }}</a>
-          <a href="/projects/" class="footer-menu-links">{{ 'nav.projects' | t(lang) | escape }}</a>
-          <a href="/blog/" class="footer-menu-links">{{ 'nav.blog' | t(lang) | escape }}</a>
-          <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="footer-menu-links">{{ 'nav.services' | t(lang) | escape }}</a>
-          <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="footer-menu-links">{{ 'nav.contact' | t(lang) | escape }}</a>
+          <a href="{{ 'home' | localizedUrl(lang) }}" class="footer-menu-links">{{ 'nav.home' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#about-me{% else %}{{ 'home' | localizedUrl(lang) }}#about-me{% endif %}" class="footer-menu-links">{{ 'nav.about' | t(lang) | escape }}</a>
+          <a href="{{ 'projects' | localizedUrl(lang) }}" class="footer-menu-links">{{ 'nav.projects' | t(lang) | escape }}</a>
+          <a href="{{ 'blog' | localizedUrl(lang) }}" class="footer-menu-links">{{ 'nav.blog' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#services{% else %}{{ 'home' | localizedUrl(lang) }}#services{% endif %}" class="footer-menu-links">{{ 'nav.services' | t(lang) | escape }}</a>
+          <a href="{% if homePage %}#contact{% else %}{{ 'home' | localizedUrl(lang) }}#contact{% endif %}" class="footer-menu-links">{{ 'nav.contact' | t(lang) | escape }}</a>
         </div>
         <div class="footer-legal">
-          <a href="/privacy-policy/" class="footer-legal-link">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
+          <a href="{{ 'privacy' | localizedUrl(lang) }}" class="footer-legal-link">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
           <button type="button" class="footer-legal-link privacy-settings-button" data-privacy-settings aria-controls="analytics-consent" aria-expanded="false">{{ 'footer.privacySettings' | t(lang) | escape }}</button>
           <div class="copyright-desktop">{{ 'footer.copyright' | t(lang) | escape }}</div>
           <div class="copyright-responsive">{{ 'footer.copyright' | t(lang) | escape }}</div>

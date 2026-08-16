@@ -16,7 +16,7 @@
         <span class="contact-widget-action-copy"><span class="contact-widget-action-title">{{ 'contactWidget.callLabel' | t(lang) | escape }}</span><span class="contact-widget-action-subtitle">{{ 'contactWidget.callSubtitle' | t(lang) | escape }}</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
       </a>
-      <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="contact-widget-action">
+      <a href="{% if homePage %}#contact{% else %}{{ 'home' | localizedUrl(lang) }}#contact{% endif %}" class="contact-widget-action">
         <span class="contact-widget-action-icon" style="display: inline-flex; width: 36px; height: 36px; min-width: 36px; overflow: hidden" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.5h18v13H3z" /><path d="m4 7 8 6 8-6" /></svg></span>
         <span class="contact-widget-action-copy"><span class="contact-widget-action-title">{{ 'contactWidget.emailLabel' | t(lang) | escape }}</span><span class="contact-widget-action-subtitle">{{ 'contactWidget.emailSubtitle' | t(lang) | escape }}</span></span>
         <span class="contact-widget-action-arrow" aria-hidden="true">&rarr;</span>
@@ -27,16 +27,29 @@
 <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
   <div class="container nav-container">
     <div class="inner-nav">
-      <a href="/" class="brand w-nav-brand">
+      <a href="{{ 'home' | localizedUrl(lang) }}" class="brand w-nav-brand">
         <img src="/images/Logo-Igor-Mihajlovski-Portfolio-Brend.svg" loading="eager" alt="{{ 'header.logoAlt' | t(lang) | escape }}" height="48" class="logo-mobile" />
       </a>
       <nav role="navigation" class="nav-menu w-nav-menu">
-        <a href="{% if homePage %}#hero{% else %}/#hero{% endif %}" class="nav-link w-nav-link">{{ 'nav.home' | t(lang) | escape }}</a>
-        <a href="{% if homePage %}#about-me{% else %}/#about-me{% endif %}" class="nav-link w-nav-link">{{ 'nav.about' | t(lang) | escape }}</a>
-        <a href="/projects/" class="nav-link w-nav-link">{{ 'nav.projects' | t(lang) | escape }}</a>
-        <a href="/blog/" class="nav-link w-nav-link">{{ 'nav.blog' | t(lang) | escape }}</a>
-        <a href="{% if homePage %}#services{% else %}/#services{% endif %}" class="nav-link w-nav-link">{{ 'nav.services' | t(lang) | escape }}</a>
-        <a href="{% if homePage %}#contact{% else %}/#contact{% endif %}" class="nav-btn w-nav-link">{{ 'nav.contact' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#hero{% else %}{{ 'home' | localizedUrl(lang) }}#hero{% endif %}" class="nav-link w-nav-link">{{ 'nav.home' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#about-me{% else %}{{ 'home' | localizedUrl(lang) }}#about-me{% endif %}" class="nav-link w-nav-link">{{ 'nav.about' | t(lang) | escape }}</a>
+        <a href="{{ 'projects' | localizedUrl(lang) }}" class="nav-link w-nav-link">{{ 'nav.projects' | t(lang) | escape }}</a>
+        <a href="{{ 'blog' | localizedUrl(lang) }}" class="nav-link w-nav-link">{{ 'nav.blog' | t(lang) | escape }}</a>
+        <a href="{% if homePage %}#services{% else %}{{ 'home' | localizedUrl(lang) }}#services{% endif %}" class="nav-link w-nav-link">{{ 'nav.services' | t(lang) | escape }}</a>
+        {% if fixedPageId %}
+        {% set fixedPagePair = collections.fixedPageTranslationMap[fixedPageId] %}
+        <div class="language-switcher" role="group" aria-label="{{ 'languageSwitcher.label' | t(lang) | escape }}">
+          {% for languageCode, language in languages %}
+            {% if languageCode == lang %}
+            <span class="language-switcher-link is-active" lang="{{ language.htmlLang | escape }}" aria-current="page">{{ language.shortLabel | escape }}</span>
+            {% else %}
+            {% set languageName = language.uiNameKey | t(lang) %}
+            <a class="language-switcher-link" href="{{ fixedPageId | localizedUrl(languageCode) }}" lang="{{ language.htmlLang | escape }}" hreflang="{{ language.hreflang | escape }}" aria-label="{{ 'languageSwitcher.switchTo' | t(lang, { language: languageName }) | escape }}">{{ language.shortLabel | escape }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+        <a href="{% if homePage %}#contact{% else %}{{ 'home' | localizedUrl(lang) }}#contact{% endif %}" class="nav-btn w-nav-link">{{ 'nav.contact' | t(lang) | escape }}</a>
       </nav>
       <div class="menu-button w-nav-button">
         <div class="hamburger-wrapper">

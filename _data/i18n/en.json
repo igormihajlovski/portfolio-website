@@ -10,6 +10,12 @@
     "services": "Services",
     "contact": "Contact Me"
   },
+  "languageSwitcher": {
+    "label": "Language",
+    "english": "English",
+    "german": "German",
+    "switchTo": "Switch to {language}"
+  },
   "contactWidget": {
     "openLabel": "Open contact options",
     "closeLabel": "Close contact options",
@@ -47,6 +53,15 @@
     "articleFeaturedImage": "{title} article featured image"
   },
   "home": {
+    "schema": {
+      "imageCaption": "Portrait of Webflow developer Igor Mihajlovski",
+      "jobTitle": "Freelance Webflow Developer",
+      "description": "Freelance Webflow developer building clean, responsive, and SEO-focused websites for modern businesses. Specialized in Webflow development, responsive design, CMS setup, and performance-focused websites.",
+      "occupationName": "Webflow Developer",
+      "serviceName": "Webflow Development Services",
+      "serviceType": "Web Development",
+      "serviceDescription": "Development of clean, responsive, and scalable websites in Webflow, including CMS setup, SEO structure, and ongoing support."
+    },
     "hero": {
       "eyebrow": "Webflow Development",
       "headingBeforeBrand": "Clean, structured sites built in",
@@ -83,7 +98,9 @@
     "portfolio": {
       "eyebrow": "Portfolio",
       "heading": "Selected projects",
-      "intro": "A selection of Webflow projects focused on performance and clean structure."
+      "intro": "A selection of Webflow projects focused on performance and clean structure.",
+      "emptyState": "Localized project case studies are being prepared for this language.",
+      "emptyCta": "View the project overview"
     },
     "testimonials": {
       "eyebrow": "Testimonials",

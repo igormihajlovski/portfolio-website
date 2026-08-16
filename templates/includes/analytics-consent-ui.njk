@@ -12,7 +12,7 @@
     <p id="analytics-consent-description">
       {{ 'consent.description' | t(lang) | escape }}
     </p>
-    <a href="/privacy-policy/">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
+    <a href="{{ 'privacy' | localizedUrl(lang) }}">{{ 'footer.privacyPolicy' | t(lang) | escape }}</a>
   </div>
   <div class="analytics-consent-actions">
     <button type="button" class="analytics-consent-button analytics-consent-button-secondary" data-consent-choice="necessary">

@@ -46,6 +46,8 @@ const FIXED_ROUTES = Object.freeze({
   privacy: "/privacy-policy/",
 });
 
+const FIXED_PAGE_IDS = Object.freeze(Object.keys(FIXED_ROUTES));
+
 const markdown = new MarkdownIt({
   html: true,
   linkify: true,
@@ -417,6 +419,52 @@ function localizedUrl(routeKey, languageCode = DEFAULT_LANGUAGE) {
   return route === "/" ? `${language.prefix}/` : `${language.prefix}${route}`;
 }
 
+function validateFixedPageTranslations(entries) {
+  const translationMap = Object.fromEntries(
+    FIXED_PAGE_IDS.map((fixedPageId) => [fixedPageId, {}]),
+  );
+
+  for (const entry of entries) {
+    const fixedPageId = String(entry.data?.fixedPageId || "").trim();
+    const language = getLanguage(entry.data?.lang);
+
+    if (!FIXED_PAGE_IDS.includes(fixedPageId)) {
+      throw new Error(
+        `[i18n] Fixed page "${entry.inputPath}" has unknown fixedPageId "${fixedPageId || "<empty>"}".`,
+      );
+    }
+
+    if (translationMap[fixedPageId][language.code]) {
+      throw new Error(
+        `[i18n] Duplicate ${language.code} fixed page for "${fixedPageId}".`,
+      );
+    }
+
+    const expectedUrl = localizedUrl(fixedPageId, language.code);
+    if (entry.url !== expectedUrl) {
+      throw new Error(
+        `[i18n] Fixed page "${entry.inputPath}" must render at "${expectedUrl}", received "${entry.url}".`,
+      );
+    }
+
+    translationMap[fixedPageId][language.code] = entry;
+  }
+
+  for (const fixedPageId of FIXED_PAGE_IDS) {
+    const missingLanguages = configuredLanguageCodes.filter(
+      (languageCode) => !translationMap[fixedPageId][languageCode],
+    );
+
+    if (missingLanguages.length) {
+      throw new Error(
+        `[i18n] Fixed page "${fixedPageId}" is missing translations for: ${missingLanguages.join(", ")}.`,
+      );
+    }
+  }
+
+  return translationMap;
+}
+
 module.exports = function (eleventyConfig) {
   ["css", "js", "images", "documents", "php"].forEach((directory) => {
     eleventyConfig.addPassthroughCopy(directory);
@@ -476,6 +524,10 @@ module.exports = function (eleventyConfig) {
 
     return translationMap;
   });
+
+  eleventyConfig.addCollection("fixedPageTranslationMap", (collectionApi) =>
+    validateFixedPageTranslations(collectionApi.getFilteredByTag("fixedPage")),
+  );
 
   eleventyConfig.addCollection("rssUpdates", (collectionApi) => {
     const blogUpdates = getPublishedLocalizedContent(
@@ -555,9 +607,18 @@ module.exports = function (eleventyConfig) {
     return `${site.url}${path}`;
   });
 
+  eleventyConfig.addFilter("jsonString", (value = "") =>
+    JSON.stringify(String(value)),
+  );
+
   eleventyConfig.addFilter(
     "htmlLang",
     (languageCode) => getLanguage(languageCode).htmlLang,
+  );
+
+  eleventyConfig.addFilter(
+    "ogLocale",
+    (languageCode) => getLanguage(languageCode).ogLocale,
   );
 
   eleventyConfig.addFilter("localizedUrl", localizedUrl);
@@ -587,9 +648,11 @@ module.exports._rssTest = {
 module.exports._i18nTest = {
   DEFAULT_LANGUAGE,
   FIXED_ROUTES,
+  FIXED_PAGE_IDS,
   getLanguage,
   displayDate,
   localizedUrl,
+  validateFixedPageTranslations,
   translate,
   whatsappUrl,
   dictionaryKeyCounts,

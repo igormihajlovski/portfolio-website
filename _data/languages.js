@@ -2,6 +2,7 @@ const languages = {
   en: {
     code: "en",
     label: "English",
+    uiNameKey: "languageSwitcher.english",
     shortLabel: "EN",
     prefix: "",
     htmlLang: "en",
@@ -14,6 +15,7 @@ const languages = {
   de: {
     code: "de",
     label: "Deutsch",
+    uiNameKey: "languageSwitcher.german",
     shortLabel: "DE",
     prefix: "/de",
     htmlLang: "de",

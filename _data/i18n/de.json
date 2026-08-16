@@ -10,6 +10,12 @@
     "services": "Leistungen",
     "contact": "Kontakt"
   },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "english": "Englisch",
+    "german": "Deutsch",
+    "switchTo": "Zu {language} wechseln"
+  },
   "contactWidget": {
     "openLabel": "Kontaktoptionen öffnen",
     "closeLabel": "Kontaktoptionen schließen",
@@ -47,6 +53,15 @@
     "articleFeaturedImage": "Titelbild des Artikels {title}"
   },
   "home": {
+    "schema": {
+      "imageCaption": "Porträt des Webflow-Entwicklers Igor Mihajlovski",
+      "jobTitle": "Freelance Webflow-Entwickler",
+      "description": "Freelance Webflow-Entwickler für saubere, responsive und SEO-fokussierte Websites moderner Unternehmen. Spezialisiert auf Webflow-Entwicklung, responsive Designs, CMS-Einrichtung und performanceorientierte Websites.",
+      "occupationName": "Webflow-Entwickler",
+      "serviceName": "Webflow-Entwicklungsleistungen",
+      "serviceType": "Webentwicklung",
+      "serviceDescription": "Entwicklung sauberer, responsiver und skalierbarer Websites mit Webflow, einschließlich CMS-Einrichtung, SEO-Struktur und fortlaufendem Support."
+    },
     "hero": {
       "eyebrow": "Webflow-Entwicklung",
       "headingBeforeBrand": "Saubere, strukturierte Websites, erstellt mit",
@@ -83,7 +98,9 @@
     "portfolio": {
       "eyebrow": "Portfolio",
       "heading": "Ausgewählte Projekte",
-      "intro": "Eine Auswahl an Webflow-Projekten mit Fokus auf Performance und sauberer Struktur."
+      "intro": "Eine Auswahl an Webflow-Projekten mit Fokus auf Performance und sauberer Struktur.",
+      "emptyState": "Die deutschen Projektbeschreibungen werden derzeit ergänzt.",
+      "emptyCta": "Zur Projektübersicht"
     },
     "testimonials": {
       "eyebrow": "Referenzen",
@@ -168,7 +185,7 @@
     "eyebrow": "Portfolio",
     "heading": "Fallstudien",
     "intro": "Ein genauerer Blick auf ausgewählte Projekte, die Überlegungen dahinter und ihre Umsetzung.",
-    "emptyState": "Fallstudien erscheinen hier, sobald sie über Pages CMS veröffentlicht wurden."
+    "emptyState": "Deutsche Fallstudien werden derzeit vorbereitet. Schau bald wieder vorbei."
   },
   "caseStudy": {
     "services": "Leistungen",
@@ -216,8 +233,8 @@
     "listingIntro": "Artikel über Webflow, Webentwicklung, CMS-Architektur, Integrationen, Automatisierung und Erkenntnisse aus echten Projekten.",
     "articlesLabel": "Blogartikel",
     "comingSoon": "Demnächst",
-    "emptyHeading": "Neue Artikel erscheinen bald.",
-    "emptyDescription": "Ich bereite praxisnahe Beiträge zu Webflow, CMS-Architektur, Integrationen, Automatisierung und moderner Webentwicklung vor.",
+    "emptyHeading": "Deutschsprachige Artikel folgen in Kürze.",
+    "emptyDescription": "Ich bereite praxisnahe deutschsprachige Beiträge zu Webflow, CMS-Architektur, Integrationen, Automatisierung und moderner Webentwicklung vor.",
     "readingTime": "{minutes} Min. Lesezeit",
     "byAuthor": "Von {author}",
     "articleTags": "Artikel-Schlagwörter",

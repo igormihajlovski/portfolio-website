@@ -1,0 +1,45 @@
+{% set localizedPosts = collections.blogPostsByLanguage[lang] | default([]) %}
+<section class="listing-hero blog-listing-hero">
+  <div class="container case-study-copy">
+    <div class="section-name">{{ 'blog.listingEyebrow' | t(lang) | escape }}</div>
+    <h1>{{ 'blog.listingHeading' | t(lang) | escape }}</h1>
+    <p class="case-study-lede">{{ 'blog.listingIntro' | t(lang) | escape }}</p>
+  </div>
+</section>
+<section class="case-study-section blog-listing-section" aria-labelledby="blog-listing-heading">
+  <div class="container">
+    <h2 id="blog-listing-heading" class="visually-hidden">{{ 'blog.articlesLabel' | t(lang) | escape }}</h2>
+    {% if localizedPosts and localizedPosts.length %}
+      <div class="blog-grid post-count-{{ localizedPosts.length }}">
+        {% for post in localizedPosts %}
+          <article class="card-portfolio blog-card">
+            {% if post.data.featured_image %}
+              <img
+                src="{{ post.data.featured_image | assetUrl | escape }}"
+                loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
+                {% if loop.first %}fetchpriority="high"{% else %}decoding="async"{% endif %}
+                alt="{{ (post.data.featured_image_alt or ('common.articleFeaturedImage' | t(lang, { title: post.data.title }))) | escape }}"
+                class="blog-card-image"
+              />
+            {% endif %}
+            <div class="card-description blog-card-content">
+              <div class="blog-card-meta">
+                {% if post.data.category %}<span class="section-name">{{ post.data.category | escape }}</span>{% endif %}
+                {% if post.data.published_date %}<time datetime="{{ post.data.published_date | htmlDate }}">{{ post.data.published_date | displayDate(lang) }}</time>{% endif %}
+              </div>
+              <h2 class="card-heading"><a href="{{ post.url | escape }}">{{ post.data.title | escape }}</a></h2>
+              <p class="card-paragraph">{{ post.data.short_description | escape }}</p>
+            </div>
+            <a href="{{ post.url | escape }}" class="main-btn project-btn blog-card-button w-inline-block"><span>{{ 'common.readArticle' | t(lang) | escape }}</span></a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="blog-empty-state" role="status">
+        <div class="section-name">{{ 'blog.comingSoon' | t(lang) | escape }}</div>
+        <h2>{{ 'blog.emptyHeading' | t(lang) | escape }}</h2>
+        <p>{{ 'blog.emptyDescription' | t(lang) | escape }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>

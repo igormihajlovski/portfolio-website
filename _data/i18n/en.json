@@ -156,7 +156,7 @@
     }
   },
   "newsletter": {
-    "eyebrow": "Stay updated",
+    "eyebrow": "Newsletter",
     "heading": "Follow what I’m building",
     "intro": "Get occasional updates about new projects, demos, tools, articles, and other work. No spam — only relevant updates when there’s something worth sharing.",
     "emailLabel": "Email Address",

@@ -1,5 +1,5 @@
 .newsletter-section {
-  background-color: var(--box-cards-backgrouund);
+  background-color: #021526;
   border-top: 1px solid #dcd7c91f;
   border-bottom: 1px solid #dcd7c91f;
   padding-top: 96px;
@@ -36,7 +36,7 @@
 
 .newsletter-form {
   box-sizing: border-box;
-  background-color: var(--background);
+  background-color: #18293C;
   border: 1px solid #dcd7c933;
   border-radius: 8px;
   width: 100%;

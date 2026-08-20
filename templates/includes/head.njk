@@ -173,10 +173,17 @@
     }
 
     .language-selector-trigger {
-      min-width: 58px;
-      min-height: 44px;
-      padding: 10px 11px;
+      position: relative;
+      min-width: 50px;
+      min-height: 36px;
+      padding: 7px 8px;
       font-size: 0.8125rem;
+    }
+
+    .language-selector-trigger::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
     }
 
     .language-selector-link {

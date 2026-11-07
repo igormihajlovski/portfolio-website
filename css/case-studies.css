@@ -551,6 +551,13 @@
   margin-top: 0;
 }
 
+@media screen and (min-width: 992px) {
+  .case-study-listing-grid.project-count-1 .case-study-listing-image {
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .cms-project-grid,
   .case-study-listing-grid {

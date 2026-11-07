@@ -122,6 +122,24 @@
     "about": {
       "eyebrow": "Über mich",
       "imageAlt": "Igor Mihajlovski",
+      "solarLabel": "Technologien, mit denen ich arbeite",
+      "solarHelp": "Entdecke Figma, Webflow, VS Code, Pages CMS, GitHub, Make und Supabase. Fahre über eine Technologie, fokussiere sie oder tippe darauf, um ihren Namen anzuzeigen und die Animation anzuhalten. Tippe außerhalb oder drücke Escape, um den Namen auszublenden. Mit der Animationssteuerung kannst du die Animation pausieren oder abspielen.",
+      "solarPause": "Animation pausieren",
+      "solarPlay": "Animation abspielen",
+      "solarRoles": {
+        "design": "Design",
+        "development": "Entwicklung",
+        "code": "Code",
+        "cms": "CMS",
+        "versionControl": "Versionsverwaltung",
+        "automation": "Automatisierung",
+        "backend": "Backend"
+      },
+      "technologyTags": {
+        "development": "Webentwicklung",
+        "cms": "CMS & Integrationen",
+        "automation": "Automatisierung"
+      },
       "paragraph1": "Ich bin Webflow-Entwickler mit einem Hintergrund in Mathematik und arbeite derzeit als Lehrer.",
       "paragraph2": "Mit der Zeit entwickelte ich ein starkes Interesse an Webentwicklung und Design. Besonders gerne erstelle ich saubere, strukturierte und responsive Websites mit Webflow.",
       "paragraph3": "Ich interessiere mich für moderne Unternehmenswebsites und Landingpages, bei denen Klarheit und Benutzerfreundlichkeit im Mittelpunkt stehen."

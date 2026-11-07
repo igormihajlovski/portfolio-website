@@ -1,0 +1,421 @@
+/* Keep composition overrides local; the portfolio owns fonts, tokens and gutters. */
+#about-me .about-me-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 520px) minmax(0, 416px);
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  max-width: 1050px;
+  margin-inline: auto;
+  padding: 0 32px;
+}
+
+#about-me .about-me-img-wrapper--solar-system {
+  width: 100%;
+  max-width: 520px;
+  min-height: 0;
+  aspect-ratio: auto;
+  justify-self: center;
+  background-image: none;
+}
+
+#about-me .about-me-bio {
+  gap: 16px;
+  width: 100%;
+  max-width: 416px;
+  min-width: 0;
+}
+
+#about-me .about-me-bio h2 {
+  margin: 0 0 8px;
+  font-size: 2.375rem;
+  line-height: 120%;
+  text-align: left;
+}
+
+#about-me .about-me-bio h2 > span {
+  display: block;
+}
+
+#about-me .about-me-surname {
+  color: var(--accent-color);
+}
+
+#about-me .about-me-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#about-me .about-me-technologies li {
+  padding: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent-color) 28%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--box-cards-backgrouund) 55%, transparent);
+  color: var(--text);
+  font-size: 0.75rem;
+  line-height: 140%;
+}
+
+.solar-system-lite {
+  --solar-scale: 1;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  isolation: isolate;
+}
+
+/* Floating names can use the site's existing 20px gutters. Keep the hover
+   area continuous while crossing from a planet into one of those names. */
+.solar-system-lite::before {
+  content: "";
+  position: absolute;
+  inset: 0 -20px;
+  z-index: -1;
+}
+
+.solar-system-lite__stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    color-mix(in srgb, var(--accent-color) 6%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+.solar-system-lite__stage {
+  position: relative;
+  flex: none;
+  width: min(100%, 280px);
+  aspect-ratio: 1;
+  margin-block: 32px;
+}
+
+.solar-system-lite__orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--solar-orbit-size);
+  height: var(--solar-orbit-size);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.solar-system-lite__portrait {
+  z-index: 2;
+  position: absolute;
+  /* Layout centering avoids WebKit snapping a transformed image off-centre. */
+  left: calc(50% - var(--solar-portrait-size, 48px) / 2);
+  top: calc(50% - var(--solar-portrait-size, 48px) / 2);
+  width: var(--solar-portrait-size, 48px);
+  height: var(--solar-portrait-size, 48px);
+  max-width: none;
+  box-sizing: border-box;
+  object-fit: cover;
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.solar-system-lite__planet {
+  z-index: 2;
+  position: absolute;
+  left: var(--solar-left);
+  top: var(--solar-top);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* A 44px target plus a 2px outline/2px offset fits the proved 52px envelope. */
+.solar-system-lite__planet:focus {
+  outline: none;
+}
+
+.solar-system-lite__planet:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* The glow is a bounded gradient, not a shadow or blur that escapes the proof. */
+.solar-system-lite__planet::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.solar-system-lite__surface {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(28px, calc(28px * var(--solar-scale)), 36px);
+  height: clamp(28px, calc(28px * var(--solar-scale)), 36px);
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--accent-color) 55%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--background) 55%, var(--box-cards-backgrouund));
+  transition: border-color 0.25s ease;
+}
+
+.solar-system-lite__surface img {
+  display: block;
+  width: 62%;
+  height: 62%;
+  object-fit: contain;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.solar-system-lite__planet:is(.is-active, :hover, :focus-visible, [aria-pressed="true"])::before {
+  opacity: 0.28;
+}
+
+.solar-system-lite__planet:is(.is-active, :hover, :focus-visible, [aria-pressed="true"]) .solar-system-lite__surface {
+  border-color: var(--accent-color);
+}
+
+.solar-system-lite__beam,
+.solar-system-lite__pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Separate moving particles leave visible gaps; the container draws no beam. */
+.solar-system-lite__beam {
+  width: 0;
+  height: 0;
+}
+
+.solar-system-lite__trail-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-color) 25%, transparent 70%);
+}
+
+.solar-system-lite__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--text) 0% 12%,
+    var(--accent-color) 30%, transparent 70%);
+}
+
+.solar-system-lite__tool-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  padding: 6px 8px;
+  border: 1px solid color-mix(in srgb, var(--accent-color) 55%, transparent);
+  border-radius: 4px;
+  background: var(--box-cards-backgrouund);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.solar-system-lite__controls {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.solar-system-lite__name {
+  display: grid;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  min-height: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 0.48px;
+}
+
+.solar-system-lite__name > span {
+  grid-area: 1 / 1;
+  padding-left: 16px;
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.solar-system-lite__name > span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-color);
+}
+
+.solar-system-lite__index {
+  color: var(--accent-color);
+}
+
+.solar-system-lite[data-active-tool="figma"] [data-solar-label="figma"],
+.solar-system-lite[data-active-tool="webflow"] [data-solar-label="webflow"],
+.solar-system-lite[data-active-tool="vscode"] [data-solar-label="vscode"],
+.solar-system-lite[data-active-tool="pages-cms"] [data-solar-label="pages-cms"],
+.solar-system-lite[data-active-tool="github"] [data-solar-label="github"],
+.solar-system-lite[data-active-tool="make"] [data-solar-label="make"],
+.solar-system-lite[data-active-tool="supabase"] [data-solar-label="supabase"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="figma"]:is(:hover, :focus-visible)) [data-solar-label="figma"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="webflow"]:is(:hover, :focus-visible)) [data-solar-label="webflow"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="vscode"]:is(:hover, :focus-visible)) [data-solar-label="vscode"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="pages-cms"]:is(:hover, :focus-visible)) [data-solar-label="pages-cms"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="github"]:is(:hover, :focus-visible)) [data-solar-label="github"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="make"]:is(:hover, :focus-visible)) [data-solar-label="make"],
+.solar-system-lite:not([data-ready]):has([data-solar-planet="supabase"]:is(:hover, :focus-visible)) [data-solar-label="supabase"] {
+  visibility: visible;
+  opacity: 1;
+}
+
+.solar-system-lite__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--accent-color) 28%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--background) 70%, var(--box-cards-backgrouund));
+  color: var(--text);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 140%;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.solar-system-lite__toggle:is(:hover, :focus-visible) {
+  border-color: var(--accent-color);
+  background: var(--box-cards-backgrouund);
+}
+
+.solar-system-lite__toggle:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.solar-system-lite__toggle-icon {
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border-left: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+}
+
+.solar-system-lite__toggle[aria-pressed="true"] .solar-system-lite__toggle-icon {
+  width: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid currentColor;
+  border-right: 0;
+}
+
+.solar-system-lite [hidden] {
+  display: none !important;
+}
+
+.solar-system-lite__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 991px) {
+  #about-me .about-me-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    max-width: 640px;
+    padding: 0 24px;
+    justify-items: center;
+  }
+
+  #about-me .about-me-technologies {
+    justify-content: center;
+  }
+
+  #about-me .about-me-bio h2 {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  /* Preserve the site's 20px gutters and the full 280px stage at 320px. */
+  #about-me .about-me-wrapper {
+    padding: 0;
+  }
+
+  #about-me .about-me-bio h2 {
+    font-size: 1.8rem;
+  }
+
+  .solar-system-lite__role {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solar-system-lite *,
+  .solar-system-lite *::before {
+    transition: none;
+  }
+}

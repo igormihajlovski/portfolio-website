@@ -1,0 +1,51 @@
+{# Initial percentages are derived from radius * cos/sin(step * 2π/7) / 280.
+   Ring and step drive responsive geometry; these radii are the 280px fallback.
+   DOM order is pulse order. #}
+{% set solarTools = [
+  { id: 'figma', name: 'Figma', ring: 1, role: 'design', radius: 66, step: 0, left: 73.5714285714, top: 50 },
+  { id: 'webflow', name: 'Webflow', ring: 2, role: 'development', radius: 80, step: 2, left: 43.64225903, top: 77.85508321 },
+  { id: 'vscode', name: 'VS Code', ring: 2, role: 'code', radius: 80, step: 5, left: 43.64225903, top: 22.14491679 },
+  { id: 'pages-cms', name: 'Pages CMS', ring: 3, role: 'cms', radius: 94, step: 3, left: 19.7531880061, top: 64.5660969561 },
+  { id: 'github', name: 'GitHub', ring: 3, role: 'versionControl', radius: 94, step: 4, left: 19.7531880061, top: 35.4339030439 },
+  { id: 'make', name: 'Make', ring: 4, role: 'automation', radius: 108, step: 1, left: 74.0488923574, top: 80.1563571809 },
+  { id: 'supabase', name: 'Supabase', ring: 4, role: 'backend', radius: 108, step: 6, left: 74.0488923574, top: 19.8436428191 }
+] %}
+<div class="solar-system-lite" data-solar-system-lite role="group"
+  aria-label="{{ 'home.about.solarLabel' | t(lang) | escape }}"
+  aria-describedby="solar-system-help"
+  data-pause-label="{{ 'home.about.solarPause' | t(lang) | escape }}"
+  data-play-label="{{ 'home.about.solarPlay' | t(lang) | escape }}">
+  <p id="solar-system-help" class="solar-system-lite__sr-only">{{ 'home.about.solarHelp' | t(lang) | escape }}</p>
+  <div class="solar-system-lite__stage" data-solar-stage>
+    {% for radius in [66, 80, 94, 108] %}
+    <span class="solar-system-lite__orbit" data-solar-orbit style="--solar-orbit-size: {{ radius / 280 * 200 }}%" aria-hidden="true"></span>
+    {% endfor %}
+    <img class="solar-system-lite__portrait" src="/images/Igor-Mihajlovski-About-Me.png"
+      width="300" height="300" loading="lazy" decoding="async"
+      alt="{{ 'home.about.imageAlt' | t(lang) | escape }}" />
+    <span class="solar-system-lite__beam" data-solar-beam aria-hidden="true" hidden></span>
+    <span class="solar-system-lite__pulse" data-solar-pulse aria-hidden="true" hidden></span>
+    {% for tool in solarTools %}
+    <button type="button" class="solar-system-lite__planet" data-solar-planet="{{ tool.id }}"
+      data-orbit-radius="{{ tool.radius }}" data-orbit-ring="{{ tool.ring }}" data-orbit-step="{{ tool.step }}"
+      style="--solar-left: {{ tool.left }}%; --solar-top: {{ tool.top }}%"
+      aria-label="{{ tool.name }}" aria-controls="solar-system-name" aria-pressed="false">
+      <span class="solar-system-lite__surface">
+        <img src="/images/technologies/{{ tool.id }}.svg" width="24" height="24" loading="lazy" decoding="async" alt="" />
+      </span>
+    </button>
+    {% endfor %}
+    <span class="solar-system-lite__tool-label" data-solar-tool-label aria-hidden="true" hidden></span>
+  </div>
+  <div class="solar-system-lite__controls" data-solar-controls>
+    <div id="solar-system-name" class="solar-system-lite__name" aria-hidden="true">
+      {% for tool in solarTools %}
+      <span data-solar-label="{{ tool.id }}"><span class="solar-system-lite__index">0{{ loop.index }} / 07 — </span>{{ tool.name }}<span class="solar-system-lite__role"> · {{ ('home.about.solarRoles.' + tool.role) | t(lang) | escape }}</span></span>
+      {% endfor %}
+    </div>
+    <button type="button" class="solar-system-lite__toggle" data-solar-toggle aria-pressed="false" hidden>
+      <span class="solar-system-lite__toggle-icon" aria-hidden="true"></span>
+      <span class="solar-system-lite__sr-only" data-solar-toggle-label>{{ 'home.about.solarPause' | t(lang) | escape }}</span>
+    </button>
+  </div>
+</div>

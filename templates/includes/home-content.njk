@@ -371,21 +371,13 @@
 </section>
 <section id="about-me" class="about-me-section">
   <div class="container">
-    <div class="section-name">{{ 'home.about.eyebrow' | t(lang) | escape }}</div>
     <div class="about-me-wrapper">
-      <div class="about-me-img-wrapper">
-        <div class="about-me-img-gradient">
-          <img
-            src="/images/Igor-Mihajlovski-About-Me.png"
-            loading="lazy"
-            alt="{{ 'home.about.imageAlt' | t(lang) | escape }}"
-            class="igor-mihajlovski-about-me-img"
-          />
-          <div class="circle"></div>
-        </div>
+      <div class="about-me-img-wrapper about-me-img-wrapper--solar-system">
+        {% include "includes/solar-system-lite.njk" %}
       </div>
       <div class="about-me-bio">
-        <h2>Igor Mihajlovski</h2>
+        <div class="section-name">{{ 'home.about.eyebrow' | t(lang) | escape }}</div>
+        <h2><span>Igor</span> <span class="about-me-surname">Mihajlovski.</span></h2>
         <p class="about-me-bio-p">
           {{ 'home.about.paragraph1' | t(lang) | escape }}
         </p>
@@ -395,6 +387,11 @@
         <p class="about-me-bio-p">
           {{ 'home.about.paragraph3' | t(lang) | escape }}
         </p>
+        <ul class="about-me-technologies" role="list">
+          <li>{{ 'home.about.technologyTags.development' | t(lang) | escape }}</li>
+          <li>{{ 'home.about.technologyTags.cms' | t(lang) | escape }}</li>
+          <li>{{ 'home.about.technologyTags.automation' | t(lang) | escape }}</li>
+        </ul>
       </div>
     </div>
   </div>

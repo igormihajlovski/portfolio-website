@@ -53,6 +53,12 @@
     "caseStudyFeaturedImage": "Titelbild der Fallstudie {title}",
     "articleFeaturedImage": "Titelbild des Artikels {title}"
   },
+  "projectTypes": {
+    "clientProjects": "Kundenprojekte",
+    "personalPortfolio": "Eigenes Portfolio",
+    "demoProjects": "Demoprojekte",
+    "webToolsEmbeds": "Web-Tools & Embeds"
+  },
   "projectCategories": {
     "caseStudy": "Fallstudie",
     "webflow": "Webflow",

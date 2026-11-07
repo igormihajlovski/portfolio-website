@@ -4,6 +4,7 @@ slug: jaeger-immobilienverwaltung
 translation_id: project-jaeger-immobilienverwaltung
 status: Published
 category: Студија на случај
+project_type: Client Projects
 published_date: 2026-08-07
 project_status: Завршен
 featured_project: true

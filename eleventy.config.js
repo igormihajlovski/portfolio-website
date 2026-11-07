@@ -1,6 +1,7 @@
 const MarkdownIt = require("markdown-it");
 const site = require("./_data/site.json");
 const languages = require("./_data/languages.js");
+const { groupProjectsByType } = require("./_lib/project-types.js");
 const {
   createTranslator,
   dictionaries,
@@ -639,6 +640,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("localizedUrl", localizedUrl);
   eleventyConfig.addFilter("projectCategoryLabel", projectCategoryLabel);
+  eleventyConfig.addFilter("projectGroups", groupProjectsByType);
   eleventyConfig.addFilter("t", translate);
   eleventyConfig.addFilter("whatsappUrl", whatsappUrl);
 

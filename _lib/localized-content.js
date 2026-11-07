@@ -1,4 +1,5 @@
 const languages = require("../_data/languages.js");
+const { validateProjectType } = require("./project-types.js");
 
 const CONTENT_TYPES = Object.freeze({
   Project: Object.freeze({ routeSegment: "projects" }),
@@ -68,6 +69,10 @@ function validateContentRecord(data, contentType, sourceLabel = "<synthetic>") {
     throw new Error(
       `[content] ${contentType} "${sourceLabel}" has invalid publication status "${normalizeValue(data?.status)}". Expected Draft or Published.`,
     );
+  }
+
+  if (contentType === "Project") {
+    validateProjectType(data?.project_type, sourceLabel);
   }
 
   return {

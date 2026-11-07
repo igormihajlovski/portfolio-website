@@ -52,6 +52,17 @@ components:
     label: Project Title
     type: string
     required: true
+  project_type:
+    label: Project Type
+    type: select
+    required: true
+    description: Choose the project group. Use the same value for all translations.
+    options:
+      values:
+        - Client Projects
+        - Personal Portfolio
+        - Demo Projects
+        - Web Tools & Embeds
   project_category:
     label: Category
     type: select
@@ -537,6 +548,8 @@ content:
             component: publication_status
           - name: category
             component: project_category
+          - name: project_type
+            component: project_type
           - name: published_date
             component: published_date
           - name: newsletter_published_at
@@ -620,6 +633,8 @@ content:
             component: publication_status
           - name: category
             component: project_category
+          - name: project_type
+            component: project_type
           - name: published_date
             component: published_date
           - name: project_status
@@ -701,6 +716,8 @@ content:
             component: publication_status
           - name: category
             component: project_category
+          - name: project_type
+            component: project_type
           - name: published_date
             component: published_date
           - name: project_status

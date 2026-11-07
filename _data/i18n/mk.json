@@ -53,6 +53,12 @@
     "caseStudyFeaturedImage": "Насловна слика за студијата на случај „{title}“",
     "articleFeaturedImage": "Насловна слика за статијата „{title}“"
   },
+  "projectTypes": {
+    "clientProjects": "Проекти за клиенти",
+    "personalPortfolio": "Лично портфолио",
+    "demoProjects": "Демо проекти",
+    "webToolsEmbeds": "Веб-алатки и компоненти за вградување"
+  },
   "projectCategories": {
     "caseStudy": "Студија на случај",
     "webflow": "Webflow",

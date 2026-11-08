@@ -25,14 +25,14 @@
 <meta name="twitter:card" content="{% if metaImage %}summary_large_image{% else %}summary{% endif %}" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="hM_wPrtIn6I409cKvss7abYFWBK-JZDYm_rfmT1WqZ4" name="google-site-verification" />
-<link href="/css/normalize.css" rel="stylesheet" type="text/css" />
-<link href="/css/webflow.css" rel="stylesheet" type="text/css" />
-<link href="/css/igor-mihajlovski-portfolio.webflow.css?v=2" rel="stylesheet" type="text/css" />
-<link href="/css/case-studies.css" rel="stylesheet" type="text/css" />
-{% if blogStyles %}<link href="/css/blog.css" rel="stylesheet" type="text/css" />{% endif %}
-<link href="/css/legal.css?v=1" rel="stylesheet" type="text/css" />
-{% if newsletterStyles %}<link href="/css/newsletter.css?v=2" rel="stylesheet" type="text/css" />{% endif %}
-{% if homePage %}<link href="/css/solar-system-lite.css?v=3" rel="stylesheet" type="text/css" />{% endif %}
+<link href="{{ '/css/normalize.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />
+<link href="{{ '/css/webflow.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />
+<link href="{{ '/css/igor-mihajlovski-portfolio.webflow.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />
+<link href="{{ '/css/case-studies.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />
+{% if blogStyles %}<link href="{{ '/css/blog.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />{% endif %}
+<link href="{{ '/css/legal.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />
+{% if newsletterStyles %}<link href="{{ '/css/newsletter.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />{% endif %}
+{% if homePage %}<link href="{{ '/css/solar-system-lite.css' | versionedAsset | escape }}" rel="stylesheet" type="text/css" />{% endif %}
 <style>
   html.w-mod-js:not(.w-mod-ix3) :is(.top-line, .middle-line, .bottom-line) {
     visibility: hidden !important;

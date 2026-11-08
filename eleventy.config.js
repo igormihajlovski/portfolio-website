@@ -2,6 +2,8 @@ const MarkdownIt = require("markdown-it");
 const site = require("./_data/site.json");
 const languages = require("./_data/languages.js");
 const { groupProjectsByType } = require("./_lib/project-types.js");
+const { versionedAsset } = require("./_lib/asset-version.js");
+const { imageDimensions } = require("./_lib/image-dimensions.js");
 const {
   createTranslator,
   dictionaries,
@@ -486,12 +488,10 @@ module.exports = function (eleventyConfig) {
   ["css", "js", "images", "documents", "php"].forEach((directory) => {
     eleventyConfig.addPassthroughCopy(directory);
   });
-  eleventyConfig.addPassthroughCopy("styleguide.html");
   eleventyConfig.addPassthroughCopy(".htaccess");
 
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("CHANGELOG.md");
-  eleventyConfig.ignores.add("styleguide.html");
 
   eleventyConfig.addCollection("caseStudies", (collectionApi) =>
     getPublishedLocalizedContent(collectionApi, "caseStudy", "Project")
@@ -606,6 +606,9 @@ module.exports = function (eleventyConfig) {
     const date = asDate(value);
     return date ? date.toUTCString() : "";
   });
+
+  eleventyConfig.addFilter("versionedAsset", versionedAsset);
+  eleventyConfig.addFilter("imageDimensions", imageDimensions);
 
   eleventyConfig.addFilter("assetUrl", (value = "") => {
     if (!value) return "";
